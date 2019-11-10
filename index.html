@@ -368,7 +368,77 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     
 
                     
+                        
 
+<link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<div class="music-player">
+    
+    <div class="title center-align">
+        <i class="fa fa-music"></i>&nbsp;&nbsp;听听音乐
+    </div>
+    
+    <div class="row">
+        <div class="col l8 offset-l2 m10 offset-m1 s12">
+            <div id="aplayer" class="music"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script>
+$(function () {
+    new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: 'false' === 'true',
+        autoplay: 'false' === 'true',
+        theme: '#42b983',
+        loop: 'all',
+        order: 'list',
+        preload: 'auto',
+        volume: Number('0.7'),
+        listFolded: 'false' === 'true',
+        listMaxHeight: '',
+        audio: JSON.parse('[{"name":"五月雨变奏电音","artist":"AnimeVibe","url":"http://static.blinkfox.com/music1.mp3","cover":"http://static.blinkfox.com/music-cover1.png"},{"name":"Take me hand","artist":"DAISHI DANCE,Cecile Corbel","url":"http://static.blinkfox.com/music2.mp3","cover":"http://static.blinkfox.com/music-cover2.png"},{"name":"Shape of You","artist":"J.Fla","url":"http://static.blinkfox.com/music3.mp3","cover":"http://static.blinkfox.com/music-cover3.png"}]')
+    });
+});
+</script>
+                    
+
+                    
+                        <link rel="stylesheet" href="/libs/dplayer/DPlayer.min.css">
+<div class="video-player">
+    
+    <div class="title center-align">
+        <i class="fa fa-video-camera"></i>&nbsp;&nbsp;精彩视频
+    </div>
+    
+    <div class="row">
+        <div class="col l8 offset-l2 m10 offset-m1 s12">
+            <div id="dplayer" class="dplayer-video"
+                    ></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/dplayer/DPlayer.min.js"></script>
+<script>
+    $(function () {
+        new DPlayer({
+            container: document.getElementById('dplayer'),
+            autoplay: 'false' === 'true',
+            theme: '#42b983',
+            loop: 'false' === 'true',
+            lang: 'zh-CN' === 'zh-CN' ? 'zh-cn' : 'en',
+            preload: 'auto',
+            volume: Number('0.7'),
+            video: {
+                url: '',
+                pic: '',
+                thumbnails: ''
+            }
+        });
+    });
+</script>
                     
 
                     <div id="recommend-sections" class="recommend">
@@ -384,35 +454,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
     
     
-    <div class="col s12 m6" >
-        <div class="post-card" style="background-image: url('http://static.blinkfox.com/20190302.png')">
-            <div class="post-body">
-                <div class="post-categories">
-                    
-                    <a href="/categories/%E5%90%8E%E7%AB%AF/" class="category" target="_blank">后端</a>
-                    
-                </div>
-                <a href="/2019/03/02/%E5%90%8E%E7%AB%AF/spring/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" target="_blank">
-                    <h3 class="post-title">SpringBoot2.x 单元测试</h3>
-                </a>
-                <p class="post-description">
-                    
-                        
-一个 bug 被隐藏的时间越长，修复这个 bug 的代价就越大。
-
-我曾经在 单元测试指南 一文中写到过单元测试的必要性和 Java 单元
-                    
-                </p>
-                <a href="/2019/03/02/%E5%90%8E%E7%AB%AF/spring/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" target="_blank"
-                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)">
-                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
-                </a>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="col s12 m6" >
+    <div class="col s12" >
         <div class="post-card" style="background-image: url('http://static.blinkfox.com/20181124-design.jpg')">
             <div class="post-body">
                 <div class="post-categories">
@@ -423,13 +465,10 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 <a href="/2018/11/24/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%BD%AF%E4%BB%B6%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_blank">
                     <h3 class="post-title">软件程序设计原则</h3>
                 </a>
-                <p class="post-description">
-                    
-                        一、前言软件也像人一样，具有生命力，从出生到死亡，会经历多种变化。软件架构设计也不是一蹴而就的，是不断地演进发展。每个程序员都可以从理解编程
-                    
-                </p>
+                <p class="post-description">一、前言软件也像人一样，具有生命力，从出生到死亡，会经历多种变化。软件架构设计也不是一蹴而就的，是不断地演进发展。每个程序员都可以从理解编程原则和模式中受益。
+软件设计原</p>
                 <a href="/2018/11/24/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%BD%AF%E4%BB%B6%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_blank"
-                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)">
+                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)">
                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
                 </a>
             </div>
@@ -448,14 +487,10 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 <a href="/2018/11/05/%E5%90%8E%E7%AB%AF/Java/Java%20IO%20%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" target="_blank">
                     <h3 class="post-title">Java IO 知识整理</h3>
                 </a>
-                <p class="post-description">
-                    
-                        各IO类关系梳理
-InputStream: Java IO中的顶级的字节输入流的抽象类，定义了最基础的输入、读取的相关方法。实现了Close
-                    
-                </p>
+                <p class="post-description">各IO类关系梳理
+InputStream: Java IO中的顶级的字节输入流的抽象类，定义了最基础的输入、读取的相关方法。实现了Close</p>
                 <a href="/2018/11/05/%E5%90%8E%E7%AB%AF/Java/Java%20IO%20%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" target="_blank"
-                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #1AD6FD 0%, #1D62F0 100%)">
+                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)">
                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
                 </a>
             </div>
@@ -474,15 +509,11 @@ InputStream: Java IO中的顶级的字节输入流的抽象类，定义了最基
                 <a href="/2018/10/24/%E5%90%8E%E7%AB%AF/Java/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" target="_blank">
                     <h3 class="post-title">Java集合框架知识整理</h3>
                 </a>
-                <p class="post-description">
-                    
-                        Java集合框架主要由Collection和Map两个根接口及其子接口、实现类组成。
+                <p class="post-description">Java集合框架主要由Collection和Map两个根接口及其子接口、实现类组成。
 集合类关系梳理
-Collection接口继承了Iter
-                    
-                </p>
+Collection接口继承了Iter</p>
                 <a href="/2018/10/24/%E5%90%8E%E7%AB%AF/Java/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" target="_blank"
-                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FFCC00 0%, #FF9500 100%)">
+                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #1AD6FD 0%, #1D62F0 100%)">
                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
                 </a>
             </div>
@@ -505,67 +536,6 @@ Collection接口继承了Iter
     <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
         <div class="row article-row">
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/03/02/%E5%90%8E%E7%AB%AF/spring/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
-                        <div class="card-image">
-                            
-                            <img src="http://static.blinkfox.com/20190302.png" class="responsive-img" alt="SpringBoot2.x 单元测试">
-                            
-                            <span class="card-title">SpringBoot2.x 单元测试</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary">
-                            
-                                
-一个 bug 被隐藏的时间越长，修复这个 bug 的代价就越大。
-
-我曾经在 单元测试指南 一文中写到过单元测试的必要性和 Java 单元
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-02
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category" target="_blank">
-                                    后端
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Java/" target="_blank">
-                            <span class="chip bg-color">Java</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" target="_blank">
-                            <span class="chip bg-color">单元测试</span>
-                        </a>
-                        
-                        <a href="/tags/Spring/" target="_blank">
-                            <span class="chip bg-color">Spring</span>
-                        </a>
-                        
-                        <a href="/tags/SpringBoot/" target="_blank">
-                            <span class="chip bg-color">SpringBoot</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
@@ -826,6 +796,67 @@ Fenix（菲尼克斯）是一个比 MyBatis 更加强大，为解决复杂、动
                         
                         <a href="/tags/Fenix/" target="_blank">
                             <span class="chip bg-color">Fenix</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/03/02/%E5%90%8E%E7%AB%AF/spring/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+                        <div class="card-image">
+                            
+                            <img src="http://static.blinkfox.com/20190302.png" class="responsive-img" alt="SpringBoot2.x 单元测试">
+                            
+                            <span class="card-title">SpringBoot2.x 单元测试</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary">
+                            
+                                
+一个 bug 被隐藏的时间越长，修复这个 bug 的代价就越大。
+
+我曾经在 单元测试指南 一文中写到过单元测试的必要性和 Java 单元
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-02
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category" target="_blank">
+                                    后端
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Java/" target="_blank">
+                            <span class="chip bg-color">Java</span>
+                        </a>
+                        
+                        <a href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" target="_blank">
+                            <span class="chip bg-color">单元测试</span>
+                        </a>
+                        
+                        <a href="/tags/Spring/" target="_blank">
+                            <span class="chip bg-color">Spring</span>
+                        </a>
+                        
+                        <a href="/tags/SpringBoot/" target="_blank">
+                            <span class="chip bg-color">SpringBoot</span>
                         </a>
                         
                     </div>
