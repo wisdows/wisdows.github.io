@@ -5,9 +5,9 @@
   <subtitle>RaodiBlogs,如果人生有遗憾，那就是没有早点遇到你~</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://raodi.github.io/"/>
+  <link href="https://raodi.gitee.io/"/>
   <updated>2019-11-10T09:31:34.542Z</updated>
-  <id>https://raodi.github.io/</id>
+  <id>https://raodi.gitee.io/</id>
   
   <author>
     <name>Raodi</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>hello-world</title>
-    <link href="https://raodi.github.io/2019/11/10/hello-world/"/>
-    <id>https://raodi.github.io/2019/11/10/hello-world/</id>
+    <link href="https://raodi.gitee.io/2019/11/10/hello-world/"/>
+    <id>https://raodi.gitee.io/2019/11/10/hello-world/</id>
     <published>2019-11-10T14:52:00.093Z</published>
     <updated>2019-11-10T09:31:34.542Z</updated>
     
@@ -41,8 +41,8 @@
   
   <entry>
     <title>关于WisdowsBlog</title>
-    <link href="https://raodi.github.io/2019/11/10/AboutWisdowsBlog/"/>
-    <id>https://raodi.github.io/2019/11/10/AboutWisdowsBlog/</id>
+    <link href="https://raodi.gitee.io/2019/11/10/AboutWisdowsBlog/"/>
+    <id>https://raodi.gitee.io/2019/11/10/AboutWisdowsBlog/</id>
     <published>2019-11-10T09:32:01.000Z</published>
     <updated>2019-11-10T09:37:16.309Z</updated>
     
