@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://wisdows.github.io/about/index.html</loc>
+    <loc>https://raodi.github.io/2019/11/10/AboutWisdowsBlog/</loc>
     
-    <lastmod>2019-11-10T08:16:00.288Z</lastmod>
+    <lastmod>2019-11-10T09:37:16.309Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://wisdows.github.io/2019/11/10/hello-world/</loc>
+    <loc>https://raodi.github.io/2019/11/10/hello-world/</loc>
     
-    <lastmod>2019-11-10T06:37:48.390Z</lastmod>
+    <lastmod>2019-11-10T09:31:34.542Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://raodi.github.io/about/index.html</loc>
+    
+    <lastmod>2019-11-10T08:16:00.288Z</lastmod>
     
   </url>
   
