@@ -452,7 +452,7 @@
 <blockquote>
 <p><strong>我的理解</strong>：保持简单但不能掩盖软件丰富的内涵。即<strong>简约而不简单</strong>！简约是对复杂的事物抽丝剥茧、去除细枝末节显露主要逻辑的过程。就像小时候老师教写文章，要求尽可能用朴实的语言，言简意赅的写出来，但却又要避免语言过于贫乏。软件的“抽象”和它的“直观性”，其实是一对矛盾的关系，软件设计就要保证这两者的平衡。代码抽象过于复杂会陷入“过度设计”不易理解的困境；为了“直观性”缺乏抽象，长此以往又会出现大量的重复、不易于扩展和难维护的困境。</p>
 </blockquote>
-<h3 id="2-DRY"><a href="#2-DRY" class="headerlink" title="2. DRY"></a>2. DRY</h3><p>所谓<code>DRY</code>原则，即：<code>Don&#39;t Repeat Yourself</code>，<strong>不要让自己重复</strong>。</p>
+<h3 id="2-DRY"><a href="#2-DRY" class="headerlink" title="2. DRY"></a>2. DRY</h3><p>所谓<code>DRY</code>原则，即：<code>Don't Repeat Yourself</code>，<strong>不要让自己重复</strong>。</p>
 <p><strong>重复代码是软件程序变烂的万恶之首</strong>。<code>DRY</code>并不是指你不能复制代码，而是你复制的代码不能包含重复的“信息”。复制的东西并不仅仅是复制了代码，而是由于你把同一个信息散播在了代码的各个部分导致了有很多相近的代码也散播在各个地方。代码之所以要写的好，不要重复某些“信息”，因为需求人员总是要改需求，不改代码你就要“死”，改代码你就要加班，所以为了减少修改代码的痛苦，我们不能重复任何信息。举个例子，有一天需求人员说，要把分隔符从分号改成顿号！一下子就要改多个地方了。</p>
 <p>所以，<strong>去掉重复的信息会让你的代码结构发生本质的变化</strong>。</p>
 <p>“重复代码”有很多变体：</p>
@@ -548,8 +548,8 @@
 <li><strong>正交原则(Orthogonality)</strong>: 正交性的基本思想是，在概念上不相关的事物不应该与系统相关。设计越正交，异常越少。 这使得用编程语言更容易学习，读写程序。(反例：<code>CSS</code>)。</li>
 <li><strong>做最简单的事儿就让代码可运行</strong>（<code>Do the simplest thing that could possibly work</code>）: 尽可能做最简单的事就可以让代码可运行。在编程中，一定要保持简单原则。作为一名程序员不断的反思“如何在工作中做到简化呢？”这将有助于在设计中保持简单的路径。</li>
 <li><strong>隐藏实现细节</strong>（<code>Hide Implementation Details</code>）: 软件模块通过提供接口隐藏信息（即实现细节），而不泄漏任何不必要的信息。</li>
-<li><strong>科里定律</strong>(<code>Curly&#39;s Law</code>): 是为任何特定的代码选择一个明确定义的目标：<strong>只做一件事</strong>。</li>
-<li><strong>墨菲定律</strong>（<code>Murphy&#39;s Law</code>）:根本内容是：<strong>如果事情有变坏的可能，不管这种可能性有多小，它总会发生</strong>。主要内容如下：<ul>
+<li><strong>科里定律</strong>(<code>Curly's Law</code>): 是为任何特定的代码选择一个明确定义的目标：<strong>只做一件事</strong>。</li>
+<li><strong>墨菲定律</strong>（<code>Murphy's Law</code>）:根本内容是：<strong>如果事情有变坏的可能，不管这种可能性有多小，它总会发生</strong>。主要内容如下：<ul>
 <li>任何事都没有表面看起来那么简单；</li>
 <li>所有的事都会比你预计的时间长；</li>
 <li>会出错的事总会出错；</li>
@@ -659,7 +659,25 @@
 <p>组合复用的缺点：就是用组合复用建造的系统会有较多的对象需要管理。</p>
 <p>组合复用原则可以使系统更加灵活，类与类之间的耦合度降低，一个类的变化对其他类造成的影响相对较少，因此一般首选使用组合来实现复用；其次才考虑继承。在使用继承时，需要严格遵循里氏代换原则，有效使用继承会有助于对问题的理解，降低复杂度，而滥用继承反而会增加系统构建和维护的难度以及系统的复杂度，因此需要慎重使用继承复用。</p>
 <p>使用继承时必须满足<code>Is-A</code>的关系是才能使用继承，而组合却是一种<code>Has-A</code>的关系。导致错误的使用继承而不是使用组合的一个重要原因可能就是错误的把<code>Has-A</code>当成了<code>Is-A</code>。</p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 

@@ -624,7 +624,25 @@
 <li><a href="http://ifeve.com/from-javaeye-cpu-cache/" target="_blank" rel="noopener">从Java视角理解系统结构（二）CPU缓存</a></li>
 <li><a href="http://www.cnblogs.com/yanlong300/p/8986041.html" target="_blank" rel="noopener">CPU缓存一致性协议MESI</a></li>
 </ul>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -801,7 +819,8 @@
                     <div class="summary">
 typora-vue-theme 是 Typora Markdown 文档编辑器中一款类似Vue文档风格的主题。
 
-简介Typora是一款支持实时预览的 Markdown 编辑器和阅读器，支持Windows、macOS、Linux三大平台</div>
+简介
+Typora是一款支持实时预览的 Markdown 编辑器和阅读器，支持Windows、macOS、Linux三大平</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-11-19

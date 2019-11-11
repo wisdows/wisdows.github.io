@@ -444,7 +444,25 @@
 <p>而我们呢？ 与UnAC较劲的时候， 只有那一遍遍的运行窗口， 知道我们的不屈； 刷题的漫漫长夜， 只有陪伴我们的笔记本电脑， 知道我们的不懈； 在自习课别人学习的时候， 只有板砖般的算法导论， 知道我们的进取； 在机房泡得抢不上饭的时候， 只有五毛一包的干脆面， 知道我们的执着……</p>
 <p>没有人会理解， OIer见面， 除了程序、算法之外 别无他言。 我们的世界里， 从来不会有游戏、歌星的出现。 这不是被家长逼迫的“小三门”， 是我们的兴趣， 我们的爱好， 乃至我们的事业。</p>
 <p>每一个OIer都幻想着 自己脖子上可以 挂上一块沉甸甸的金牌， 而不是 万恶的应试教育的枷锁。 没准哪个OIer， 就是下一个艾伦•图灵， 挑战头脑的极限， 去做最不平凡的自己。。。。。。。</p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
