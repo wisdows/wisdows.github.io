@@ -612,6 +612,28 @@ sort 的常用命令如下：
     </div>
 
     
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'eded2702ee954573afe8',
+        clientSecret: 'fbb19c6e10ef8bb2057b4dff94e8bb30f0b20d8f',
+        repo: '',
+        owner: 'wisdows',
+        admin: null,
+        id: '2018-10-11T22-05-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
 
     
 
