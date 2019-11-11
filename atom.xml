@@ -52,8 +52,8 @@
   
   <entry>
     <title>Fenix — 比 MyBatis 更加强大的 Spring Data JPA 扩展库</title>
-    <link href="https://raodi.gitee.io/2019/08/20/%E5%90%8E%E7%AB%AF/jpa/Fenix%20%E2%80%94%20%E6%AF%94%20MyBatis%20%E6%9B%B4%E5%8A%A0%E5%BC%BA%E5%A4%A7%E7%9A%84%20Spring%20Data%20JPA%20%E6%89%A9%E5%B1%95%E5%BA%93/"/>
-    <id>https://raodi.gitee.io/2019/08/20/%E5%90%8E%E7%AB%AF/jpa/Fenix%20%E2%80%94%20%E6%AF%94%20MyBatis%20%E6%9B%B4%E5%8A%A0%E5%BC%BA%E5%A4%A7%E7%9A%84%20Spring%20Data%20JPA%20%E6%89%A9%E5%B1%95%E5%BA%93/</id>
+    <link href="https://raodi.gitee.io/2019/08/20/Fenix%20%E2%80%94%20%E6%AF%94%20MyBatis%20%E6%9B%B4%E5%8A%A0%E5%BC%BA%E5%A4%A7%E7%9A%84%20Spring%20Data%20JPA%20%E6%89%A9%E5%B1%95%E5%BA%93/"/>
+    <id>https://raodi.gitee.io/2019/08/20/Fenix%20%E2%80%94%20%E6%AF%94%20MyBatis%20%E6%9B%B4%E5%8A%A0%E5%BC%BA%E5%A4%A7%E7%9A%84%20Spring%20Data%20JPA%20%E6%89%A9%E5%B1%95%E5%BA%93/</id>
     <published>2019-08-19T16:10:00.000Z</published>
     <updated>2019-11-10T18:39:23.024Z</updated>
     
@@ -83,8 +83,8 @@
   
   <entry>
     <title>SpringBoot2.x 单元测试</title>
-    <link href="https://raodi.gitee.io/2019/03/02/%E5%90%8E%E7%AB%AF/spring/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
-    <id>https://raodi.gitee.io/2019/03/02/%E5%90%8E%E7%AB%AF/spring/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</id>
+    <link href="https://raodi.gitee.io/2019/03/02/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+    <id>https://raodi.gitee.io/2019/03/02/SpringBoot2.x%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</id>
     <published>2019-03-02T09:20:00.000Z</published>
     <updated>2019-11-10T18:47:37.968Z</updated>
     
@@ -118,8 +118,8 @@
   
   <entry>
     <title>Java代码性能评估库Stalker介绍</title>
-    <link href="https://raodi.gitee.io/2019/02/14/%E5%90%8E%E7%AB%AF/Java/Java%E4%BB%A3%E7%A0%81%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%E5%BA%93Stalker%E4%BB%8B%E7%BB%8D/"/>
-    <id>https://raodi.gitee.io/2019/02/14/%E5%90%8E%E7%AB%AF/Java/Java%E4%BB%A3%E7%A0%81%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%E5%BA%93Stalker%E4%BB%8B%E7%BB%8D/</id>
+    <link href="https://raodi.gitee.io/2019/02/14/Java%E4%BB%A3%E7%A0%81%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%E5%BA%93Stalker%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://raodi.gitee.io/2019/02/14/Java%E4%BB%A3%E7%A0%81%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%E5%BA%93Stalker%E4%BB%8B%E7%BB%8D/</id>
     <published>2019-02-14T04:00:00.000Z</published>
     <updated>2019-11-10T18:38:22.301Z</updated>
     
@@ -148,8 +148,8 @@
   
   <entry>
     <title>一个极简的 Java ASCII 表格生成库</title>
-    <link href="https://raodi.gitee.io/2019/01/25/%E5%90%8E%E7%AB%AF/Java/%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%20Java%20ASCII%20%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90%E5%BA%93/"/>
-    <id>https://raodi.gitee.io/2019/01/25/%E5%90%8E%E7%AB%AF/Java/%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%20Java%20ASCII%20%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90%E5%BA%93/</id>
+    <link href="https://raodi.gitee.io/2019/01/25/%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%20Java%20ASCII%20%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90%E5%BA%93/"/>
+    <id>https://raodi.gitee.io/2019/01/25/%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%20Java%20ASCII%20%E8%A1%A8%E6%A0%BC%E7%94%9F%E6%88%90%E5%BA%93/</id>
     <published>2019-01-25T02:34:00.000Z</published>
     <updated>2019-11-10T18:39:03.808Z</updated>
     
@@ -178,8 +178,8 @@
   
   <entry>
     <title>Java面向对象设计之桥接模式</title>
-    <link href="https://raodi.gitee.io/2018/12/19/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://raodi.gitee.io/2018/12/19/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://raodi.gitee.io/2018/12/19/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://raodi.gitee.io/2018/12/19/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/</id>
     <published>2018-12-18T16:20:00.000Z</published>
     <updated>2019-11-10T18:41:17.875Z</updated>
     
@@ -206,8 +206,8 @@
   
   <entry>
     <title>Java面向对象设计之适配器模式</title>
-    <link href="https://raodi.gitee.io/2018/12/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://raodi.gitee.io/2018/12/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://raodi.gitee.io/2018/12/12/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://raodi.gitee.io/2018/12/12/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</id>
     <published>2018-12-12T14:00:00.000Z</published>
     <updated>2019-11-10T18:41:45.766Z</updated>
     
@@ -236,8 +236,8 @@
   
   <entry>
     <title>软件程序设计原则</title>
-    <link href="https://raodi.gitee.io/2018/11/24/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%BD%AF%E4%BB%B6%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/"/>
-    <id>https://raodi.gitee.io/2018/11/24/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E8%BD%AF%E4%BB%B6%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</id>
+    <link href="https://raodi.gitee.io/2018/11/24/%E8%BD%AF%E4%BB%B6%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/"/>
+    <id>https://raodi.gitee.io/2018/11/24/%E8%BD%AF%E4%BB%B6%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</id>
     <published>2018-11-23T16:30:00.000Z</published>
     <updated>2019-11-10T18:41:54.320Z</updated>
     
@@ -266,8 +266,8 @@
   
   <entry>
     <title>GitLab CI/CD 介绍和使用</title>
-    <link href="https://raodi.gitee.io/2018/11/22/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/devops/GitLab%20CI%20%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
-    <id>https://raodi.gitee.io/2018/11/22/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/devops/GitLab%20CI%20%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/</id>
+    <link href="https://raodi.gitee.io/2018/11/22/GitLab%20CI%20%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>https://raodi.gitee.io/2018/11/22/GitLab%20CI%20%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/</id>
     <published>2018-11-22T15:30:00.000Z</published>
     <updated>2019-11-10T18:40:05.681Z</updated>
     
@@ -297,8 +297,8 @@
   
   <entry>
     <title>Vue 文档风格的 Typora 主题</title>
-    <link href="https://raodi.gitee.io/2018/11/19/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/Vue%20%E6%96%87%E6%A1%A3%E9%A3%8E%E6%A0%BC%E7%9A%84%20Typora%20%E4%B8%BB%E9%A2%98/"/>
-    <id>https://raodi.gitee.io/2018/11/19/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/Vue%20%E6%96%87%E6%A1%A3%E9%A3%8E%E6%A0%BC%E7%9A%84%20Typora%20%E4%B8%BB%E9%A2%98/</id>
+    <link href="https://raodi.gitee.io/2018/11/19/Vue%20%E6%96%87%E6%A1%A3%E9%A3%8E%E6%A0%BC%E7%9A%84%20Typora%20%E4%B8%BB%E9%A2%98/"/>
+    <id>https://raodi.gitee.io/2018/11/19/Vue%20%E6%96%87%E6%A1%A3%E9%A3%8E%E6%A0%BC%E7%9A%84%20Typora%20%E4%B8%BB%E9%A2%98/</id>
     <published>2018-11-18T16:30:00.000Z</published>
     <updated>2019-11-10T18:40:37.999Z</updated>
     
@@ -328,8 +328,8 @@
   
   <entry>
     <title>CPU多级缓存</title>
-    <link href="https://raodi.gitee.io/2018/11/18/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/CPU%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/"/>
-    <id>https://raodi.gitee.io/2018/11/18/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/CPU%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/</id>
+    <link href="https://raodi.gitee.io/2018/11/18/CPU%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/"/>
+    <id>https://raodi.gitee.io/2018/11/18/CPU%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/</id>
     <published>2018-11-18T13:55:00.000Z</published>
     <updated>2019-11-10T18:40:42.232Z</updated>
     
@@ -354,8 +354,8 @@
   
   <entry>
     <title>单元测试指南</title>
-    <link href="https://raodi.gitee.io/2018/11/15/%E5%90%8E%E7%AB%AF/Java/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8C%87%E5%8D%97/"/>
-    <id>https://raodi.gitee.io/2018/11/15/%E5%90%8E%E7%AB%AF/Java/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8C%87%E5%8D%97/</id>
+    <link href="https://raodi.gitee.io/2018/11/15/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+    <id>https://raodi.gitee.io/2018/11/15/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8C%87%E5%8D%97/</id>
     <published>2018-11-15T14:50:00.000Z</published>
     <updated>2019-11-10T18:39:17.309Z</updated>
     
@@ -382,8 +382,8 @@
   
   <entry>
     <title>Java8新特性及使用(二)</title>
-    <link href="https://raodi.gitee.io/2018/11/14/%E5%90%8E%E7%AB%AF/Java/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BA%8C)/"/>
-    <id>https://raodi.gitee.io/2018/11/14/%E5%90%8E%E7%AB%AF/Java/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BA%8C)/</id>
+    <link href="https://raodi.gitee.io/2018/11/14/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BA%8C)/"/>
+    <id>https://raodi.gitee.io/2018/11/14/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BA%8C)/</id>
     <published>2018-11-14T14:00:00.000Z</published>
     <updated>2019-11-10T18:38:15.948Z</updated>
     
@@ -408,8 +408,8 @@
   
   <entry>
     <title>Java8新特性及使用(一)</title>
-    <link href="https://raodi.gitee.io/2018/11/13/%E5%90%8E%E7%AB%AF/Java/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%B8%80)/"/>
-    <id>https://raodi.gitee.io/2018/11/13/%E5%90%8E%E7%AB%AF/Java/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%B8%80)/</id>
+    <link href="https://raodi.gitee.io/2018/11/13/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%B8%80)/"/>
+    <id>https://raodi.gitee.io/2018/11/13/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%B8%80)/</id>
     <published>2018-11-13T14:30:00.000Z</published>
     <updated>2019-11-10T18:38:10.323Z</updated>
     
@@ -434,8 +434,8 @@
   
   <entry>
     <title>Java7新特性及使用</title>
-    <link href="https://raodi.gitee.io/2018/11/12/%E5%90%8E%E7%AB%AF/Java/Java7%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
-    <id>https://raodi.gitee.io/2018/11/12/%E5%90%8E%E7%AB%AF/Java/Java7%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/</id>
+    <link href="https://raodi.gitee.io/2018/11/12/Java7%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
+    <id>https://raodi.gitee.io/2018/11/12/Java7%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/</id>
     <published>2018-11-11T16:30:00.000Z</published>
     <updated>2019-11-10T18:38:00.235Z</updated>
     
@@ -460,8 +460,8 @@
   
   <entry>
     <title>Java6新特性及使用</title>
-    <link href="https://raodi.gitee.io/2018/11/11/%E5%90%8E%E7%AB%AF/Java/Java6%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
-    <id>https://raodi.gitee.io/2018/11/11/%E5%90%8E%E7%AB%AF/Java/Java6%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/</id>
+    <link href="https://raodi.gitee.io/2018/11/11/Java6%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
+    <id>https://raodi.gitee.io/2018/11/11/Java6%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/</id>
     <published>2018-11-11T14:40:00.000Z</published>
     <updated>2019-11-10T18:37:52.273Z</updated>
     
@@ -486,8 +486,8 @@
   
   <entry>
     <title>Java5新特性及使用</title>
-    <link href="https://raodi.gitee.io/2018/11/09/%E5%90%8E%E7%AB%AF/Java/Java5%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
-    <id>https://raodi.gitee.io/2018/11/09/%E5%90%8E%E7%AB%AF/Java/Java5%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/</id>
+    <link href="https://raodi.gitee.io/2018/11/09/Java5%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
+    <id>https://raodi.gitee.io/2018/11/09/Java5%E6%96%B0%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BD%BF%E7%94%A8/</id>
     <published>2018-11-08T16:30:00.000Z</published>
     <updated>2019-11-10T18:37:47.535Z</updated>
     
@@ -512,8 +512,8 @@
   
   <entry>
     <title>Java注解的理解和应用</title>
-    <link href="https://raodi.gitee.io/2018/11/08/%E5%90%8E%E7%AB%AF/Java/Java%E6%B3%A8%E8%A7%A3%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E5%BA%94%E7%94%A8/"/>
-    <id>https://raodi.gitee.io/2018/11/08/%E5%90%8E%E7%AB%AF/Java/Java%E6%B3%A8%E8%A7%A3%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E5%BA%94%E7%94%A8/</id>
+    <link href="https://raodi.gitee.io/2018/11/08/Java%E6%B3%A8%E8%A7%A3%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E5%BA%94%E7%94%A8/"/>
+    <id>https://raodi.gitee.io/2018/11/08/Java%E6%B3%A8%E8%A7%A3%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E5%BA%94%E7%94%A8/</id>
     <published>2018-11-07T16:30:00.000Z</published>
     <updated>2019-11-10T18:38:39.858Z</updated>
     
@@ -538,8 +538,8 @@
   
   <entry>
     <title>Java反射基础</title>
-    <link href="https://raodi.gitee.io/2018/11/07/%E5%90%8E%E7%AB%AF/Java/Java%E5%8F%8D%E5%B0%84%E5%9F%BA%E7%A1%80/"/>
-    <id>https://raodi.gitee.io/2018/11/07/%E5%90%8E%E7%AB%AF/Java/Java%E5%8F%8D%E5%B0%84%E5%9F%BA%E7%A1%80/</id>
+    <link href="https://raodi.gitee.io/2018/11/07/Java%E5%8F%8D%E5%B0%84%E5%9F%BA%E7%A1%80/"/>
+    <id>https://raodi.gitee.io/2018/11/07/Java%E5%8F%8D%E5%B0%84%E5%9F%BA%E7%A1%80/</id>
     <published>2018-11-07T13:40:00.000Z</published>
     <updated>2019-11-10T18:38:26.361Z</updated>
     
@@ -564,8 +564,8 @@
   
   <entry>
     <title>Java IO 知识整理</title>
-    <link href="https://raodi.gitee.io/2018/11/05/%E5%90%8E%E7%AB%AF/Java/Java%20IO%20%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"/>
-    <id>https://raodi.gitee.io/2018/11/05/%E5%90%8E%E7%AB%AF/Java/Java%20IO%20%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</id>
+    <link href="https://raodi.gitee.io/2018/11/05/Java%20IO%20%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"/>
+    <id>https://raodi.gitee.io/2018/11/05/Java%20IO%20%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</id>
     <published>2018-11-05T03:30:00.000Z</published>
     <updated>2019-11-10T18:37:42.567Z</updated>
     
