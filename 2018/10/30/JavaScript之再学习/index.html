@@ -792,26 +792,19 @@
     </div>
 
     
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div id="gitalk-container" class="card-content"></div>
-</div>
-
-<script src="/libs/gitalk/gitalk.min.js"></script>
-<script>
-    let gitalk = new Gitalk({
-        clientID: 'eded2702ee954573afe8',
-        clientSecret: 'fbb19c6e10ef8bb2057b4dff94e8bb30f0b20d8f',
-        repo: 'raodi.gitee.io',
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        id: window.location.pathname,
+        repo: 'wisdows.github.io',
         owner: 'wisdows',
-        admin: "wisdows",
-        id: '2018-10-30T00-30-00',
-        distractionFreeMode: false  // Facebook-like distraction free mode
-    });
-
-    gitalk.render('gitalk-container');
+        admin: 'wisdows'
+    })
+    gitalk.render('gitalk-container')
 </script>
     
 
