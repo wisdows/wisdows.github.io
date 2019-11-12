@@ -388,12 +388,12 @@
                                 <span class="chip bg-color">Java</span>
                             </a>
                         
-                            <a href="/tags/Spring/" target="_blank">
-                                <span class="chip bg-color">Spring</span>
-                            </a>
-                        
                             <a href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" target="_blank">
                                 <span class="chip bg-color">单元测试</span>
+                            </a>
+                        
+                            <a href="/tags/Spring/" target="_blank">
+                                <span class="chip bg-color">Spring</span>
                             </a>
                         
                             <a href="/tags/SpringBoot/" target="_blank">
@@ -667,19 +667,26 @@
     </div>
 
     
-        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<div id="gitalk-container"></div>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        id: window.location.pathname,
-        repo: 'https://gitee.com/Raodi/Raodi.git',
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '8d9bbd4c8b5016f86448',
+        clientSecret: 'fad50d7e571829d0f2ce7f9e115bf153c3440e92',
+        repo: 'https://github.com/wisdows/blog-comments.git',
         owner: 'wisdows',
-        admin: 'wisdows'
-    })
-    gitalk.render('gitalk-container')
+        admin: "wisdows",
+        id: '2019-03-02T17-20-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
 </script>
     
 
