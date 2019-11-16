@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>MongoDB WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 16日 2019, 3:32 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.8k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      11 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><p><strong>Module</strong>: <a href="https://github.com/mongodb/node-mongodb-native" target="_blank" rel="noopener">mongodb</a></p>
+<h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install mongodb</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Example-v2"><a href="#Example-v2" class="headerlink" title="Example (v2.*)"></a>Example (v2.*)</h3><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MongoClient = <span class="built_in">require</span>(<span class="string">'mongodb'</span>).MongoClient </span><br><span class="line">	<span class="comment">//引用插件mongodb的MongoClient方法</span></span><br><span class="line"></span><br><span class="line">MongoClient.connect(<span class="string">'mongodb://localhost:27017/animals'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, db</span>) </span>{</span><br><span class="line"> 	<span class="comment">//使用mongodb的MongoClient方法，connect连接到mongodb里的一个animals数据库</span></span><br><span class="line">    </span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> err</span><br><span class="line">	<span class="comment">//如果错误就提示</span></span><br><span class="line">    </span><br><span class="line">  db.collection(<span class="string">'mammals'</span>).find().toArray(<span class="function"><span class="keyword">function</span> (<span class="params">err, result</span>) </span>{    </span><br><span class="line">      <span class="comment">//执行结果，查找mammals集合，并find（）显示出来，以array组形式</span></span><br><span class="line">      </span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">throw</span> err</span><br><span class="line">	<span class="comment">//如果错误就提示</span></span><br><span class="line">      </span><br><span class="line">    <span class="built_in">console</span>.log(result)</span><br><span class="line">     <span class="comment">//控制台打印</span></span><br><span class="line">  })</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Example-v3"><a href="#Example-v3" class="headerlink" title="Example (v3.*)"></a>Example (v3.*)</h3><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MongoClient = <span class="built_in">require</span>(<span class="string">'mongodb'</span>).MongoClient</span><br><span class="line"><span class="comment">//引用插件mongodb的MongoClient方法</span></span><br><span class="line"></span><br><span class="line">MongoClient.connect(<span class="string">'mongodb://localhost:27017/animals'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, client</span>) </span>{</span><br><span class="line">  <span class="comment">//使用mongodb的MongoClient方法，connect连接到mongodb里的一个animals数据库</span></span><br><span class="line">  <span class="comment">//client客户端</span></span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> err</span><br><span class="line"><span class="comment">//如果错误就提示</span></span><br><span class="line">    </span><br><span class="line">  <span class="keyword">var</span> db = client.db(<span class="string">'animals'</span>)</span><br><span class="line">   <span class="comment">//db等于client客户端，(v3.*)新版本加的</span></span><br><span class="line">  </span><br><span class="line">  db.collection(<span class="string">'mammals'</span>).find().toArray(<span class="function"><span class="keyword">function</span> (<span class="params">err, result</span>) </span>{</span><br><span class="line">  <span class="comment">//执行结果，查找mammals集合，并find（）显示出来，以array组形式</span></span><br><span class="line">      </span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">throw</span> err</span><br><span class="line">    <span class="comment">//如果错误就提示</span></span><br><span class="line">      </span><br><span class="line">    <span class="built_in">console</span>.log(result)</span><br><span class="line">    <span class="comment">//控制台打印</span></span><br><span class="line">  })</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>If you want an object model driver for MongoDB, look at <a href="https://github.com/LearnBoost/mongoose" target="_blank" rel="noopener">Mongoose</a>.</p>
+<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>Node.js 的官方<a href="https://www.mongodb.com/" target="_blank" rel="noopener">MongoDB</a>驱动程序。在<a href="https://www.npmjs.com/package/mongodb-core" target="_blank" rel="noopener">mongodb-core</a>之上提供高级API ，适用于最终用户。</p>
+<p><strong>注意：最近发布了v3.x，其中包含重大的API更改。您可以在此处找到更改列表。</strong></p>
+<h2 id="MongoDB-Node-JS驱动程序"><a href="#MongoDB-Node-JS驱动程序" class="headerlink" title="MongoDB Node.JS驱动程序"></a>MongoDB Node.JS驱动程序</h2><table>
+<thead>
+<tr>
+<th>什么</th>
+<th>哪里</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件</td>
+<td><a href="http://mongodb.github.io/node-mongodb-native" target="_blank" rel="noopener">http://mongodb.github.io/node-mongodb-native</a></td>
+</tr>
+<tr>
+<td>API-DOC</td>
+<td><a href="http://mongodb.github.io/node-mongodb-native/3.1/api" target="_blank" rel="noopener">http://mongodb.github.io/node-mongodb-native/3.1/api</a></td>
+</tr>
+<tr>
+<td>资源</td>
+<td><a href="https://github.com/mongodb/node-mongodb-native" target="_blank" rel="noopener">https://github.com/mongodb/node-mongodb-native</a></td>
+</tr>
+<tr>
+<td>MongoDB的</td>
+<td><a href="http://www.mongodb.org/" target="_blank" rel="noopener">http://www.mongodb.org</a></td>
+</tr>
+</tbody></table>
+<h3 id="错误-功能请求"><a href="#错误-功能请求" class="headerlink" title="错误/功能请求"></a>错误/功能请求</h3><p>认为你发现了一个错误？想要看到新功能<code>node-mongodb-native</code>吗？请在我们的问题管理工具JIRA中打开一个案例：</p>
+<ul>
+<li>创建一个帐户并登录<a href="https://jira.mongodb.org/" target="_blank" rel="noopener">jira.mongodb.org</a>。</li>
+<li>导航到NODE项目<a href="https://jira.mongodb.org/browse/NODE" target="_blank" rel="noopener">jira.mongodb.org/browse/NODE</a>。</li>
+<li>单击“ <strong>创建问题”</strong> - 请提供尽可能多的有关问题类型以及如何重现问题的信息。</li>
+</ul>
+<p>JIRA中针对所有驱动程序项目（即NODE，PYTHON，CSHARP，JAVA）和核心服务器（即SERVER）项目的错误报告都是<strong>公开的</strong>。</p>
+<h3 id="支持-反馈"><a href="#支持-反馈" class="headerlink" title="支持/反馈"></a>支持/反馈</h3><p>有关Node.js驱动程序的问题，疑问或反馈，请查看我们的<a href="http://www.mongodb.org/about/support" target="_blank" rel="noopener">支持渠道</a>。请不要直接向任何驱动程序开发人员发送问题或问题 - 您更有可能在Google网上论坛的<a href="http://groups.google.com/group/mongodb-user>" target="_blank" rel="noopener">mongodb用户</a>列表中获得答案。</p>
+<h3 id="更改日志"><a href="#更改日志" class="headerlink" title="更改日志"></a>更改日志</h3><p>可以在中找到更改历史记录<a href="https://github.com/mongodb/node-mongodb-native/blob/master/HISTORY.md" target="_blank" rel="noopener"><code>HISTORY.md</code></a>。</p>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>有关版本兼容性矩阵，请参阅以下链接：</p>
+<ul>
+<li><a href="https://docs.mongodb.com/ecosystem/drivers/driver-compatibility-reference/#reference-compatibility-mongodb-node" target="_blank" rel="noopener">MongoDB的</a></li>
+<li><a href="https://docs.mongodb.com/ecosystem/drivers/driver-compatibility-reference/#reference-compatibility-language-node" target="_blank" rel="noopener">的NodeJS</a></li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>开始使用Node.js 3.0驱动程序的推荐方法是使用<code>npm</code>（节点包管理器）在项目中安装依赖项。</p>
+<h2 id="MongoDB驱动程序"><a href="#MongoDB驱动程序" class="headerlink" title="MongoDB驱动程序"></a>MongoDB驱动程序</h2><p>鉴于您已使用<code>npm init</code>我们创建自己的项目，我们通过执行以下<code>npm</code>命令来安装MongoDB驱动程序及其依赖项。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install mongodb --save</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这将下载MongoDB驱动程序并在您的<code>package.json</code>文件中添加依赖项。</p>
+<p>您也可以使用<a href="https://yarnpkg.com/en" target="_blank" rel="noopener">Yarn</a>包管理器。</p>
+<h2 id="故障排除"><a href="#故障排除" class="headerlink" title="故障排除"></a>故障排除</h2><p>MongoDB驱动程序依赖于其他几个包。这些是：</p>
+<ul>
+<li><a href="https://github.com/mongodb-js/mongodb-core" target="_blank" rel="noopener">MongoDB的核心</a></li>
+<li><a href="https://github.com/mongodb/js-bson" target="_blank" rel="noopener">BSON</a></li>
+<li><a href="https://github.com/mongodb-js/kerberos" target="_blank" rel="noopener">Kerberos的</a></li>
+<li><a href="https://github.com/nodejs/node-gyp" target="_blank" rel="noopener">节点GYP</a></li>
+</ul>
+<p>该<code>kerberos</code>软件包是C ++扩展，需要在您的系统上安装构建环境。您必须能够自己构建Node.js才能编译和安装<code>kerberos</code>模块。此外，该<code>kerberos</code>模块需要MIT Kerberos包才能在UNIX操作系统上正确编译。有关要安装的库，请咨询UNIX操作系统包管理器。</p>
+<p><strong>Windows已包含用于Kerberos身份验证的SSPI API。但是，您需要使用Visual Studio C ++安装完整的编译器工具链才能正确安装Kerberos扩展。</strong></p>
+<h3 id="在UNIX上进行诊断"><a href="#在UNIX上进行诊断" class="headerlink" title="在UNIX上进行诊断"></a>在UNIX上进行诊断</h3><p>如果您没有build-essentials，则不会构建此模块。对于Linux，你需要gcc，g ++，Node.js以及所有头文件和Python。找出缺少的最简单的方法是尝试构建Kerberos项目。您可以通过执行以下步骤来执行此操作。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/mongodb-js/kerberos</span></span><br><span class="line">cd kerberos</span><br><span class="line">npm install</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果所有步骤都已完成，则表明您已安装了正确的工具链。如果您收到错误“找不到node-gyp”，则需要<code>node-gyp</code>全局安装：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g node-gyp</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果它正确编译并运行测试，那么你就是金色的。我们现在可以尝试<code>mongod</code>通过执行以下命令来安装驱动程序。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd yourproject</span><br><span class="line">npm install mongodb --save</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果仍然失败，则下一步是检查npm日志。重新运行命令，但在这种情况下是详细模式。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm --loglevel verbose install mongodb</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这将打印出在尝试安装模块时npm正在执行的所有步骤。</p>
+<h3 id="在Windows上进行诊断"><a href="#在Windows上进行诊断" class="headerlink" title="在Windows上进行诊断"></a>在Windows上进行诊断</h3><p>已知可<code>kerberos</code>在Windows上进行编译的编译器工具链如下所示。</p>
+<ul>
+<li>Visual Studio C ++ 2010（不要使用更高版本）</li>
+<li>Windows 7 64位SDK</li>
+<li>Python 2.7或更高版本</li>
+</ul>
+<p>打开Visual Studio命令提示符。确保<code>node.exe</code>在您的路径中并安装<code>node-gyp</code>。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g node-gyp</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接下来，您必须手动构建项目以进行测试。克隆存储库，安装依赖项并重建：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/christkv/kerberos.git</span></span><br><span class="line">cd kerberos</span><br><span class="line">npm install</span><br><span class="line">node-gyp rebuild</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果您已正确设置所有内容，则应成功重建驱动程序。</p>
+<h3 id="其他可能的问题"><a href="#其他可能的问题" class="headerlink" title="其他可能的问题"></a>其他可能的问题</h3><p>您的Python安装可能需要进行gyp break。首先通过尝试在有问题的服务器上构建Node.js来测试您的部署环境，因为这应该能够解决破坏软件包的任何问题（并且有很多破解的软件包）。</p>
+<p>另一个提示是确保您的用户具有对安装Node.js模块的任何位置的写入权限。</p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><p>本指南将向您展示如何使用Node.js和MongoDB设置一个简单的应用程序。它的范围只是如何设置驱动程序和执行简单的CRUD操作。有关更深入的报道，请参阅<a href="https://github.com/mongodb/node-mongodb-native/blob/master/docs/reference/content/tutorials/main.md" target="_blank" rel="noopener">教程</a>。</p>
+<h3 id="创建package-json文件"><a href="#创建package-json文件" class="headerlink" title="创建package.json文件"></a>创建<code>package.json</code>文件</h3><p>首先，创建一个应用程序所在的目录。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir myproject</span><br><span class="line"> cd myproject</span><br></pre></td></tr></tbody></table></figure>
+
+<p>输入以下命令并回答问题以创建新项目的初始结构：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接下来，安装驱动程序依赖项。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install mongodb --save</span><br></pre></td></tr></tbody></table></figure>
+
+<p>你应该看到<strong>NPM</strong>下载了很多文件。完成后，您将在<strong>node_modules</strong>目录下找到所有下载的软件包。</p>
+<h3 id="启动MongoDB服务器"><a href="#启动MongoDB服务器" class="headerlink" title="启动MongoDB服务器"></a>启动MongoDB服务器</h3><p>有关完整的MongoDB安装说明，请参阅<a href="https://docs.mongodb.org/manual/installation/" target="_blank" rel="noopener">手册</a>。</p>
+<ol>
+<li>从<a href="https://www.mongodb.org/downloads" target="_blank" rel="noopener">MongoDB</a>下载正确的MongoDB版本</li>
+<li>创建一个数据库目录（在本例中为<strong>/ data</strong>）。</li>
+<li>安装并启动一个<code>mongod</code>过程。</li>
+</ol>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --dbpath = <span class="regexp">/ data</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>您应该看到<strong>mongod</strong>进程启动并打印一些状态信息。</p>
+<h3 id="连接到MongoDB"><a href="#连接到MongoDB" class="headerlink" title="连接到MongoDB"></a>连接到MongoDB</h3><p>创建一个新的<strong>app.js</strong>文件并添加以下代码以使用MongoDB驱动程序尝试一些基本的CRUD操作。</p>
+<p>添加代码以连接到服务器和数据库<strong>myproject</strong>：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  MongoClient  =  <span class="built_in">require</span>（<span class="string">' mongodb '</span>）。MongoClient ;</span><br><span class="line"><span class="keyword">const</span>  assert  =  <span class="built_in">require</span>（<span class="string">' assert '</span>）;</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接URL </span></span><br><span class="line"><span class="keyword">const</span>  url  =  <span class="string">' mongodb：// localhost：27017 '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数据库名称</span></span><br><span class="line"><span class="keyword">const</span>  dbName  =  <span class="string">' myproject '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用connect方法连接到服务器</span></span><br><span class="line">MongoClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>) </span>{</span><br><span class="line">  assert.equal(<span class="literal">null</span>, err);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connected successfully to server"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line"></span><br><span class="line">  client.close();</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从命令行运行您的应用程序：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></tbody></table></figure>
+
+<p>应用程序应<strong>成功将已连接</strong>打印<strong>到服务器</strong>到控制台。</p>
+<h3 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h3><p>向<strong>app.js</strong>添加以下函数，该函数使用<strong>insertMany</strong> 方法将三个文档添加到<strong>文档</strong>集合中。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  insertDocuments  =  <span class="function"><span class="keyword">function</span>（<span class="title">db</span>，<span class="title">callback</span>）</span>{</span><br><span class="line">   <span class="comment">//获取文档集合</span></span><br><span class="line">   <span class="keyword">const</span> collection = db.collection(<span class="string">'documents'</span>);</span><br><span class="line">  <span class="comment">//插入一些文档</span></span><br><span class="line">collection.insertMany([</span><br><span class="line">    {<span class="attr">a</span> : <span class="number">1</span>}, {<span class="attr">a</span> : <span class="number">2</span>}, {<span class="attr">a</span> : <span class="number">3</span>}</span><br><span class="line">  ], <span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>{</span><br><span class="line">    assert.equal(err, <span class="literal">null</span>);</span><br><span class="line">    assert.equal(<span class="number">3</span>, result.result.n);</span><br><span class="line">    assert.equal(<span class="number">3</span>, result.ops.length);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Inserted 3 documents into the collection"</span>);</span><br><span class="line">    callback(result);</span><br><span class="line">  });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>所述<strong>插入件</strong>命令返回具有以下字段的对象：</p>
+<ul>
+<li><strong>result</strong>包含MongoDB的结果文档</li>
+<li><strong>ops</strong>包含使用添加的<strong>_id</strong>字段插入的文档</li>
+<li><strong>connection</strong>包含用于执行插入的连接</li>
+</ul>
+<p>添加以下代码以调用<strong>insertDocuments</strong>函数：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  MongoClient  =  <span class="built_in">require</span>（<span class="string">' mongodb '</span>）。MongoClient ;</span><br><span class="line"><span class="keyword">const</span>  assert  =  <span class="built_in">require</span>（<span class="string">' assert '</span>）;</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接URL </span></span><br><span class="line"><span class="keyword">const</span>  url  =  <span class="string">' mongodb：// localhost：27017 '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数据库名称</span></span><br><span class="line"><span class="keyword">const</span>  dbName  =  <span class="string">' myproject '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用connect方法连接到服务器</span></span><br><span class="line">MongoClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>) </span>{</span><br><span class="line">  assert.equal(<span class="literal">null</span>, err);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connected successfully to server"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line"></span><br><span class="line">  insertDocuments(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    client.close();</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>运行更新的<strong>app.js</strong>文件：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></tbody></table></figure>
+
+<p>该操作返回以下输出：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">已成功连接到服务器</span><br><span class="line">在集合中插入3个文档</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="查找所有文档"><a href="#查找所有文档" class="headerlink" title="查找所有文档"></a>查找所有文档</h3><p>添加一个返回所有文档的查询。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  findDocuments  =  <span class="function"><span class="keyword">function</span>（<span class="title">db</span>，<span class="title">callback</span>）</span>{</span><br><span class="line">   <span class="comment">//获取文档集合</span></span><br><span class="line">    <span class="keyword">const</span> collection = db.collection(<span class="string">'documents'</span>);</span><br><span class="line">  <span class="comment">//找一些文件</span></span><br><span class="line">  collection.find({}).toArray(<span class="function"><span class="keyword">function</span>(<span class="params">err, docs</span>) </span>{</span><br><span class="line">    assert.equal(err,npx ll);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Found the following records"</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(docs)</span><br><span class="line">    callback(docs);</span><br><span class="line">  });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>此查询返回<strong>文档</strong>集合中的所有<strong>文档</strong>。将<strong>findDocument</strong>方法添加到<strong>MongoClient.connect</strong>回调：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  MongoClient  =  <span class="built_in">require</span>（<span class="string">' mongodb '</span>）。MongoClient ;</span><br><span class="line"><span class="keyword">const</span>  assert  =  <span class="built_in">require</span>（<span class="string">' assert '</span>）;</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接URL </span></span><br><span class="line"><span class="keyword">const</span>  url  =  <span class="string">' mongodb：// localhost：27017 '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数据库名称</span></span><br><span class="line"><span class="keyword">const</span>  dbName  =  <span class="string">' myproject '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用connect方法连接到服务器</span></span><br><span class="line">MongoClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>) </span>{</span><br><span class="line">  assert.equal(<span class="literal">null</span>, err);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connected correctly to server"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line"></span><br><span class="line">  insertDocuments(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    findDocuments(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">      client.close();</span><br><span class="line">    });</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="使用查询过滤器查找文档"><a href="#使用查询过滤器查找文档" class="headerlink" title="使用查询过滤器查找文档"></a>使用查询过滤器查找文档</h3><p>添加查询过滤器以仅查找符合查询条件的文档。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  findDocuments  =  <span class="function"><span class="keyword">function</span>（<span class="title">db</span>，<span class="title">callback</span>）</span>{</span><br><span class="line">   <span class="comment">//获取文档集合</span></span><br><span class="line">   <span class="keyword">const</span> collection = db.collection(<span class="string">'documents'</span>);</span><br><span class="line">  <span class="comment">//找一些文件</span></span><br><span class="line">  collection.find({<span class="string">'a'</span>: <span class="number">3</span>}).toArray(<span class="function"><span class="keyword">function</span>(<span class="params">err, docs</span>) </span>{</span><br><span class="line">    assert.equal(err, <span class="literal">null</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Found the following records"</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(docs);</span><br><span class="line">    callback(docs);</span><br><span class="line">  });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>只<code>'a' : 3</code>应返回匹配的文档。</p>
+<h3 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h3><p>以下操作更新<strong>文档</strong>集合中的<strong>文档</strong>。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  updateDocument  =  <span class="function"><span class="keyword">function</span>（<span class="title">db</span>，<span class="title">callback</span>）</span>{</span><br><span class="line">   <span class="comment">//获取文档集合</span></span><br><span class="line"> <span class="keyword">const</span> collection = db.collection(<span class="string">'documents'</span>);</span><br><span class="line">  <span class="comment">//更新文件，其中a为2，设置b等于1个</span></span><br><span class="line">  collection.updateOne({ <span class="attr">a</span> : <span class="number">2</span> }</span><br><span class="line">    , { <span class="attr">$set</span>: { <span class="attr">b</span> : <span class="number">1</span> } }, <span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>{</span><br><span class="line">    assert.equal(err, <span class="literal">null</span>);</span><br><span class="line">    assert.equal(<span class="number">1</span>, result.result.n);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Updated the document with the field a equal to 2"</span>);</span><br><span class="line">    callback(result);</span><br><span class="line">  });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>该方法通过将新字段<strong>b</strong>添加到文档集<strong>1</strong>来更新字段<strong>a</strong>等于<strong>2</strong>的第一个文档。接下来，从<strong>MongoClient.connect</strong>更新回调函数以包含更新方法。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  MongoClient  =  <span class="built_in">require</span>（<span class="string">' mongodb '</span>）。MongoClient ;</span><br><span class="line"><span class="keyword">const</span>  assert  =  <span class="built_in">require</span>（<span class="string">' assert '</span>）;</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接URL </span></span><br><span class="line"><span class="keyword">const</span>  url  =  <span class="string">' mongodb：// localhost：27017 '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数据库名称</span></span><br><span class="line"><span class="keyword">const</span>  dbName  =  <span class="string">' myproject '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用connect方法连接到服务器</span></span><br><span class="line">MongoClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>) </span>{</span><br><span class="line">  assert.equal(<span class="literal">null</span>, err);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connected successfully to server"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line"></span><br><span class="line">  insertDocuments(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    updateDocument(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">      client.close();</span><br><span class="line">    });</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h3><p>删除字段<strong>a</strong>等于<strong>3</strong>的文档。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  removeDocument  =  <span class="function"><span class="keyword">function</span>（<span class="title">db</span>，<span class="title">callback</span>）</span>{</span><br><span class="line">   <span class="comment">//获取文档集合</span></span><br><span class="line">   <span class="keyword">const</span> collection = db.collection(<span class="string">'documents'</span>);</span><br><span class="line">  <span class="comment">//删除a为3 </span></span><br><span class="line">  collection.deleteOne({ <span class="attr">a</span> : <span class="number">3</span> }, <span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>{</span><br><span class="line">    assert.equal(err, <span class="literal">null</span>);</span><br><span class="line">    assert.equal(<span class="number">1</span>, result.result.n);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Removed the document with the field a equal to 3"</span>);</span><br><span class="line">    callback(result);</span><br><span class="line">  });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将新方法添加到<strong>MongoClient.connect</strong>回调函数。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  MongoClient  =  <span class="built_in">require</span>（<span class="string">' mongodb '</span>）。MongoClient ;</span><br><span class="line"><span class="keyword">const</span>  assert  =  <span class="built_in">require</span>（<span class="string">' assert '</span>）;</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接URL </span></span><br><span class="line"><span class="keyword">const</span>  url  =  <span class="string">' mongodb：// localhost：27017 '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数据库名称</span></span><br><span class="line"><span class="keyword">const</span>  dbName  =  <span class="string">' myproject '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用connect方法连接到服务器</span></span><br><span class="line">MongoClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>) </span>{</span><br><span class="line">  assert.equal(<span class="literal">null</span>, err);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connected successfully to server"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line"></span><br><span class="line">  insertDocuments(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    updateDocument(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">      removeDocument(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">        client.close();</span><br><span class="line">      });</span><br><span class="line">    });</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="索引集合"><a href="#索引集合" class="headerlink" title="索引集合"></a>索引集合</h3><p><a href="https://docs.mongodb.org/manual/indexes/" target="_blank" rel="noopener">索引</a>可以提高应用程序的性能。以下函数在<strong>文档</strong>集合中<strong>的</strong>字段 上创建索引。</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> indexCollection = <span class="function"><span class="keyword">function</span>(<span class="params">db, callback</span>) </span>{</span><br><span class="line">  db.collection(<span class="string">'documents'</span>).createIndex(</span><br><span class="line">    { <span class="string">"a"</span>: <span class="number">1</span> },</span><br><span class="line">      <span class="literal">null</span>,</span><br><span class="line">      <span class="function"><span class="keyword">function</span>(<span class="params">err, results</span>) </span>{</span><br><span class="line">        <span class="built_in">console</span>.log(results);</span><br><span class="line">        callback();</span><br><span class="line">    }</span><br><span class="line">  );</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将<code>indexCollection</code>方法添加到您的应用：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  MongoClient  =  <span class="built_in">require</span>（<span class="string">' mongodb '</span>）。MongoClient ;</span><br><span class="line"><span class="keyword">const</span>  assert  =  <span class="built_in">require</span>（<span class="string">' assert '</span>）;</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接URL </span></span><br><span class="line"><span class="keyword">const</span>  url  =  <span class="string">' mongodb：// localhost：27017 '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>  dbName  =  <span class="string">' myproject '</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用connect方法连接到服务器</span></span><br><span class="line">MongoClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>) </span>{</span><br><span class="line">  assert.equal(<span class="literal">null</span>, err);</span><br><span class="line">  <span class="built_in">console</span>.log（“成功连接到服务器”）;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line"></span><br><span class="line">  insertDocuments(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    indexCollection(db, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">      client.close();</span><br><span class="line">    });</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>有关更多详细信息，请参阅<a href="https://github.com/mongodb/node-mongodb-native/blob/master/docs/reference/content/tutorials/main.md" target="_blank" rel="noopener">教程</a>。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "MongoDB&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

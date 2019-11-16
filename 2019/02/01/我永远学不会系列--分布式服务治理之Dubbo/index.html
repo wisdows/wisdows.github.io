@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>我永远学不会系列--分布式服务治理之Dubbo WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期五, 二月 1日 2019, 12:38 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    3.5k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      12 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>做过互联网项目的我想应该都听过Dubbo的大名吧，但是这一段时间好像SpringCloud的应用要比Dubbo还火一点，奈何我只会用Dubbo啊，SpringCloud有时间我学学，毕竟自己用SpringBoot也这么长时间了，这俩配合起来相比也更得心应手。不过现在使用Dubbo的公司也不在少数，毕竟开始重新维护了呀。好了，我就来写写有关Dubbo的那些事吧。</p>
+<a id="more"></a> 
+
+<h4 id="一、分布式简介"><a href="#一、分布式简介" class="headerlink" title="一、分布式简介"></a>一、分布式简介</h4><p>随着互联网的发展，网站应用的规模不断扩大，常规的垂直应用架构已无法应对，分布式服务架构以及流动计算架构势在必行，亟需一个治理系统确保架构有条不紊的演进。</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx7UMmANWytAACEiypWzHQ877.jpg" srcset="undefined" alt="img"></p>
+<ul>
+<li>单一应用架构<br>当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。<br>此时，用于简化增删改查工作量的数据访问框架(ORM) 是关键。</li>
+<li>垂直应用架构<br>当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。<br>此时，用于加速前端页面开发的 Web框架(MVC) 是关键。</li>
+<li>分布式服务架构<br>当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。<br>此时，用于提高业务复用及整合的 分布式服务框架(RPC) 是关键。</li>
+<li>流动计算架构<br>当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。<br>此时，用于提高机器利用率的 资源调度和治理中心(SOA) 是关键。</li>
+</ul>
+<h4 id="二、啥是RPC？"><a href="#二、啥是RPC？" class="headerlink" title="二、啥是RPC？"></a>二、啥是RPC？</h4><p><code>RPC</code>【Remote Procedure Call】是指<code>远程过程调用</code>，是一种进程间通信方式，它是一种技术的思想，而不是规范。它允许程序调用另一个地址空间（通常是共享网络的另一台机器上）的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。</p>
+<p>RPC的一个基本原理图：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx85ueAU7p-AAIA1egev-w305.png" srcset="undefined" alt="img"></p>
+<p>一个实例：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx8562AClC4AAJlQ3SBO4A470.png" srcset="undefined" alt="img"></p>
+<p>系统A要调用系统B上的<code>hi</code>方法，流程就是这个样子喽。</p>
+<blockquote>
+<p>衡量一个RPC框架就有两个方面，一个是能否<code>快速建立连接</code>，二是<code>序列化与反序列化机制</code>。</p>
+</blockquote>
+<h4 id="三、Dubbo架构构成"><a href="#三、Dubbo架构构成" class="headerlink" title="三、Dubbo架构构成"></a>三、Dubbo架构构成</h4><p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx7Zs6AIoJQAAEzK3XNhpU977.png" srcset="undefined" alt="img"></p>
+<h5 id="1、节点角色"><a href="#1、节点角色" class="headerlink" title="1、节点角色"></a>1、节点角色</h5><p><code>Provider</code>：暴露服务的服务提供方。</p>
+<p><code>Consumer</code>：调用远程服务的服务消费方。</p>
+<p><code>Registry</code>：服务注册与发现的注册中心。</p>
+<p><code>Monitor</code>：统计服务的调用次调和调用时间的监控中心。</p>
+<p><code>Container</code>： 服务运行容器。</p>
+<h5 id="2、调用关系"><a href="#2、调用关系" class="headerlink" title="2、调用关系"></a>2、调用关系</h5><ol>
+<li>服务容器负责启动，加载，运行服务提供者。</li>
+<li>服务提供者在启动时，向注册中心注册自己提供的服务。</li>
+<li>服务消费者在启动时，向注册中心订阅自己所需的服务。</li>
+<li>注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。</li>
+<li>服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。</li>
+<li>服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。</li>
+</ol>
+<h5 id="3、dubbo的特性"><a href="#3、dubbo的特性" class="headerlink" title="3、dubbo的特性"></a>3、dubbo的特性</h5><p>(1) 连通性：</p>
+<p>注册中心负责服务地址的注册与查找，相当于目录服务，服务提供者和消费者只在启动时与注册中心交互，注册中心不转发请求，压力较小。监控中心负责统计各服务调用次数，调用时间等，统计先在内存汇总后每分钟一次发送到监控中心服务器，并以报表展示服务提供者向注册中心注册其提供的服务，并汇报调用时间到监控中心，此时间不包含网络开销服务消费者向注册中心获取服务提供者地址列表，并根据负载算法直接调用提供者，同时汇报调用时间到监控中心，此时间包含网络开销注册中心，服务提供者，服务消费者三者之间均为长连接，监控中心除外注册中心通过长连接感知服务提供者的存在，服务提供者宕机，注册中心将立即推送事件通知消费者注册中心和监控中心全部宕机，不影响已运行的提供者和消费者，消费者在本地缓存了提供者列表，注册中心和监控中心都是可选的，服务消费者可以直连服务提供者。</p>
+<p>(2) 健状性：</p>
+<p>监控中心宕掉不影响使用，只是丢失部分采样数据数据库宕掉后，注册中心仍能通过缓存提供服务列表查询，但不能注册新服务注册中心对等集群，任意一台宕掉后，将自动切换到另一台注册中心全部宕掉后，服务提供者和服务消费者仍能通过本地缓存通讯服务提供者无状态，任意一台宕掉后，不影响使用。服务提供者全部宕掉后，服务消费者应用将无法使用，并无限次重连等待服务提供者恢复。</p>
+<p>(3) 伸缩性：</p>
+<p>注册中心为对等集群，可动态增加机器部署实例，所有客户端将自动发现新的注册中心 。<br>服务提供者无状态，可动态增加机器部署实例，注册中心将推送新的服务提供者信息给消费者。</p>
+<p>(4) 升级性：</p>
+<p>当服务集群规模进一步扩大，带动IT治理结构进一步升级，需要实现动态部署，进行流动计算，现有分布式服务架构不会带来阻力：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx7aJeAXJXHAAEFuJC6Bhk112.jpg" srcset="undefined" alt="img"></p>
+<h4 id="三、dubbo支持的注册中心"><a href="#三、dubbo支持的注册中心" class="headerlink" title="三、dubbo支持的注册中心"></a>三、dubbo支持的注册中心</h4><p>Dubbo提供的注册中心有如下几种类型可供选择：</p>
+<ul>
+<li>Multicast注册中心</li>
+<li>Zookeeper注册中心</li>
+<li>Redis注册中心</li>
+<li>Simple注册中心</li>
+</ul>
+<p>ZooKeeper是一个开源的分布式服务框架，它是Apache Hadoop项目的一个子项目，主要用来解决分布式应用场景中存在的一些问题，如：<strong>统一命名服务、状态同步服务、集群管理、分布式应用配置管理等</strong>，它支持Standalone模式和分布式模式，在分布式模式下，能够为分布式应用提供高性能和可靠地协调服务，而且使用ZooKeeper可以大大简化分布式协调服务的实现，为开发分布式应用极大地降低了成本。</p>
+<p>ZooKeeper总体架构：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx7aWOABuAAAAAnKgYVaE8192.png" srcset="undefined" alt="img"></p>
+<p>ZooKeeper集群由一组Server节点组成，这一组Server节点中存在一个角色为Leader的节点，其他节点都为Follower。当客户端Client连接到ZooKeeper集群，并且执行写请求时，这些请求会被发送到Leader节点上，然后Leader节点上数据变更会同步到集群中其他的Follower节点。</p>
+<h4 id="四、SpringBoot整合Dubbo"><a href="#四、SpringBoot整合Dubbo" class="headerlink" title="四、SpringBoot整合Dubbo"></a>四、SpringBoot整合Dubbo</h4><p>一个整合实例</p>
+<h4 id="五、有关Dubbo的相关配置"><a href="#五、有关Dubbo的相关配置" class="headerlink" title="五、有关Dubbo的相关配置"></a>五、有关Dubbo的相关配置</h4><p>XML配置官方文档</p>
+<p>schema配置官方文档</p>
+<h4 id="六、Dubbo的高可用性"><a href="#六、Dubbo的高可用性" class="headerlink" title="六、Dubbo的高可用性"></a>六、Dubbo的高可用性</h4><h5 id="1、zookeeper宕机与dubbo直连"><a href="#1、zookeeper宕机与dubbo直连" class="headerlink" title="1、zookeeper宕机与dubbo直连"></a>1、zookeeper宕机与dubbo直连</h5><p>zookeeper注册中心宕机，还可以消费dubbo暴露的服务。</p>
+<blockquote>
+<p>监控中心宕掉不影响使用，只是丢失部分采样数据.</p>
+<p>数据库宕掉后，注册中心仍能通过缓存提供服务列表查询，但不能注册新服务.</p>
+<p>注册中心对等集群，任意一台宕掉后，将自动切换到另一台</p>
+<p><strong>注册中心全部宕掉后，服务提供者和服务消费者仍能通过本地缓存通讯</strong></p>
+<p>服务提供者无状态，任意一台宕掉后，不影响使用</p>
+<p>服务提供者全部宕掉后，服务消费者应用将无法使用，并无限次重连等待服务提供者恢复</p>
+</blockquote>
+<h5 id="2、集群下Dubbo的负载均衡配置"><a href="#2、集群下Dubbo的负载均衡配置" class="headerlink" title="2、集群下Dubbo的负载均衡配置"></a>2、集群下Dubbo的负载均衡配置</h5><p>官方文档</p>
+<p>在集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 <code>random</code> 随机调用。</p>
+<p><strong>负载均衡策略：</strong></p>
+<p><strong>Random LoadBalance</strong></p>
+<p>随机，按权重设置随机概率。</p>
+<p>在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx-KOyAEOjGAACOAJyxgRQ106.png" srcset="undefined" alt="img"></p>
+<p><strong>RoundRobin LoadBalance</strong></p>
+<p>轮循，按公约后的权重设置轮循比率。</p>
+<p>存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx-KciAKFpaAABek33yfzI715.png" srcset="undefined" alt="img"></p>
+<p><strong>LeastActive LoadBalance</strong></p>
+<p>最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。</p>
+<p>使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx-KjKATVzuAAA665HsbRU466.png" srcset="undefined" alt="img"></p>
+<p><strong>ConsistentHash LoadBalance</strong></p>
+<p>一致性 Hash，相同参数的请求总是发到同一提供者。</p>
+<p>当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。算法参见：<a href="http://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Consistent_hashing</a></p>
+<p>缺省只对第一个参数 Hash，如果要修改，请配置</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dubbo:parameter key="hash.arguments" value="0,1" /&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>缺省用160 份虚拟节点，如果要修改，请配置</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dubbo:parameter key="hash.nodes" value="320" /&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx-KluAaW_HAAC9eJTsnJI353.png" srcset="undefined" alt="img"></p>
+<h5 id="3、服务降级"><a href="#3、服务降级" class="headerlink" title="3、服务降级"></a>3、服务降级</h5><p>当服务器压力剧增的情况下，根据实际业务情况及流量，对一些服务和页面有策略的不处理或换种简单的方式处理，从而释放服务器资源以保证核心交易正常运作或高效运作。</p>
+<p>可以通过服务降级功能临时屏蔽某个出错的非关键服务，并定义降级后的返回策略。</p>
+<ul>
+<li><code>mock=force:return+null</code> 表示消费方对该服务的方法调用都直接返回 null 值，不发起远程调用。用来屏蔽不重要服务不可用时对调用方的影响。</li>
+<li><code>mock=fail:return+null</code> 表示消费方对该服务的方法调用在失败后，再返回 null 值，不抛异常。用来容忍不重要服务不稳定时对调用方的影响。</li>
+</ul>
+<h5 id="4、集群容错"><a href="#4、集群容错" class="headerlink" title="4、集群容错"></a>4、集群容错</h5><p>集群容错</p>
+<p>在集群调用失败时，Dubbo 提供了多种容错方案，缺省为 <code>failover</code> 重试。</p>
+<p><strong>集群容错模式</strong>：</p>
+<p><strong>Failover Cluster</strong></p>
+<p>失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 <code>retries="2"</code> 来设置重试次数(不含第一次)。</p>
+<p>重试次数配置如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dubbo:service retries="2" /&gt;</span><br><span class="line">或</span><br><span class="line">&lt;dubbo:reference retries="2" /&gt;</span><br><span class="line">或</span><br><span class="line">&lt;dubbo:reference&gt;</span><br><span class="line">	&lt;dubbo:method name="findFoo" retries="2" /&gt;</span><br><span class="line">&lt;/dubbo:reference&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>Failfast Cluster</strong></p>
+<p>快速失败，只发起一次调用，失败立即报错。<strong>通常用于非幂等性的写操作，比如新增记录</strong>。</p>
+<p><strong>Failsafe Cluster</strong></p>
+<p>失败安全，出现异常时，直接忽略。<strong>通常用于写入审计日志等操作</strong>。</p>
+<p><strong>Failback Cluster</strong></p>
+<p>失败自动恢复，后台记录失败请求，定时重发。<strong>通常用于消息通知操作</strong>。</p>
+<p><strong>Forking Cluster</strong></p>
+<p>并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 <code>forks="2"</code> 来设置最大并行数。</p>
+<p><strong>Broadcast Cluster</strong></p>
+<p>广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。</p>
+<p><strong>集群模式配置</strong></p>
+<p>按照以下示例在服务提供方和消费方配置集群模式：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;dubbo:service cluster="failsafe" /&gt;</span><br><span class="line">或</span><br><span class="line">&lt;dubbo:reference cluster="failsafe" /&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="5、整合hystrix"><a href="#5、整合hystrix" class="headerlink" title="5、整合hystrix"></a>5、整合hystrix</h5><p>Hystrix 旨在通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能。</p>
+<p>springboot官方提供了对hystrix的集成，直接在pom.xml里加入依赖</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> &lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后在Application类上增加<code>@EnableHystrix</code>来启用hystrix starter：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableHystrix</span><br><span class="line">public class ProviderApplication {</span><br><span class="line">	...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>A.<strong>配置Provider端</strong></p>
+<p>在Dubbo的Provider上增加<code>@HystrixCommand</code>配置，这样调用就会经过Hystrix代理。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Service(version = "1.0.0")</span><br><span class="line">public class HelloServiceImpl implements HelloService {</span><br><span class="line">    @HystrixCommand</span><br><span class="line">    @Override</span><br><span class="line">    public String sayHello(String name) {</span><br><span class="line">        // System.out.println("async provider received: " + name);</span><br><span class="line">        // return "annotation: hello, " + name;</span><br><span class="line">        throw new RuntimeException("Exception to show hystrix enabled.");</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>B.<strong>配置Consumer端</strong></p>
+<p>对于Consumer端，则可以增加一层method调用，并在method上配置<code>@HystrixCommand</code>。当调用出错时，会走到<code>fallbackMethod= "reliable"</code>的调用里。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Reference(version = "1.0.0")</span><br><span class="line">private HelloService demoService;</span><br><span class="line"></span><br><span class="line">@HystrixCommand(fallbackMethod = "reliable")</span><br><span class="line">public String doSayHello(String name) {</span><br><span class="line">    return demoService.sayHello(name);</span><br><span class="line">}</span><br><span class="line">public String reliable(String name) {</span><br><span class="line">    return "hystrix fallback value";</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Dubbo">Dubbo</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Dubbo">Dubbo</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "我永远学不会系列--分布式服务治理之Dubbo&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

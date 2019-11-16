@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>我永远学不会系列---ActiveMQ(三) WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 八月 18日 2018, 12:38 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.9k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      7 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>主要是关于ActiveMQ集群，这里采用的方式是：Zookeeper+LevelDB+ActiveMQ。还有一些项目实际使用MQ遇到的一些问题。实际上再生产环境中不可能采用一个单机的ActiveMQ进行消息传输的，因为ActiveMQ不像是Kafka，天然就是分布式的，ActiveMQ的吞吐量和Kafka可不是一个数量级的，对于大的分布式系统来说，其实我认为采用ActiveMQ作为消息中间件是不成的，QPS一旦高了，就可能系统就瘫了。其实对于保险公司来说，并不存在说某一个时间段并发特别高，也就是每个月月末分公司冲冲业绩了，系统并发量会高点。用这个ActiveMQ集群足够了。</p>
+<a id="more"></a> 
+
+<h4 id="一、利用Zookeeper实现ActiveMQ的高可用"><a href="#一、利用Zookeeper实现ActiveMQ的高可用" class="headerlink" title="一、利用Zookeeper实现ActiveMQ的高可用"></a>一、利用Zookeeper实现ActiveMQ的高可用</h4><p>ActiveMQ官方提供的架构图：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/00/rB9p_Fx0mweAD3cqAAAeTA7iJyg747.png" srcset="undefined" alt="img"></p>
+<blockquote>
+<p>Master/Slave broker的信息要注册到ZK。</p>
+<p>注意到只有Master对外提供了服务，Slave是待机状态。当Master出现故障，ZK内部的选举机制，会让一个Slave升级成Master对外提供服务。</p>
+</blockquote>
+<p>既然要做到高可用，那么ZK也得是高可用的，所以这里的搭建方案是这样的：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/00/rB9p_Fx0m0iAayUDAAAmqIE04pc779.png" srcset="undefined" alt="img"></p>
+<h5 id="1：JDK环境"><a href="#1：JDK环境" class="headerlink" title="1：JDK环境"></a><strong>1：JDK环境</strong></h5><p>保证这3台机器都安装了JDK，并配置了JAVA环境变量。</p>
+<h5 id="2：配置Zookeeper"><a href="#2：配置Zookeeper" class="headerlink" title="2：配置Zookeeper"></a><strong>2：配置Zookeeper</strong></h5><p><img src="http://www.ao10001.wang/group1/M00/00/00/rB9p_Fx0m3-AF-fXAAAaPLps8kc907.png" srcset="undefined" alt="img"></p>
+<blockquote>
+<p>为什么要配置ZK环境变量呢？很简单，在命令行下直接使用ZK相关的命令，而不是进入到安装ZK目录下的bin，更不想用绝对路径。</p>
+</blockquote>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0m62AWavqAACIeDOk6QA838.png" srcset="undefined" alt="img"></p>
+<blockquote>
+<p>注意dataDir目录的指定；注意2181是外部访问ZK的端口；</p>
+<p>2888:3888是ZK集群内部通信（比如ZK原子广播消息）的端口，注意<code>server.X</code>的定义，这是将ZK集群中的实例进行编号，实际上需要在dataDir目录中新建myid文件，并与之保持一致。</p>
+</blockquote>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0m9-AE06YAAAKirHuAMo666.png" srcset="undefined" alt="img"></p>
+<h5 id="3：启动ZK"><a href="#3：启动ZK" class="headerlink" title="3：启动ZK"></a><strong>3：启动ZK</strong></h5><p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0nA-ASV3cAAB42oHrTgM273.png" srcset="undefined" alt="img"></p>
+<p>可以通过netstat命令查看2722进程，发现ZK的端口是2181，这和zoo.cfg的配置是一致的。让3台机器的ZK都启动起来。</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0nDyAMD8dAAAzgMbScpI816.png" srcset="undefined" alt="img"></p>
+<h5 id="4：ActiveMQ主从配置"><a href="#4：ActiveMQ主从配置" class="headerlink" title="4：ActiveMQ主从配置"></a><strong>4：ActiveMQ主从配置</strong></h5><p>注意了，由于我将在3台物理机上搭建一台Master，2台Slave，因此我这边不需要对端口配置文件进行改动。比如WEB管控台的jetty.xml。</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0nGqAAMVXAAAVujVjAHE794.png" srcset="undefined" alt="img"></p>
+<blockquote>
+<p>3台机器应该对外只有一个统一的名称，就是这个brokerName。3台机器都修改成一个名称即可。</p>
+</blockquote>
+<p>这里持久化，我将采用LevelDB，因此需要修改持久化配置：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0nJaAFDlvAAArXuTDeg0164.png" srcset="undefined" alt="img"></p>
+<p>注意bind地址，其实是ActiveMQ集群内部通信的TCP端口，和ActiveMQ对外提供的消息端口（默认61616）不要搞混了。</p>
+<p>hostname即本机的主机名称。</p>
+<p>给出ZK集群的列表以及zkPath。zkPath下面其实存放着ActiveMQ的节点，在后续你会看到。</p>
+<p>启动3台机器上的ActiveMQ，然后利用ZooInspector你可以看到：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0nMOAB1WIAAAwYGFC3Yo645.png" srcset="undefined" alt="img"></p>
+<p>此时此刻，基于ZK的ActiveMQ的高可用方案就做好了。那么JAVA端访问ActiveMQ有什么变化么？其实就是在创建ConnectionFactory的时候给定的URL有变化：</p>
+<blockquote>
+<p><strong>failover:(tcp://192.168.99.121:61616,tcp://192.168.99.122:61616,tcp://192.168.99.123:61616)?Randomize=false</strong></p>
+</blockquote>
+<p>就是一个失败转移协议！</p>
+<p>上面只是做了一个ActiveMQ的高可用方案，那么ActiveMQ集群呢？其实所谓的ActiveMQ集群就是多个ActiveMQ高可用之间产生关联：</p>
+<p><img src="http://www.ao10001.wang/group1/M00/00/01/rB9p_Fx0nO6ARl25AAAZMNaUkHc464.png" srcset="undefined" alt="img"></p>
+<blockquote>
+<p>高可用的ActiveMQ-1,ActiveMQ-2,…,ActiveMQ-N就可以组建ActiveMQ集群</p>
+<p>在配置上很简单，其实就是ActiveMQ-1要知道ActiveMQ-2的信息而已.</p>
+</blockquote>
+<h4 id="二、遇到的一些问题"><a href="#二、遇到的一些问题" class="headerlink" title="二、遇到的一些问题"></a>二、遇到的一些问题</h4><h5 id="1：重复消费导致数据库中出现脏数据"><a href="#1：重复消费导致数据库中出现脏数据" class="headerlink" title="1：重复消费导致数据库中出现脏数据"></a>1：重复消费导致数据库中出现脏数据</h5><p>这里边有个概念就是幂等性，什么意思呢？就是一个消息，或者一个请求，给你重复来多次，你得保证对应的数据是不会改变的，不能出错。</p>
+<p>在MQ中，常用的就是在消费了一条消息之后，可以把和消费过的消息放在一个地方，比如Redis、内存Set都可以，下次再进行消费的时候先去判断这条消息是否已经被消费过了。也可以在数据库中设置唯一键，也可以保证这种重复消费的情况，避免脏数据。</p>
+<h5 id="2：持久化消息非常慢"><a href="#2：持久化消息非常慢" class="headerlink" title="2：持久化消息非常慢"></a>2：持久化消息非常慢</h5><p>默认的情况下，非持久化的消息是异步发送的，持久化的消息是同步发送的，遇到慢一点的硬盘，发送消息的速度是无法忍受的。但是在开启事务的情况下，消息都是异步发送的，效率会有2个数量级的提升。所以在发送持久化消息时，请务必开启事务模式。其实发送非持久化消息时也建议开启事务，因为根本不会影响性能。</p>
+<h5 id="3：消息的不均匀消费"><a href="#3：消息的不均匀消费" class="headerlink" title="3：消息的不均匀消费"></a>3：消息的不均匀消费</h5><p>有时在发送一些消息之后，开启2个消费者去处理消息。会发现一个消费者处理了所有的消息，另一个消费者根本没收到消息。原因在于ActiveMQ的prefetch机制。当消费者去获取消息时，不会一条一条去获取，而是一次性获取一批，默认是1000条。这些预获取的消息，在还没确认消费之前，在管理控制台还是可以看见这些消息的，但是不会再分配给其他消费者，此时这些消息的状态应该算作“已分配未消费”，如果消息最后被消费，则会在服务器端被删除，如果消费者崩溃，则这些消息会被重新分配给新的消费者。但是如果消费者既不消费确认，又不崩溃，那这些消息就永远躺在消费者的缓存区里无法处理。更通常的情况是，消费这些消息非常耗时，你开了10个消费者去处理，结果发现只有一台机器吭哧吭哧处理，另外9台啥事不干。</p>
+<p>解决方案：<strong>将prefetch设为1</strong>，每次处理1条消息，处理完再去取，这样也慢不了多少。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ActiveMQPrefetchPolicy p = new ActiveMQPrefetchPolicy();</span><br><span class="line">p.setQueuePrefetch(1);// 设置prefetch 值(多个消费者有用)</span><br><span class="line">// 实例化连接工厂</span><br><span class="line">connectionFactory.setPrefetchPolicy(p);</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="4：死信队列"><a href="#4：死信队列" class="headerlink" title="4：死信队列"></a>4：<strong>死信队列</strong></h5><p>消费消息有2种方法，一种是调用consumer.receive()方法，该方法将阻塞直到获得并返回一条消息。这种情况下，消息返回给方法调用者之后就自动被确认了。另一种方法是采用listener回调函数，在有消息到达时，会调用listener接口的onMessage方法。在这种情况下，在onMessage方法执行完毕后，消息才会被确认，此时只要在方法中抛出异常，该消息就不会被确认。那么问题来了，如果一条消息不能被处理，会被退回服务器重新分配，如果只有一个消费者，该消息又会重新被获取，重新抛异常。就算有多个消费者，往往在一个服务器上不能处理的消息，在另外的服务器上依然不能被处理。难道就这么退回–获取–报错死循环了吗？</p>
+<p>在重试6次后，ActiveMQ认为这条消息是“有毒”的，将会把消息丢到死信队列里。如果消息不见了，去ActiveMQ.DLQ里找找，说不定就躺在那里。</p>
+<p>好了，这个ActiveMQ写到这里了，我感觉这个MQ后期很有可能被废了，大数据时代了，Kafaka、RocketMQ还是记得去研究的呀。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/MQ">MQ</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/ActiveMQ">ActiveMQ</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "我永远学不会系列---ActiveMQ(三)&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

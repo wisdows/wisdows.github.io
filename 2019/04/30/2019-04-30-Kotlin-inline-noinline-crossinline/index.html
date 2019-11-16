@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Kotlin 必须要知道的 inline noinline crossinline WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期二, 四月 30日 2019, 10:55 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.5k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      7 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><ul>
+<li><code>inline</code>: 声明在编译时，将函数的代码拷贝到调用的地方(内联)</li>
+<li><code>noinline</code>: 声明 <code>inline</code> 函数的形参中，不希望内联的 <code>lambda</code></li>
+<li><code>crossinline</code>: 表明 <code>inline</code> 函数的形参中的 <code>lambda</code> 不能有 <code>return</code></li>
+</ul>
+<h2 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h2><p>使用 <code>inline</code> 声明的函数，在编译时将会拷贝到调用的地方。</p>
+<h3 id="inline-function"><a href="#inline-function" class="headerlink" title="inline function"></a>inline function</h3><p>定义一个<code>sum</code>函数计算两个数的和。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    println(sum(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>反编译为 Java 代码:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(@NotNull String[] args)</span> </span>{</span><br><span class="line">   <span class="keyword">int</span> var1 = sum(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">   System.out.println(var1);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>{</span><br><span class="line">   <span class="keyword">return</span> a + b;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>正常的样子，在该调用的地方调用函数。</p>
+<hr>
+<p>然后为 <code>sum</code> 函数添加 <code>inline</code> 声明:</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>再反编译为 Java 代码:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(@NotNull String[] args)</span> </span>{</span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   <span class="keyword">byte</span> a$iv = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">int</span> b$iv = <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">int</span> var4 = a$iv + b$iv;</span><br><span class="line">   System.out.println(var4);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>{</span><br><span class="line">   <span class="keyword">return</span> a + b;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>sum</code> 函数的实现代码被直接拷贝到了调用的地方。</p>
+<hr>
+<p>上面两个使用实例并没有体现出 <code>inline</code> 的优势。当你的函数中有 <code>lambda</code> 形参时，<code>inline</code> 的优势才会体现。</p>
+<h3 id="inline-function-with-lambda-parameters"><a href="#inline-function-with-lambda-parameters" class="headerlink" title="inline function with lambda parameters"></a>inline function with lambda parameters</h3><p>考虑如下代码，会被编译成怎样的 Java 代码?</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>, lambda: (<span class="type">result</span>: <span class="type">Int</span>) -&gt; <span class="type">Unit</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">val</span> r = a + b</span><br><span class="line">    lambda.invoke(r)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>) { println(<span class="string">"Result is: <span class="variable">$it</span>"</span>) }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>反编译为 Java:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, @NotNull Function1 lambda)</span> </span>{</span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   <span class="keyword">int</span> r = a + b;</span><br><span class="line">   lambda.invoke(r);</span><br><span class="line">   <span class="keyword">return</span> r;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(@NotNull String[] args)</span> </span>{</span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   sum(<span class="number">1</span>, <span class="number">2</span>, (Function1)<span class="keyword">null</span>.INSTANCE);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p><code>(Function1）null.INSTANCE</code>，是由于反编译器工具在找不到等效的 Java 类时的显示的结果。</p>
+</blockquote>
+<p>我传递的那个 <code>lambda</code> 被转换为 <code>Function1</code> 类型，它是 Kotlin 函数（kotlin.jvm.functions包）的一部分，它以 1 结尾是因为我们在 <code>lambda</code> 函数中传递了一个参数（<code>result：Int</code>)。</p>
+<p>再考虑如下代码:</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span>) {</span><br><span class="line">        sum(<span class="number">1</span>, <span class="number">2</span>) { println(<span class="string">"Result is: <span class="variable">$it</span>"</span>) }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>我在循环中调用 <code>sum</code> 函数，每次传递一个 <code>lambda</code> 打印结果。反编译为 Java:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">byte</span> var2 = <span class="number">10</span>; var1 &lt;= var2; ++var1) {</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>, (Function1)<span class="keyword">null</span>.INSTANCE);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可见在每次循环里都会创建一个 <code>Function1</code> 的实例对象。这里就是性能的优化点所在，如何避免在循环里创建新的对象？</p>
+<hr>
+<ol>
+<li>在循环外部创建 <code>lambda</code> 对象</li>
+</ol>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> l: (r: <span class="built_in">Int</span>) -&gt; <span class="built_in">Unit</span> = { println(it) }</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span>) {</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>, l)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>反编译为 Java:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Function1 l = (Function1)<span class="keyword">null</span>.INSTANCE;</span><br><span class="line"><span class="keyword">int</span> var2 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">byte</span> var3 = <span class="number">10</span>; var2 &lt;= var3; ++var2) {</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>, l);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>只会创建一个 <code>Function</code> 对象</p>
+<ol start="2">
+<li>使用 <code>inline</code>:</li>
+</ol>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span>) {</span><br><span class="line">        sum(<span class="number">1</span>, <span class="number">2</span>) { println(<span class="string">"Result is: <span class="variable">$it</span>"</span>) }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>, lambda: (<span class="type">result</span>: <span class="type">Int</span>) -&gt; <span class="type">Unit</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">val</span> r = a + b</span><br><span class="line">    lambda.invoke(r)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>反编译为 Java:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(@NotNull String[] args)</span> </span>{</span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   <span class="keyword">int</span> var1 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">byte</span> var2 = <span class="number">10</span>; var1 &lt;= var2; ++var1) {</span><br><span class="line">     <span class="keyword">byte</span> a$iv = <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">int</span> b$iv = <span class="number">2</span>;</span><br><span class="line">     <span class="keyword">int</span> r$iv = a$iv + b$iv;</span><br><span class="line">     String var9 = <span class="string">"Result is: "</span> + r$iv;</span><br><span class="line">     System.out.println(var9);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>lambda</code> 代码在编译时被拷贝到调用的地方， 避免了创建 <code>Function</code> 对象。</p>
+<h3 id="inline-注意事项"><a href="#inline-注意事项" class="headerlink" title="inline 注意事项"></a>inline 注意事项</h3><h4 id="public-inline-函数不能访问私有属性"><a href="#public-inline-函数不能访问私有属性" class="headerlink" title="public inline 函数不能访问私有属性"></a>public inline 函数不能访问私有属性</h4><figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> title: String) {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(l: () -&gt; <span class="type">Unit</span>)</span></span> {</span><br><span class="line">        println(<span class="string">"Title: <span class="variable">$title</span>"</span>) <span class="comment">// 编译错误: Public-Api inline function cannot access non-Public-Api prive final val title</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有的没问题</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(l: () -&gt; <span class="type">Unit</span>)</span></span> {</span><br><span class="line">        println(<span class="string">"Title: <span class="variable">$title</span>"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="注意程序控制流"><a href="#注意程序控制流" class="headerlink" title="注意程序控制流"></a>注意程序控制流</h4><p>当使用 <code>inline</code> 时，如果传递给 <code>inline</code> 函数的 <code>lambda</code>，有 <code>return</code> 语句，那么会导致闭包的调用者也返回。</p>
+<p>例子:</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>, lambda: (<span class="type">result</span>: <span class="type">Int</span>) -&gt; <span class="type">Unit</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">val</span> r = a + b</span><br><span class="line">    lambda.invoke(r)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    println(<span class="string">"Start"</span>)</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>) {</span><br><span class="line">        println(<span class="string">"Result is: <span class="variable">$it</span>"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="comment">// 这个会导致 main 函数 return</span></span><br><span class="line">    }</span><br><span class="line">    println(<span class="string">"Done"</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>反编译 Java:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(@NotNull String[] args)</span> </span>{</span><br><span class="line">   String var1 = <span class="string">"Start"</span>;</span><br><span class="line">   System.out.println(var1);</span><br><span class="line">   <span class="keyword">byte</span> a$iv = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">int</span> b$iv = <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">int</span> r$iv = a$iv + b$iv;</span><br><span class="line">   String var7 = <span class="string">"Result is: "</span> + r$iv;</span><br><span class="line">   System.out.println(var7);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>反编译之后也能看到，<code>lambda</code> <code>return</code> 之后的代码不会执行。</p>
+<p><strong>如何避免?</strong></p>
+<p>可以使用 <code>return@label</code> 语法，返回到 <code>lambda</code> 被调用的地方。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    println(<span class="string">"Start"</span>)</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>) {</span><br><span class="line">        println(<span class="string">"Result is: <span class="variable">$it</span>"</span>)</span><br><span class="line">        <span class="keyword">return</span><span class="symbol">@sum</span></span><br><span class="line">    }</span><br><span class="line">    println(<span class="string">"Done"</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="noinline"><a href="#noinline" class="headerlink" title="noinline"></a>noinline</h2><p>当一个 <code>inline</code> 函数中，有多个 <code>lambda</code> 作为参数时，可以在不想内联的 <code>lambda</code> 前使用 <code>noinline</code> 声明.</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>, lambda: (<span class="type">result</span>: <span class="type">Int</span>) -&gt; <span class="type">Unit</span>, <span class="keyword">noinline</span> lambda2: (<span class="type">result</span>: <span class="type">Int</span>) -&gt; <span class="type">Unit</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">val</span> r = a + b</span><br><span class="line">    lambda.invoke(r)</span><br><span class="line">    lambda2.invoke(r)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>,</span><br><span class="line">            { println(<span class="string">"Result is: <span class="variable">$it</span>"</span>) },</span><br><span class="line">            { println(<span class="string">"Invoke lambda2: <span class="variable">$it</span>"</span>) }</span><br><span class="line">    )</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>反编译 Java:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, @NotNull Function1 lambda, @NotNull Function1 lambda2)</span> </span>{</span><br><span class="line">   <span class="keyword">int</span> r = a + b;</span><br><span class="line">   lambda.invoke(r);</span><br><span class="line">   lambda2.invoke(r);</span><br><span class="line">   <span class="keyword">return</span> r;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(@NotNull String[] args)</span> </span>{</span><br><span class="line">   <span class="keyword">byte</span> a$iv = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">byte</span> b$iv = <span class="number">2</span>;</span><br><span class="line">   Function1 lambda2$iv = (Function1)<span class="keyword">null</span>.INSTANCE;</span><br><span class="line">   <span class="keyword">int</span> r$iv = a$iv + b$iv;</span><br><span class="line">   String var8 = <span class="string">"Result is: "</span> + r$iv;</span><br><span class="line">   System.out.println(var8);</span><br><span class="line">   lambda2$iv.invoke(r$iv);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>第一个 <code>lambda</code> 内联到了调用处，而第二个使用 <code>noinline</code> 声明的 <code>lambda</code> 没有。</p>
+<h2 id="crossinline"><a href="#crossinline" class="headerlink" title="crossinline"></a>crossinline</h2><p>声明一个 <code>lambda</code> 不能有 <code>return</code> 语句(可以有 <code>return@label</code> 语句)。这样可以避免使用 <code>inline</code> 时，<code>lambda</code> 中的 <code>return</code> 影响程序流程。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>, <span class="keyword">crossinline</span> lambda: (<span class="type">result</span>: <span class="type">Int</span>) -&gt; <span class="type">Unit</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">val</span> r = a + b</span><br><span class="line">    lambda.invoke(r)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> {</span><br><span class="line">    sum(<span class="number">1</span>, <span class="number">2</span>) {</span><br><span class="line">        println(<span class="string">"Result is: <span class="variable">$it</span>"</span>)</span><br><span class="line">        <span class="keyword">return</span>  <span class="comment">// 编译错误: return is not allowed here</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
+<p>PS: 使用 Kotlin 的一些特性时，最好反编译为 Java 代码看看，它帮我们做了什么，做到心中有数。</p>
+</blockquote>
+<p>本文主要涉及在使用 <code>lambda</code> 时，合理利用 <code>inline</code> <code>noinline</code> <code>crossinline</code> 可以优化程序运行效率和降低业务出错率。</p>
+<ul>
+<li><p><code>inline</code> </p>
+<ul>
+<li>内联一些小函数代码到调用处，减少函数调用开销</li>
+<li>用于 <code>lambda</code> 参数的函数，内联能进一步避免为 <code>lambda</code> 生成 <code>FunctionN</code> 对象</li>
+</ul>
+</li>
+<li><p><code>noinline</code></p>
+<ul>
+<li>结合 <code>inline</code> 时，声明不用内联的 <code>lambda</code></li>
+</ul>
+</li>
+<li><p><code>crossinline</code></p>
+<ul>
+<li>声明 <code>inline</code> 函数中的 <code>lambda</code> 不能使用 <code>return</code> 截断程序流程</li>
+</ul>
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Android">Android</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Kotlin">Kotlin</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Kotlin 必须要知道的 inline noinline crossinline&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

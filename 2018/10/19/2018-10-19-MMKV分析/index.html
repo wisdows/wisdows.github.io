@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>MMKV分析 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期五, 十月 19日 2018, 7:03 晚上
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.6k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      7 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <blockquote>
+<p>基于 mmap 的高性能通用 key-value 组件, 底层序列化/反序列化使用 protobuf 实现，性能高，稳定性强。 <a href="https://github.com/Tencent/MMKV" target="_blank" rel="noopener">https://github.com/Tencent/MMKV</a></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="官方对比："><a href="#官方对比：" class="headerlink" title="官方对比："></a>官方对比：</h1><table>
+<thead>
+<tr>
+<th align="center">IOS 循环写入随机的<code>int</code> 1w 次</th>
+<th align="center">Android 循环写入随机的<code>int</code> 1k 次</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://github.com/Tencent/MMKV/wiki/assets/profile_mini.jpg" srcset="undefined" alt="ios"></td>
+<td align="center"><img src="https://github.com/Tencent/MMKV/wiki/assets/profile_android_mini.jpg" srcset="undefined" alt="android"></td>
+</tr>
+</tbody></table>
+<h1 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h1><ol>
+<li>通过 mmap 系统调用，提供一段可供随时写入的内存块，App 只管往里面写数据，由操作系统负责将内存回写到文件，不必担心 crash 导致数据丢失</li>
+<li>在内存中维护一份 k,v 字典数据</li>
+<li>写入操作：将 value protobuf 序列化更新到字典，然后将字典再 protobuf 序列化追加到文件中(每个 Key 的更新都是直接追加到文件末尾，不是覆盖，只有当文件大小不足时才会进行 key 去重操作，所以文件大小会比通过常规方式(SharedPreferences)储存的 xml 文件大)</li>
+<li>读取操作：将文件中的数据反序列化到内存的字典中，之后的每次 get 操作直接从内存中获取，获取到 value 之后再反序列化</li>
+</ol>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="获取-MMKV-实例"><a href="#获取-MMKV-实例" class="headerlink" title="获取 MMKV 实例"></a>获取 MMKV 实例</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">getMMKVWithID</span><span class="params">(String mmapID, <span class="keyword">int</span> mode, String cryptKey)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>对应的 Native 代码:</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function">JNIEXPORT JNICALL jlong <span class="title">Java_com_tencent_mmkv_MMKV_getMMKVWithID</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    JNIEnv *env, jobject obj, jstring mmapID, jint mode, jstring cryptKey)</span> </span>{</span><br><span class="line">    MMKV *kv = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">if</span> (!mmapID) {</span><br><span class="line">        <span class="keyword">return</span> (jlong) kv;</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">string</span> str = jstring2string(env, mmapID);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cryptKey != <span class="literal">nullptr</span>) {</span><br><span class="line">        <span class="built_in">string</span> crypt = jstring2string(env, cryptKey);</span><br><span class="line">        <span class="keyword">if</span> (crypt.length() &gt; <span class="number">0</span>) {</span><br><span class="line">            kv = MMKV::mmkvWithID(str, DEFAULT_MMAP_SIZE, (MMKVMode) mode, &amp;crypt);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (!kv) {</span><br><span class="line">        kv = MMKV::mmkvWithID(str, DEFAULT_MMAP_SIZE, (MMKVMode) mode, <span class="literal">nullptr</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (jlong) kv;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>进一步调用 MMKV 类的静态方法:</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> MMKV *<span class="title">mmkvWithID</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;mmapID,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">int</span> size = DEFAULT_MMAP_SIZE,</span></span></span><br><span class="line"><span class="function"><span class="params">                            MMKVMode mode = MMKV_SINGLE_PROCESS,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="built_in">std</span>::<span class="built_in">string</span> *cryptKey = <span class="literal">nullptr</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现</span></span><br><span class="line">MMKV *MMKV::mmkvWithID(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;mmapID, <span class="keyword">int</span> size, MMKVMode mode, <span class="built_in">string</span> *cryptKey) {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mmapID.empty()) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 线程同步锁，使用区域锁模式</span></span><br><span class="line">    SCOPEDLOCK(g_instanceLock);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// static unordered_map&lt;std::string, MMKV *&gt; *g_instanceDic;</span></span><br><span class="line">    <span class="comment">// 从全局的缓存对象中获取一个对象，如果缓存中没有，就创建一个新的对象，并加到全局缓存中</span></span><br><span class="line">    <span class="keyword">auto</span> itr = g_instanceDic-&gt;find(mmapID);</span><br><span class="line">    <span class="keyword">if</span> (itr != g_instanceDic-&gt;end()) {</span><br><span class="line">        MMKV *kv = itr-&gt;second;</span><br><span class="line">        <span class="keyword">return</span> kv;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">auto</span> kv = <span class="keyword">new</span> MMKV(mmapID, size, mode, cryptKey);</span><br><span class="line">    (*g_instanceDic)[mmapID] = kv;</span><br><span class="line">    <span class="keyword">return</span> kv;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="题外话，MMKV-中的锁"><a href="#题外话，MMKV-中的锁" class="headerlink" title="题外话，MMKV 中的锁"></a>题外话，MMKV 中的锁</h2><p>MMKV 中封装了2个与锁相关的类:</p>
+<ul>
+<li>ThreadLock</li>
+<li>ScopedLock</li>
+</ul>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadLock</span> {</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">pthread_mutex_t</span> m_lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ThreadLock();</span><br><span class="line">    ~ThreadLock();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">try_lock</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span></span>;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">ThreadLock::ThreadLock() {</span><br><span class="line">    <span class="comment">// 创建一个互斥锁属性</span></span><br><span class="line">    <span class="keyword">pthread_mutexattr_t</span> attr;</span><br><span class="line">    pthread_mutexattr_init(&amp;attr);</span><br><span class="line">    <span class="comment">// 锁的类型: PTHREAD_MUTEX_RECURSIVE: 如果线程在不首先解除锁定互斥锁的情况下尝试重新锁定该互斥锁，则可成功锁定该互斥锁</span></span><br><span class="line">    pthread_mutexattr_settype(&amp;attr, PTHREAD_MUTEX_RECURSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过属性创建初始化锁</span></span><br><span class="line">    pthread_mutex_init(&amp;m_lock, &amp;attr);</span><br><span class="line">    <span class="comment">// 销毁属性</span></span><br><span class="line">    pthread_mutexattr_destroy(&amp;attr);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">ThreadLock::~ThreadLock() {</span><br><span class="line">    <span class="comment">// 析构时销毁互斥锁</span></span><br><span class="line">    pthread_mutex_destroy(&amp;m_lock);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScopedLock</span> {</span></span><br><span class="line">    T *m_lock;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// just forbid it for possibly misuse</span></span><br><span class="line">    ScopedLock(<span class="keyword">const</span> ScopedLock&lt;T&gt; &amp;other) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">    ScopedLock &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> ScopedLock&lt;T&gt; &amp;other) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ScopedLock(T *oLock) : m_lock(oLock) {</span><br><span class="line">        assert(m_lock);</span><br><span class="line">        lock();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    ~ScopedLock() {</span><br><span class="line">        unlock();</span><br><span class="line">        m_lock = <span class="literal">nullptr</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (m_lock) {</span><br><span class="line">            m_lock-&gt;lock();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">try_lock</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (m_lock) {</span><br><span class="line">            <span class="keyword">return</span> m_lock-&gt;try_lock();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (m_lock) {</span><br><span class="line">            m_lock-&gt;unlock();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SCOPEDLOCK(lock) _SCOPEDLOCK(lock, __COUNTER__)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _SCOPEDLOCK(lock, counter) __SCOPEDLOCK(lock, counter)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __SCOPEDLOCK(lock, counter) ScopedLock<span class="meta-string">&lt;decltype(lock)&gt; __scopedLock##counter(&amp;lock)</span></span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="TODO-⬇️"><a href="#TODO-⬇️" class="headerlink" title="TODO ⬇️"></a>TODO ⬇️</h2><h2 id="内存准备"><a href="#内存准备" class="headerlink" title="内存准备"></a>内存准备</h2><p>通过 mmap 内存映射文件，提供一段可供随时写入的内存块，App 只管往里面写数据，由操作系统负责将内存回写到文件，不必担心 crash 导致数据丢失。</p>
+<ul>
+<li>默认文件大小：系统内存分页大小,大小一般是 4096 byte, 4KB</li>
+<li>文件存不够时，先对 key 去重，之后空间还是不够就增大文件，以内存分页大小的整数倍增加</li>
+</ul>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> MMKV::loadFromFile() {</span><br><span class="line">    <span class="comment">//获取文件句柄</span></span><br><span class="line">    m_fd = open(m_path.c_str(), O_RDWR | O_CREAT, S_IRWXU);</span><br><span class="line">    <span class="keyword">if</span> (m_fd &lt; <span class="number">0</span>) {</span><br><span class="line">        MMKVError(<span class="string">"fail to open:%s, %s"</span>, m_path.c_str(), strerror(errno));</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        m_size = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 获取文件大小</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">st</span> = {</span><span class="number">0</span>};</span><br><span class="line">        <span class="keyword">if</span> (fstat(m_fd, &amp;st) != <span class="number">-1</span>) {</span><br><span class="line">            m_size = <span class="keyword">static_cast</span>&lt;<span class="keyword">size_t</span>&gt;(st.st_size);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// round up to (n * pagesize)</span></span><br><span class="line">        <span class="comment">// 如果 size 小于系统内存分页大小 或 不是整数倍,就增加到整数倍</span></span><br><span class="line">        <span class="keyword">if</span> (m_size &lt; DEFAULT_MMAP_SIZE || (m_size % DEFAULT_MMAP_SIZE != <span class="number">0</span>)) {</span><br><span class="line">            <span class="keyword">size_t</span> oldSize = m_size;</span><br><span class="line">            m_size = ((m_size / DEFAULT_MMAP_SIZE) + <span class="number">1</span>) * DEFAULT_MMAP_SIZE;</span><br><span class="line">            <span class="comment">//改变文件大小到新的 size</span></span><br><span class="line">            <span class="keyword">if</span> (ftruncate(m_fd, m_size) != <span class="number">0</span>) {</span><br><span class="line">                m_size = <span class="keyword">static_cast</span>&lt;<span class="keyword">size_t</span>&gt;(st.st_size);</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">//用 0 把新增的空间填满</span></span><br><span class="line">            zeroFillFile(m_fd, oldSize, m_size - oldSize);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//建立内存映射</span></span><br><span class="line">        m_ptr = (<span class="keyword">char</span> *) mmap(<span class="literal">nullptr</span>, m_size, PROT_READ | PROT_WRITE, MAP_SHARED, m_fd, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_ptr == MAP_FAILED) {</span><br><span class="line">            MMKVError(<span class="string">"fail to mmap [%s], %s"</span>, m_mmapID.c_str(), strerror(errno));</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="built_in">memcpy</span>(&amp;m_actualSize, m_ptr, Fixed32Size);</span><br><span class="line">            <span class="keyword">bool</span> loaded = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (m_actualSize &gt; <span class="number">0</span>) {</span><br><span class="line">                <span class="keyword">if</span> (m_actualSize &lt; m_size &amp;&amp; m_actualSize + Fixed32Size &lt;= m_size) {</span><br><span class="line">                    <span class="keyword">if</span> (checkFileCRCValid()) {</span><br><span class="line">                        <span class="comment">// 将文件解码为字典，存到内存中</span></span><br><span class="line">                        m_dic = MiniPBCoder::decodeMap(inputBuffer);</span><br><span class="line">                        <span class="comment">// 将原始内存映射指针位移到已经填充之后的位置，构造成一个负责输出数据到文件的对象，供后面写数据使用</span></span><br><span class="line">                        m_output = <span class="keyword">new</span> CodedOutputData(m_ptr + Fixed32Size + m_actualSize, m_size - Fixed32Size - m_actualSize);</span><br><span class="line">                        loaded = <span class="literal">true</span>;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    m_needLoadFromFile = <span class="literal">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="数据组织"><a href="#数据组织" class="headerlink" title="数据组织"></a>数据组织</h2><p>数据序列化方面选用 protobuf 协议</p>
+<h2 id="写入优化"><a href="#写入优化" class="headerlink" title="写入优化"></a>写入优化</h2><p>考虑到主要使用场景是频繁地进行写入更新，将 kv 对象序列化后，append 到内存末尾。</p>
+<blockquote>
+<p>比如写入一个字符串</p>
+</blockquote>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> MMKV::setStringForKey(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;value, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;key) {</span><br><span class="line">    <span class="keyword">if</span> (key.empty()) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 序列化 value</span></span><br><span class="line">    <span class="keyword">auto</span> data = MiniPBCoder::encodeDataWithObject(value);</span><br><span class="line">    <span class="keyword">return</span> setDataForKey(<span class="built_in">std</span>::move(data), key);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> MMKV::setDataForKey(MMBuffer &amp;&amp;data, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;key) {</span><br><span class="line">    <span class="keyword">if</span> (data.length() == <span class="number">0</span> || key.empty()) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// check 文件是否已经加载到内存，没有就加载一次</span></span><br><span class="line">    checkLoadData();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// m_dic[key] = std::move(data);</span></span><br><span class="line">    <span class="comment">// 从内存中的字典拿</span></span><br><span class="line">    <span class="keyword">auto</span> itr = m_dic.find(key);</span><br><span class="line">    <span class="keyword">if</span> (itr == m_dic.end()) {</span><br><span class="line">        <span class="comment">// 没有就插入</span></span><br><span class="line">        itr = m_dic.emplace(key, <span class="built_in">std</span>::move(data)).first;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">// 有就更新</span></span><br><span class="line">        itr-&gt;second = <span class="built_in">std</span>::move(data);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 至此内存中操作结束</span></span><br><span class="line">    <span class="comment">// 然后进行将数据写到内存映射</span></span><br><span class="line">    <span class="keyword">return</span> appendDataWithKey(itr-&gt;second, key);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="空间增长"><a href="#空间增长" class="headerlink" title="空间增长"></a>空间增长</h2><p>使用 append 实现增量更新</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> MMKV::appendDataWithKey(<span class="keyword">const</span> MMBuffer &amp;data, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;key) {</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 扩容</span></span><br><span class="line">    <span class="keyword">bool</span> hasEnoughSize = ensureMemorySize(size);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!hasEnoughSize || !isFileValid()) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 如果实际大小为0，表示第一次写入数据</span></span><br><span class="line">    <span class="keyword">if</span> (m_actualSize == <span class="number">0</span>) {</span><br><span class="line">        <span class="comment">// 直接将内存中的字典全部写入</span></span><br><span class="line">        <span class="keyword">auto</span> allData = MiniPBCoder::encodeDataWithObject(m_dic);</span><br><span class="line">        <span class="keyword">if</span> (allData.length() &gt; <span class="number">0</span>) {</span><br><span class="line">            writeAcutalSize(allData.length());</span><br><span class="line">            m_output-&gt;writeRawData(allData);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">// 向末尾追加数据</span></span><br><span class="line">        writeAcutalSize(m_actualSize + size);</span><br><span class="line">        m_output-&gt;writeString(key);</span><br><span class="line">        m_output-&gt;writeData(data);</span><br><span class="line">        <span class="keyword">auto</span> ptr = (<span class="keyword">uint8_t</span> *) m_ptr + Fixed32Size + m_actualSize - size;</span><br><span class="line">        <span class="keyword">if</span> (m_crypter) {</span><br><span class="line">            m_crypter-&gt;encrypt(ptr, ptr, size);</span><br><span class="line">        }</span><br><span class="line">        updateCRCDigest(ptr, size, KeepSequence);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>适应于频繁写入读取的地方</li>
+<li>文件大小会比常规方式大一些</li>
+<li>内部的一些实现比较高效<ul>
+<li>函数传参采用右值引用，外部通过 <code>move</code>调用将函数中局部变量的内容直接通过移动内存指向形参中，避免直接传参的内存拷贝</li>
+</ul>
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Android">Android</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Source%20Code">Source Code</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E5%AD%98%E5%82%A8">存储</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "MMKV分析&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

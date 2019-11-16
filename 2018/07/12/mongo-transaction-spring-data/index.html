@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>译：使用Spring Data进行MongoDB 4.0事务处理 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期四, 七月 12日 2018, 10:13 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.4k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      5 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>原文链接：<a href="http://spring.io/blog/2018/06/28/hands-on-mongodb-4-0-transactions-with-spring-data" target="_blank" rel="noopener">http://spring.io/blog/2018/06/28/hands-on-mongodb-4-0-transactions-with-spring-data</a></p>
+<p>作者：<a href="http://spring.io/team/christophstrobl" target="_blank" rel="noopener">christophstrobl</a></p>
+<p>译者：<a href="https://github.com/hh23485" target="_blank" rel="noopener">hh23485</a></p>
+<p>在 <a href="https://www.mongodb.com/transactions" target="_blank" rel="noopener">MongoDB 4.0</a> 中，ACID 事务已经用于 <code>Document</code> 的存储，强制维护全执行或全不执行的数据一致性状态。所以让我们直接在 synchronous 模型和 reactive 执行模型中验证该特性。</p>
+<a id="more"></a>
+
+<p>在撰写本文时，MongoDB 的多文档事务在单副本集中受支持，并且给用户的感受像是在使用关系型数据库的事务一样。看到驱动程序提供的 API 立刻会感觉到回到家里一样。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (ClientSession session = client.startSession()) {</span><br><span class="line">    session.startTransaction();</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        collection.insertOne(session, documentOne);</span><br><span class="line">        collection.insertOne(session, documentTwo);</span><br><span class="line">        session.commitTransaction();</span><br><span class="line">    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">        session.abortTransaction();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>逻辑会话建立在 MongoDB的基础上，当然，事务，当然还有事务构建了基础。</p>
+<p>逻辑会话通过帮助跨分布式节点协调操作来为MangoDB的<a href="https://docs.mongodb.com/manual/core/read-isolation-consistency-recency/#causal-consistency" target="_blank" rel="noopener">因果一致性</a>和事务建立基础。客户端从 <code>client.startSession()</code> 中获取会话，会话的生命周期不应过长，在不再使用的时候应该立刻关闭它。所以确保使用 <code>close()</code> 来关闭客户端会话。</p>
+<p>在底层的协议层，上面的代码片段将会转变为如下一系列命令，你可以清楚的发现在每个命令中都包含会话(<code>lsid</code>)。<code>startTransaction</code> 标志位将会与第一个命令一起发送，表示事务的开始。在事务完成后，发送<code>commitTransaction</code> 表示事务的提交。</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">{ <span class="attr">insert</span>: <span class="string">"col"</span>, <span class="attr">ordered</span>: <span class="literal">true</span>, <span class="attr">$db</span>: <span class="string">"db"</span>,</span><br><span class="line">  $clusterTime: { … },</span><br><span class="line">  lsid: { <span class="attr">id</span>: { <span class="attr">$binary</span>: { <span class="attr">base64</span> : <span class="string">"I3M7Nj…"</span>, … } } },</span><br><span class="line">  txnNumber: <span class="number">1</span>,</span><br><span class="line">  startTransaction: <span class="literal">true</span>,</span><br><span class="line">  documents: [ { … } ] }</span><br><span class="line"></span><br><span class="line">{ <span class="attr">insert</span>: <span class="string">"col"</span>, <span class="attr">ordered</span>: <span class="literal">true</span>, <span class="attr">$db</span>: <span class="string">"db"</span>,</span><br><span class="line">  $clusterTime: { … },</span><br><span class="line">  lsid: { <span class="attr">id</span>: { <span class="attr">$binary</span>: { <span class="attr">base64</span> : <span class="string">"I3M7Nj…"</span>, … } } },</span><br><span class="line">  txnNumber: <span class="number">1</span>,</span><br><span class="line">  autocommit: <span class="literal">false</span>,</span><br><span class="line">  documents: [ { …} ] }</span><br><span class="line"></span><br><span class="line">{ <span class="attr">commitTransaction</span>: <span class="number">1</span>,</span><br><span class="line">  $db: <span class="string">"admin"</span>,</span><br><span class="line">  $clusterTime: { … },</span><br><span class="line">  lsid: { <span class="attr">id</span>: { <span class="attr">$binary</span>: { <span class="attr">base64</span> : <span class="string">"I3M7Nj…"</span>, … } } },</span><br><span class="line">  txnNumber: <span class="number">1</span> }</span><br></pre></td></tr></tbody></table></figure>
+
+<p>随着即将发布的 Spring Data <a href="https://github.com/spring-projects/spring-data-commons/wiki/Release-Train-Lovelace" target="_blank" rel="noopener">Lovelace</a> 版本，MongoDB 模块将提供对 synchronous 和 reactive 事务的支持。</p>
+<p>我们从 synchronous 模式开始，你可以能已经非常熟悉 Spring 框架对事务的支持 (<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/data-access.html#transaction" target="_blank" rel="noopener">Spring Framework’s transaction support</a>) 。因此，一个 <code>MongoTransactionManager</code> 的存在并不令人吃惊。该事务管理器是在命令式世界中基于注释的事务支持的入口。 </p>
+<p>现在，因为 MongoDB 在早期版本中不支持事务，你必须明确的在 <code>ApplicationContext</code> 中注册 <code>MongoTransactionManager</code> 。如果你这样做的话，<code>MongoTemplate</code> 将会开始参与管理事务。这是一个你需要记住的要点。下面的例子展示了你应该如何配置事务管理器。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span> <span class="keyword">extends</span> <span class="title">AbstractMongoConfiguration</span> </span>{</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">MongoTransactionManager <span class="title">transactionManager</span><span class="params">(MongoDbFactory dbFactory)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MongoTransactionManager(dbFactory);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DocumentService</span> </span>{</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> MongoOperations operations;</span><br><span class="line"></span><br><span class="line">  DocumentService(MongoOperations operations) {</span><br><span class="line">    <span class="keyword">this</span>.operations = operations;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Transactional</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">insertDocuments</span><span class="params">()</span> </span>{</span><br><span class="line">    operations.insert(documentOne);</span><br><span class="line">    operations.insert(documentTwo);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>非常直播的操作是吧？但是，这里有一些隐含的缺点。 <a href="https://docs.mongodb.com/manual/sharding/#sharded-cluster" target="_blank" rel="noopener">集群</a>环境下的事务支持在下一个 MongDB 的 release 主要版本中才会支持，因此在您使用时会发生错误。此外，作为一个 MongoDB 的用户，你可能已经习惯了他提供的所有的便利，但一些特性在事务中无法使用了，包括了几乎所有的元命令，创建集合，索引以及受此使用集合时隐式创建集合。为了避免错误和折腾，请务必设置所需的结构。此外，某些命令可能还会有一些不同。例如使用集合集合统计信息的 <code>count</code> 命令可能在事务中并不准确。命令将会出错并且需要使用聚合计数文档，当前的驱动已经提供一个替代方法 <code>countDocuments</code> 来利用聚合策略解决这个问题。</p>
+<p>考虑到这一点，让我们继续进行 reactive 使用的部分。</p>
+<p>在 <a href="https://mongodb.github.io/mongo-java-driver-reactivestreams/" target="_blank" rel="noopener">MongoDB的ReactiveStreams驱动程序</a> 提供了一个反应切入点多文档交易。将本机驱动程序管道<code>Publisher</code>化为 <a href="https://projectreactor.io/" target="_blank" rel="noopener">Reactor</a> 类型可让您表达事务用法，如下所示： </p>
+ <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Mono.from(client.startSession()).flatMap(session -&gt; {</span><br><span class="line"></span><br><span class="line">  session.startTransaction();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Mono.from(collection.insertOne(session, documentOne))</span><br><span class="line">    .then(Mono.from(collection.insertOne(session, documentTwo)))</span><br><span class="line">    .onErrorResume(e -&gt; Mono.from(session.abortTransaction())</span><br><span class="line">      .then(Mono.error(e)))</span><br><span class="line">    .flatMap(val -&gt; Mono.from(session.commitTransaction())</span><br><span class="line">      .then(Mono.just(val)))</span><br><span class="line">    .doFinally(signal -&gt; session.close());</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+<p>不管事务的结果是成功还是回滚，我们都需要保证事务的终止。因此，<code>onErrorResume(...)</code> 保证了事务在失败的时候可以回滚，然后在 <code>flatMap(...)</code> 中提交，这两个阶段都保存了主流 (main flow) 的结果或错误。<br>不同于 sync 部分，截止撰稿时还没有 reactive 模型可用的事务管理器能够让你通过注解 <code>@Transactional</code> 那样简单的完成事务工作。<br>相反，你需要通过 <code>ReactiveMongoTemplate.inTransaction(...)</code> 获取一个 transaction 闭包。它在保持主流 (main flow) 结果的同事负责所有必需的会话，提交和终止操作。回调方法中的操作在MongoDB事务中执行，而外部的处理步骤将不会影响事务。这意味着闭包之外的处理错误不会导致事务终止，就像下面的例子描述的那样。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">template.inTransaction().execute(action -&gt;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// All code in here runs inside the transaction</span></span><br><span class="line">    action.insert(documentOne).then(action.insert(documentTwo)</span><br><span class="line"></span><br><span class="line">  ).flatMap(val -&gt; {</span><br><span class="line">    <span class="comment">// An exception here does not affect the transaction</span></span><br><span class="line">  });</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在这个例子中，你能够通过流访问到 <code>ClientSession</code>，它存放在 Reactor 的 <code>Context</code> 中，并且你可以通过 <code>ReactiveMongoContext.getSession()</code> 来获取它。</p>
+<p>最后一件事情：我们非常高兴你能够尝试并且给我们提供一些反馈，所以请查看 <a href="https://github.com/spring-projects/spring-data-examples" target="_blank" rel="noopener">Spring Data Examples</a>，您可以在其中找到相关的 <a href="https://github.com/spring-projects/spring-data-examples/tree/master/mongodb/transactions" target="_blank" rel="noopener">项目</a>。</p>
+<p>如果你想要学习更多有关 Spring Data 或者通用的 Spring eco-system，即将在华盛顿召开的 <a href="https://springoneplatform.io/" target="_blank" rel="noopener">SpringOne Platform</a> 会议对您来说是一个非常好的机会。查看<a href="https://springoneplatform.io/2018/sessions" target="_blank" rel="noopener">会话</a>并注册。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/%E5%BC%80%E6%BA%90">开源</a>
+                  &nbsp;
+                
+                  <a class="hover-with-bg" href="/categories/%E7%BF%BB%E8%AF%91">翻译</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Spring">Spring</a>
+                
+                  <a class="hover-with-bg" href="/tags/MongoDB">MongoDB</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "译：使用Spring Data进行MongoDB 4.0事务处理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

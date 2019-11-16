@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>OkHttp拦截器使用 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期三, 八月 23日 2017, 7:22 晚上
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    606 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <blockquote>
+<p>在Android上进行网络请求时，经常需要维持登录之后的session和cookie状态。session和cookie是加在<code>HTTP</code>请求的<code>header</code>里的。可以通过从header中获取，进行请求时手动添加登录获取的cookie。</p>
+</blockquote>
+<p>OkHttp提供的拦截器可以添加，删除或替换请求标头。 还可以转换具有一个请求的正文。例如，如果您连接到的Web服务器支持压缩，就可以使用应用程序拦截器添加请求体压缩。</p>
+<p><img src="http://image.youcute.cn/17-8-23/55803730.jpg" srcset="undefined" alt="OkHttp Interceptor"></p>
+<blockquote>
+<p>square的一张图</p>
+</blockquote>
+<p>OkHttp提供了一个拦截器接口<code>Interceptor</code>和两种添加拦截器的方式：</p>
+<ul>
+<li>Application Interceptor</li>
+<li>NetWork Interceptor</li>
+</ul>
+<p>两者最大的区别就是在一次网络访问中拦截的次数和拦截到的信息。</p>
+<h2 id="Interceptors-调用时序图"><a href="#Interceptors-调用时序图" class="headerlink" title="Interceptors 调用时序图"></a>Interceptors 调用时序图</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">participant client.interceptors #SpringGreen</span><br><span class="line">participant RetryAndFollowUpInterceptor</span><br><span class="line">participant BridgeInterceptor</span><br><span class="line">participant CacheInterceptor</span><br><span class="line">participant ConnectInterceptor</span><br><span class="line">participant client.networkInterceptors #SpringGreen</span><br><span class="line">participant CallServerInterceptor</span><br><span class="line"></span><br><span class="line">client.interceptors -&gt; RetryAndFollowUpInterceptor</span><br><span class="line">activate client.interceptors</span><br><span class="line">activate RetryAndFollowUpInterceptor</span><br><span class="line"></span><br><span class="line">RetryAndFollowUpInterceptor -&gt; BridgeInterceptor</span><br><span class="line">activate BridgeInterceptor</span><br><span class="line"></span><br><span class="line">BridgeInterceptor -&gt; CacheInterceptor</span><br><span class="line">activate CacheInterceptor</span><br><span class="line"></span><br><span class="line">CacheInterceptor -&gt; ConnectInterceptor</span><br><span class="line">activate ConnectInterceptor</span><br><span class="line"></span><br><span class="line">ConnectInterceptor -&gt; client.networkInterceptors</span><br><span class="line">activate client.networkInterceptors</span><br><span class="line"></span><br><span class="line">client.networkInterceptors -&gt; CallServerInterceptor</span><br><span class="line">activate CallServerInterceptor</span><br><span class="line"></span><br><span class="line">CallServerInterceptor --&gt; client.networkInterceptors</span><br><span class="line">deactivate CallServerInterceptor</span><br><span class="line"></span><br><span class="line">client.networkInterceptors --&gt; ConnectInterceptor</span><br><span class="line">deactivate client.networkInterceptors</span><br><span class="line"></span><br><span class="line">ConnectInterceptor --&gt; CacheInterceptor</span><br><span class="line">deactivate ConnectInterceptor</span><br><span class="line"></span><br><span class="line">CacheInterceptor --&gt; BridgeInterceptor</span><br><span class="line">deactivate CacheInterceptor</span><br><span class="line"></span><br><span class="line">BridgeInterceptor --&gt; RetryAndFollowUpInterceptor</span><br><span class="line">deactivate BridgeInterceptor</span><br><span class="line"></span><br><span class="line">RetryAndFollowUpInterceptor --&gt; client.interceptors</span><br><span class="line">deactivate RetryAndFollowUpInterceptor</span><br><span class="line">deactivate client.interceptors</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="Application-Interceptor"><a href="#Application-Interceptor" class="headerlink" title="Application Interceptor"></a>Application Interceptor</h2><ul>
+<li>不必担心中间响应，如重定向和重试。</li>
+<li>总是调用一次，即使是从缓存中提供的HTTP响应。</li>
+<li>遵守应用程序的原始意图。OkHttp注入的标题，如If-None-Match，不会生效。</li>
+<li>允许短路，不调用Chain.proceed（）。</li>
+<li>允许重试并多次调用Chain.proceed（）。</li>
+</ul>
+<h2 id="NetWork-Interceptor"><a href="#NetWork-Interceptor" class="headerlink" title="NetWork Interceptor"></a>NetWork Interceptor</h2><ul>
+<li>能够对重定向和重试等中间响应进行操作。</li>
+<li>对于缓存网络短路的响应不被调用。</li>
+<li>观察数据，就像通过网络传输一样。</li>
+<li>访问携带请求的连接。</li>
+</ul>
+<h2 id="使用拦截器自动储存和添加cookie"><a href="#使用拦截器自动储存和添加cookie" class="headerlink" title="使用拦截器自动储存和添加cookie"></a>使用拦截器自动储存和添加cookie</h2><blockquote>
+<p>OkHttp 有提供 CookieJar 辅助存储 cookie</p>
+</blockquote>
+<p>OkHttp提供了<code>Interceptors</code>拦截器可以很方便的实现类似<code>cookie</code>本地化维持的操作。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">AddCookiesInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(@NonNull Chain chain)</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">        <span class="comment">//get cached cookie from local</span></span><br><span class="line">        HashSet&lt;String&gt; cookies = (HashSet&lt;String&gt;) SharedPrefsUtils</span><br><span class="line">                .getStringSetPreference(</span><br><span class="line">                        AccessApplication.getGlobalContext(),</span><br><span class="line">                        C.SP_COOKIE);</span><br><span class="line">        <span class="comment">//add cached cookie into request</span></span><br><span class="line">        Request.Builder builder = chain.request().newBuilder();</span><br><span class="line">        <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">for</span> (String cookie : cookies) {</span><br><span class="line">                builder.addHeader(<span class="string">"Cookie"</span>, cookie);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        Request request = builder.build();</span><br><span class="line">        <span class="comment">//get response</span></span><br><span class="line">        Response response = chain.proceed(request);</span><br><span class="line">        <span class="comment">//save response cookie to local cache</span></span><br><span class="line">        List&lt;String&gt; newCookies = response.headers(<span class="string">"Set-Cookie"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!newCookies.isEmpty()) {</span><br><span class="line">            HashSet&lt;String&gt; cookie = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (String header : newCookies) {</span><br><span class="line">                cookie.add(header);</span><br><span class="line">            }</span><br><span class="line">            SharedPrefsUtils.setStringSetPreference(</span><br><span class="line">                    AccessApplication.getGlobalContext(),</span><br><span class="line">                    C.SP_COOKIE, cookie);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> response;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Android">Android</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "OkHttp拦截器使用&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

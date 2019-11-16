@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Kubernetes:v1.13.4的Worker节点墙内部署文档(CentOS7) WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期五, 三月 22日 2019, 12:00 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.1k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      9 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><hr>
+<p>Kubernetes的Worker节点的部署要比Master简单不少，核心的是一条join命令，步骤如下。</p>
+<p>操作系统是CentOS7，假设使用的用户是root（如果不是root的话，请自行添加”sudo”）</p>
+<p>如果你用的是Ubuntu系统，大多数操作也都类似，在结尾附录二中我还给出了Ubuntu安装过程中与CentOS7不同的地方，希望能对你有所帮助。</p>
+<h1 id="步骤一-调节Docker版本"><a href="#步骤一-调节Docker版本" class="headerlink" title="步骤一 调节Docker版本"></a>步骤一 调节Docker版本</h1><hr>
+<p>Kubernetes和Docker的版本兼容性一直是令人头疼的问题，之前我的服务器上装的docker是1.13.1版本，安装时会报很多莫名其妙的错误，让人困惑很久，经过测试Docker的1.13.0版本是能够和Kubernetes的v1.13.4版本完美配合的。</p>
+<p><strong>1.查看docker版本</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -v</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果发现版本刚好是1.13.0的话就可以直接跳到步骤二了</p>
+<p><strong>2.如果发现版本不是1.13.0的话，建议将Docker卸载并且重新安装合适的版本</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除已有的docker</span></span><br><span class="line">yum erase -y docker*</span><br><span class="line"><span class="comment"># 删除已有的docker镜像(防止不同版本的docker无法兼容各自的镜像而产生服务无法启动的错误)</span></span><br><span class="line">mv -f /var/lib/docker /var/lib/docker.old</span><br><span class="line"><span class="comment"># 添加可以下载老版本docker的yum源</span></span><br><span class="line">cat&gt;&gt; /etc/yum.repos.d/docker-main.repo &lt;&lt;EOF</span><br><span class="line">[docker-main]</span><br><span class="line">name=docker-main</span><br><span class="line">baseurl=http://mirrors.aliyun.com/docker-engine/yum/repo/main/centos/<span class="number">7</span>/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgkey=http://mirrors.aliyun.com/docker-engine/yum/gpg</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除缓存</span></span><br><span class="line">yum clean all</span><br><span class="line"><span class="comment"># 安装docker 1.13.0</span></span><br><span class="line">yum -y install docker-engine<span class="number">-1.13</span><span class="number">.0</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>上面的安装命令在有的情况下可能还是会安装上新版本的docker，此时可以考虑下载rpm包自己手动进行安装：<a href="https://yum.dockerproject.org/repo/main/centos/7/Packages/" target="_blank" rel="noopener">下载地址</a></p>
+<p>下载docker-engine-selinux-17.05.0.ce-1.el7.centos.noarch.rpm和docker-engine-1.13.0-1.el7.centos.x86_64.rpm这两个，然后上传到linux服务器上，使用如下命令装：</p>
+<p>先cd到你上传这两个rpm包所在的目录</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果最近在update过，不运行这个也可以</span></span><br><span class="line">yum update -y</span><br><span class="line"><span class="comment"># 先安装docker-engine-selinux</span></span><br><span class="line">rpm -ivh docker-engine-selinux<span class="number">-17.05</span><span class="number">.0</span>.ce<span class="number">-1.</span>el7.centos.noarch.rpm</span><br><span class="line"><span class="comment"># 再安装docker-engine</span></span><br><span class="line">rpm -ivh docker-engine<span class="number">-1.13</span><span class="number">.0</span><span class="number">-1.</span>el7.centos.x86_64.rpm</span><br></pre></td></tr></tbody></table></figure>
+
+<p>之后查看docker版本：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -v</span><br></pre></td></tr></tbody></table></figure>
+
+<p>确认此时docker的版本已经是1.13.0：</p>
+<p><img src="/assets/img/kubernetes/dockerversion.png" srcset="undefined" alt="确认docker版本"></p>
+<p><strong>3. 开启docker服务</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker</span><br><span class="line">systemctl start docker</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="步骤二-安装kubeadm"><a href="#步骤二-安装kubeadm" class="headerlink" title="步骤二 安装kubeadm"></a>步骤二 安装kubeadm</h1><hr>
+<p>kubeadm是一个可以方便我们部署kubernetes节点的工具。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加安装kubeadm的yum源</span></span><br><span class="line">cat&gt;&gt; /etc/yum.repos.d/kubernetes.repo &lt;&lt;EOF</span><br><span class="line">[kubernetes]</span><br><span class="line">name=kubernetes</span><br><span class="line">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line">enable=<span class="number">1</span></span><br><span class="line">EOF</span><br><span class="line"><span class="comment"># 安装kubeadm</span></span><br><span class="line">yum install -y kubeadm</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在安装kubeadm的同时，系统还自动帮你安装了kubectl，kubelet和kubernetes-cni</p>
+<p>设置kubelet开机自启</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable kubelet.service</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意此时不要尝试通过<code>systemctl start</code>来启动<code>kubelet</code>，即使尝试了也不会成功，<code>kubelet</code>最终必须由kubeadm来负责启动。</p>
+<h1 id="步骤三-拉取kubernetes的系统镜像"><a href="#步骤三-拉取kubernetes的系统镜像" class="headerlink" title="步骤三 拉取kubernetes的系统镜像"></a>步骤三 拉取kubernetes的系统镜像</h1><hr>
+<p>kubernetes在Worker节点上的基础系统，除了kubelet以外，其他都是通过容器部署的。本来这些镜像都可以在Worker启动时自动拉取的，但是因为国内墙的原因，我们事先在本地准备好（通过大佬在<a href="https://github.com/anjia0532/gcr.io_mirror" target="_blank" rel="noopener">github上建立的镜像</a>）。</p>
+<p>在shell中执行如下代码：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">images=(kube-proxy:v1<span class="number">.13</span><span class="number">.4</span> pause:<span class="number">3.1</span>)</span><br><span class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> ${images[@]} ; do</span><br><span class="line">docker pull gcr.azk8s.cn/google-containers/$imageName</span><br><span class="line">docker tag gcr.azk8s.cn/google-containers/$imageName k8s.gcr.io/$imageName</span><br><span class="line">docker rmi gcr.azk8s.cn/google-containers/$imageName</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="步骤四-禁用swap分区"><a href="#步骤四-禁用swap分区" class="headerlink" title="步骤四  禁用swap分区"></a>步骤四  禁用swap分区</h1><hr>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="步骤五-修改主机名"><a href="#步骤五-修改主机名" class="headerlink" title="步骤五 修改主机名"></a>步骤五 修改主机名</h1><hr>
+<p>集群内的主机名最好能有比较统一的格式，我没有在集群中配置DNS，所以采用的方案就是使用统一的<code>/etc/hosts</code>，集群中的主机ip是<code>10.10.108.xx</code>，于是就约定其主机名是<code>hxx</code>，我生成了一份这样的<code>hosts</code>文件，并且用脚本拷贝到了每一台机器上，同时使用下面的命令更改主机名：</p>
+<p>(假设ip是<code>10.10.10.108.73</code>)</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname <span class="string">"h73"</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+<h1 id="步骤六-加入集群"><a href="#步骤六-加入集群" class="headerlink" title="步骤六 加入集群"></a>步骤六 加入集群</h1><hr>
+<p>如果Master节点启动时产生的<code>join</code>命令还保存着的话，直接使用那条命令就可以了。</p>
+<p>否则，可以通过<code>kubeadm token list</code>命令查看token。</p>
+<p><img src="/assets/img/kubernetes/tokenlist.png" srcset="undefined" alt="tokenlist"></p>
+<p>其中有一列<code>EXPIRES</code>代表token过期的时间，找到一个还没过期的token然后执行以下命令：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join Master节点的IP:<span class="number">6443</span> --token 找到的token --discovery-token-ca-cert-hash sha256:主节点启动时生成的sha256值</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果所有token都过期了，可以使用如下命令创建一个：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create --<span class="keyword">print</span>-join-command</span><br></pre></td></tr></tbody></table></figure>
+
+<p>默认的token有效期是23h，也可以通过如下命令创建永久有效的token：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create --ttl <span class="number">0</span> --<span class="keyword">print</span>-join-command</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这时就会生成一个永不过期的token</p>
+<p>执行完join命令如果没有报错就成功加入集群了，可以在主节点上通过<code>kubectl get nodes</code>查看是否有该主机。</p>
+<h1 id="附录1：如何排错"><a href="#附录1：如何排错" class="headerlink" title="附录1：如何排错"></a>附录1：如何排错</h1><hr>
+<p>有时候<code>join</code>命令打印出的信息并不详尽，可以使用如下的命令查看更加详尽的报错：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -xe</span><br></pre></td></tr></tbody></table></figure>
+
+<p>对于某个pod的错误可以通过下面的命令具体查看：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod pod的名称 -n pod所在命名空间</span><br></pre></td></tr></tbody></table></figure>
+
+<p>通过<code>kubectl get pods --all-namespaces</code>可以查看到你想要的pod名称与命名空间，填入上面的命令即可。</p>
+<h1 id="附录2：Ubuntu系统需要注意的地方"><a href="#附录2：Ubuntu系统需要注意的地方" class="headerlink" title="附录2：Ubuntu系统需要注意的地方"></a>附录2：Ubuntu系统需要注意的地方</h1><hr>
+<p>如果部署的机器是Ubuntu系统，大部分步骤都差不多，区别比较大的地方只有两处：</p>
+<h3 id="安装指定版本的Docker"><a href="#安装指定版本的Docker" class="headerlink" title="安装指定版本的Docker"></a>安装指定版本的Docker</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除版本不对的docker</span></span><br><span class="line">apt-get remove docker docker-engine docker-ce docker.io</span><br><span class="line"><span class="comment"># 添加含有老版本docker的源</span></span><br><span class="line">curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -</span><br><span class="line">apt-add-repository <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main"</span></span><br><span class="line">apt-get update</span><br><span class="line"><span class="comment"># 安装1.13.0版本Docker</span></span><br><span class="line">apt-get install docker-engine=<span class="number">1.13</span><span class="number">.0</span><span class="number">-0</span>~ubuntu-xenial</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="安装kubeadm"><a href="#安装kubeadm" class="headerlink" title="安装kubeadm"></a>安装kubeadm</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加含有kubeadm的源</span></span><br><span class="line">git clone  https://gitee.com/DQYuan_admin/kubernetes_gpg.git</span><br><span class="line">cd kubernetes_gpg</span><br><span class="line">cat apt-key.gpg | apt-key add -</span><br><span class="line"></span><br><span class="line">cat &lt;&lt;EOF &gt; /etc/apt/sources.list.d/kubernetes.list</span><br><span class="line">deb http://mirrors.ustc.edu.cn/kubernetes/apt kubernetes-xenial main</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装kubeadm</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install kubeadm</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h1 id="附录3：部署脚本"><a href="#附录3：部署脚本" class="headerlink" title="附录3：部署脚本"></a>附录3：部署脚本</h1><hr>
+<p>脚本默认使用root用户执行。只适用于CentOS7</p>
+<p>需要根据自身集群的情况修改脚本部分内容</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定需要的docker版本</span></span><br><span class="line">docker_version=<span class="number">1.13</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果k8s在该台机器上已启动</span></span><br><span class="line">kube_line_num=`ps -ef | grep kubelet | wc -l`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ $kube_line_num&gt;<span class="number">1</span> ]]; then</span><br><span class="line">    echo <span class="string">"该台机器已经启动过k8s了,不必重复启动,脚本退出"</span></span><br><span class="line">    exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function docker_install() {</span><br><span class="line">    cat&gt;&gt; /etc/yum.repos.d/docker-main.repo &lt;&lt;EOF</span><br><span class="line">[docker-main]</span><br><span class="line">name=docker-main</span><br><span class="line">baseurl=http://mirrors.aliyun.com/docker-engine/yum/repo/main/centos/<span class="number">7</span>/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgkey=http://mirrors.aliyun.com/docker-engine/yum/gpg</span><br><span class="line">EOF</span><br><span class="line">    yum erase -y docker*</span><br><span class="line">    rm -rf /var/lib/docker.old</span><br><span class="line">    rm -f /etc/yum.repos.d/docker.repo</span><br><span class="line">    mv -f /var/lib/docker /var/lib/docker.old</span><br><span class="line">    yum -y install docker-engine<span class="number">-1.13</span><span class="number">.0</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment"># check if docker install</span></span><br><span class="line">function check_and_install()</span><br><span class="line">{</span><br><span class="line">    echo <span class="string">"检查Docker......"</span></span><br><span class="line">    docker -v</span><br><span class="line">    if [ $? -eq  0 ]; then</span><br><span class="line">        echo <span class="string">"检查到Docker已安装!"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        echo <span class="string">"安装docker环境..."</span></span><br><span class="line">        docker_install</span><br><span class="line">        echo <span class="string">"安装docker环境...安装完成!"</span></span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    match=`docker -v | grep $docker_version`</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [[ -z $match ]];</span><br><span class="line">    then</span><br><span class="line">        echo <span class="string">"docker版本不对,需要的版本是 $docker_version ,正在重新安装"</span></span><br><span class="line">        docker_install</span><br><span class="line">    fi</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">check_and_install</span><br><span class="line"></span><br><span class="line">echo <span class="string">"关闭swap"</span></span><br><span class="line">swapoff -a</span><br><span class="line"></span><br><span class="line">cat&gt;&gt; /etc/sysctl.d/k8s.conf &lt;&lt;EOF</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = <span class="number">1</span></span><br><span class="line">net.bridge.bridge-nf-call-iptables = <span class="number">1</span></span><br><span class="line">vm.swappiness=<span class="number">0</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sysctl --system</span><br><span class="line"></span><br><span class="line">echo <span class="string">"准备安装kubeadm"</span></span><br><span class="line">cat&gt;&gt; /etc/yum.repos.d/kubernetes.repo &lt;&lt;EOF</span><br><span class="line">[kubernetes]</span><br><span class="line">name=kubernetes</span><br><span class="line">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line">enable=<span class="number">1</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">yum install -y kubeadm</span><br><span class="line"></span><br><span class="line">systemctl enable docker</span><br><span class="line">systemctl enable kubelet.service</span><br><span class="line">systemctl start docker</span><br><span class="line"></span><br><span class="line">echo <span class="string">"拉取镜像"</span></span><br><span class="line">images=(kube-proxy:v1<span class="number">.13</span><span class="number">.4</span> pause:<span class="number">3.1</span>)</span><br><span class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> ${images[@]} ; do</span><br><span class="line">docker pull gcr.azk8s.cn/google-containers/$imageName</span><br><span class="line">docker tag gcr.azk8s.cn/google-containers/$imageName k8s.gcr.io/$imageName</span><br><span class="line">docker rmi gcr.azk8s.cn/google-containers/$imageName</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo <span class="string">"处理主机名和hosts"</span></span><br><span class="line">\cp -f ./unihosts /etc/hosts</span><br><span class="line"><span class="comment"># 获得ip的最后一段</span></span><br><span class="line">ip_seg=`ip a | grep -P <span class="string">"10.10.108.\d+"</span> -o | awk -F <span class="string">'.'</span> <span class="string">'{print $4}'</span>`</span><br><span class="line">hostnamectl set-hostname <span class="string">"h$ip_seg"</span></span><br><span class="line"></span><br><span class="line">echo <span class="string">"加入集群"</span></span><br><span class="line">kubeadm join <span class="number">10.10</span><span class="number">.108</span><span class="number">.73</span>:<span class="number">6443</span> --token gdvgh1.bnlcjnlcet9l78zo \</span><br><span class="line">--discovery-token-ca-cert-hash sha256:c6516103a534da7d660895080e90f8a77a5f8d74a417a685c0bcdcd748f82365</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>需要根据集群情况修改的地方有：</strong></p>
+<p>1.提供一份集群统一的<code>hosts</code>配置</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">"处理主机名和hosts"</span></span><br><span class="line">\cp -f ./unihosts /etc/hosts</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里的<code>./unihosts</code>修改成你准备的统一的集群的主机名配置</p>
+<p>2.集群ip特征</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获得ip的最后一段</span></span><br><span class="line">ip_seg=`ip a | grep -P <span class="string">"10.10.108.\d+"</span> -o | awk -F <span class="string">'.'</span> <span class="string">'{print $4}'</span>`</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里的 <code>10.10.108.\d+</code>要换成集群自己的ip模式</p>
+<p>3.join命令</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join <span class="number">10.10</span><span class="number">.108</span><span class="number">.73</span>:<span class="number">6443</span> --token gdvgh1.bnlcjnlcet9l78zo \</span><br><span class="line">--discovery-token-ca-cert-hash sha256:c6516103a534da7d660895080e90f8a77a5f8d74a417a685c0bcdcd748f82365</span><br></pre></td></tr></tbody></table></figure>
+
+<p>最后一行的<code>join</code>要替换成自己集群的<code>join</code>命令</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/kubernetes">kubernetes</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/kubernetes">kubernetes</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Kubernetes:v1.13.4的Worker节点墙内部署文档(CentOS7)&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

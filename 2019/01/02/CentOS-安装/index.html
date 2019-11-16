@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>CentOS-安装 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期三, 一月 2日 2019, 12:03 中午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    715 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      3 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>[toc]</p>
+<p>阿里云ECS服务器CentOS7上安装MySql服务</p>
+<p><strong>使用root登录</strong></p>
+<a id="more"></a>
+<h2 id="1-确保服务器系统处于最新状态"><a href="#1-确保服务器系统处于最新状态" class="headerlink" title="1. 确保服务器系统处于最新状态"></a>1. 确保服务器系统处于最新状态</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum -y update</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果显示以下内容说明已经更新完成</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Replaced:</span><br><span class="line">  grub2.x86_64 1:2.02-0.64.el7.centos   grub2-tools.x86_64 1:2.02-0.64.el7.centos</span><br><span class="line">Complete!</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="2-重启服务器"><a href="#2-重启服务器" class="headerlink" title="2. 重启服务器"></a>2. 重启服务器</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# reboot</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="3-首先检查是否已经安装，如果已经安装先删除以前版本，以免安装不成功"><a href="#3-首先检查是否已经安装，如果已经安装先删除以前版本，以免安装不成功" class="headerlink" title="3. 首先检查是否已经安装，如果已经安装先删除以前版本，以免安装不成功"></a>3. 首先检查是否已经安装，如果已经安装先删除以前版本，以免安装不成功</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# php -v</span><br><span class="line">或</span><br><span class="line">[root@localhost ~]# rpm -qa | gerp mysql</span><br><span class="line">或</span><br><span class="line">[root@localhost ~]# yum list installed | grep mysql</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>如果显示以下内容说明没有安装服务</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-bash: gerp: command not found</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="4-下载MySql安装包"><a href="#4-下载MySql安装包" class="headerlink" title="4. 下载MySql安装包"></a>4. 下载MySql安装包</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -ivh http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</span><br><span class="line">或</span><br><span class="line">[root@localhost ~]# rpm -ivh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="5-安装MySql"><a href="#5-安装MySql" class="headerlink" title="5. 安装MySql"></a>5. 安装MySql</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install -y mysql-server</span><br><span class="line">或</span><br><span class="line">[root@localhost ~]# yum install mysql-community-server</span><br><span class="line">如果显示以下内容说明安装成功</span><br><span class="line">Complete!</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="6-设置开机启动Mysql"><a href="#6-设置开机启动Mysql" class="headerlink" title="6. 设置开机启动Mysql"></a>6. 设置开机启动Mysql</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl enable mysqld.service</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="7-检查是否已经安装了开机自动启动"><a href="#7-检查是否已经安装了开机自动启动" class="headerlink" title="7. 检查是否已经安装了开机自动启动"></a>7. 检查是否已经安装了开机自动启动</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl list-unit-files | grep mysqld</span><br><span class="line">// 如果显示以下内容说明已经完成自动启动安装</span><br><span class="line">mysqld.service                                enabled</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="8-设置开启服务"><a href="#8-设置开启服务" class="headerlink" title="8. 设置开启服务"></a>8. 设置开启服务</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl start mysqld.service</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="9-查看MySql默认密码"><a href="#9-查看MySql默认密码" class="headerlink" title="9. 查看MySql默认密码"></a>9. 查看MySql默认密码</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# grep 'temporary password' /var/log/mysqld.log</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="10-登陆MySql，输入用户名和密码"><a href="#10-登陆MySql，输入用户名和密码" class="headerlink" title="10. 登陆MySql，输入用户名和密码"></a>10. 登陆MySql，输入用户名和密码</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mysql -uroot -p</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="11-修改当前用户密码"><a href="#11-修改当前用户密码" class="headerlink" title="11. 修改当前用户密码"></a>11. 修改当前用户密码</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SET PASSWORD = PASSWORD('Abc123!_');</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="12-开启远程登录，授权root远程登录"><a href="#12-开启远程登录，授权root远程登录" class="headerlink" title="12. 开启远程登录，授权root远程登录"></a>12. 开启远程登录，授权root远程登录</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'a123456!' WITH GRANT OPTION;</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="13-命令立即执行生效"><a href="#13-命令立即执行生效" class="headerlink" title="13. 命令立即执行生效"></a>13. 命令立即执行生效</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;flush privileges;</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h1 id="其他功能"><a href="#其他功能" class="headerlink" title="其他功能:"></a>其他功能:</h1><h2 id="检查并且显示Apache相关安装包"><a href="#检查并且显示Apache相关安装包" class="headerlink" title="检查并且显示Apache相关安装包"></a>检查并且显示Apache相关安装包</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa | grep mysql</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="删除MySql"><a href="#删除MySql" class="headerlink" title="删除MySql"></a>删除MySql</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum remove -y mysql mysql mysql-server mysql-libs compat-mysql51</span><br><span class="line">或</span><br><span class="line">[root@localhost ~]# rpm -e mysql-community-libs-5.7.20-1.el7.x86_64 --nodeps</span><br><span class="line">或</span><br><span class="line">[root@localhost ~]# yum -y remove mysql-community-libs-5.7.20-1.el7.x86_64</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="查看MySql相关文件"><a href="#查看MySql相关文件" class="headerlink" title="查看MySql相关文件"></a>查看MySql相关文件</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# find / -name mysql</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="重启MySql服务"><a href="#重启MySql服务" class="headerlink" title="重启MySql服务"></a>重启MySql服务</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service mysqld restart</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="查看MySql版本"><a href="#查看MySql版本" class="headerlink" title="查看MySql版本"></a>查看MySql版本</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum repolist all | grep mysql</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="查看当前的启动的-MySQL-版本"><a href="#查看当前的启动的-MySQL-版本" class="headerlink" title="查看当前的启动的 MySQL 版本"></a>查看当前的启动的 MySQL 版本</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum repolist enabled | grep mysql</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="通过Yum来安装MySQL-会自动处理MySQL与其他组件的依赖关系"><a href="#通过Yum来安装MySQL-会自动处理MySQL与其他组件的依赖关系" class="headerlink" title="通过Yum来安装MySQL,会自动处理MySQL与其他组件的依赖关系"></a>通过Yum来安装MySQL,会自动处理MySQL与其他组件的依赖关系</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install mysql-community-server</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="查看MySQL安装目录"><a href="#查看MySQL安装目录" class="headerlink" title="查看MySQL安装目录"></a>查看MySQL安装目录</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# whereis mysql</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="启动MySQL服务"><a href="#启动MySQL服务" class="headerlink" title="启动MySQL服务"></a>启动MySQL服务</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl start mysqld</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="查看MySQL服务状态"><a href="#查看MySQL服务状态" class="headerlink" title="查看MySQL服务状态"></a>查看MySQL服务状态</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl status mysqld</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="关闭MySQL服务"><a href="#关闭MySQL服务" class="headerlink" title="关闭MySQL服务"></a>关闭MySQL服务</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl stop mysqld</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="测试MySQL是否安装成功"><a href="#测试MySQL是否安装成功" class="headerlink" title="测试MySQL是否安装成功"></a>测试MySQL是否安装成功</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mysql</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="查看MySql默认密码"><a href="#查看MySql默认密码" class="headerlink" title="查看MySql默认密码"></a>查看MySql默认密码</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# grep 'temporary password' /var/log/mysqld.log</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="查看所有数据库"><a href="#查看所有数据库" class="headerlink" title="查看所有数据库"></a>查看所有数据库</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;show databases;</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="退出登录数据库"><a href="#退出登录数据库" class="headerlink" title="退出登录数据库"></a>退出登录数据库</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;exit;</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="查看所有数据库用户"><a href="#查看所有数据库用户" class="headerlink" title="查看所有数据库用户"></a>查看所有数据库用户</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user;</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/linux">linux</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/linux%E5%AE%89%E8%A3%85">linux安装</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "CentOS-安装&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

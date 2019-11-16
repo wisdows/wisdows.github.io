@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>继承 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 九月 8日 2014, 11:36 中午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.1k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      8 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h3 id="一、优化字面量的方法"><a href="#一、优化字面量的方法" class="headerlink" title="一、优化字面量的方法"></a>一、优化字面量的方法</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = {</span><br><span class="line">        name:<span class="string">'张三'</span>,</span><br><span class="line">        age:24</span><br><span class="line">    };  </span><br><span class="line">    var animal={</span><br><span class="line">    name:<span class="string">'翠花'</span>,</span><br><span class="line">    age:3</span><br><span class="line">    };  </span><br><span class="line">    <span class="keyword">function</span> CreatePerson(name,age){</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    }</span><br><span class="line">    var obj2 = new CreatePerson(<span class="string">'李四'</span>,28)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>obj1和animal的constructor都是指向object，而obj2的constructor是指向CreatePerson的构造函数的，因为是构造函数所创建的实例  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(obj1.constructor)</span><br><span class="line">    console.log(animal.constructor)</span><br><span class="line">    console.log(obj2.constructor);</span><br><span class="line">      </span><br><span class="line">    优化字面量</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">Box</span></span>(){}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>改变原型里面的属性，覆盖了本身的prototype，就没有了constructor  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Box.prototype = {</span><br><span class="line">        constructor:Box,</span><br><span class="line">        name:<span class="string">'jj'</span>,</span><br><span class="line">        age:22</span><br><span class="line">    }</span><br><span class="line">    var person = new Box();</span><br><span class="line">    console.log(person)</span><br><span class="line">    //undefined因为对象里面的prototype不能访问</span><br><span class="line">    console.log(person.prototype)</span><br><span class="line">    console.log(Box.prototype)</span><br><span class="line">    console.log(person.constructor)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="二、原型"><a href="#二、原型" class="headerlink" title="二、原型"></a>二、原型</h3><p>什么是原型？<br>原被型是当构造函数被调由系统用时创把建出来的一个实例，我们可以利用原型这个实例把对象中相同的属性和方法添加到原型中，达到节约内存的目的。<br>如何获取到原型？<br>在构造函数中有一个“prototype”的属性，该属性就指向了构造函数的原型，函数名.prototype<br>prototype属性：通过这个属性能获取到对应的原型.  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreatePreson(name,age,gender){</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.age = age;</span><br><span class="line">    CreatePreson.prototype.gender = gender;</span><br><span class="line">        CreatePreson.prototype.sayBye = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">        	console.log(<span class="string">'bye'</span>)</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line">    //通过函数名下的prototype属性获取函数原型</span><br><span class="line">    CreatePreson.prototype.sayHi = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">    	console.log(<span class="string">'hi'</span>)</span><br><span class="line">    }</span><br><span class="line">    //创建对象，并调用原型方法</span><br><span class="line">    var per1 = new CreatePreson(<span class="string">'jio'</span>,22,<span class="string">'man'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>因为该方法并不是实例方法,所以实例调用这个方式时，在实例中找不到，就再进入实例<br>的原型中寻找，找到就执行。<br>对象如何获取它的原型:每个对象都有一个<strong>proto</strong>属性，该属性就指向了对象对应的原型，但是该属性我们  无法访问。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">console.log(per1.__proto__)</span><br><span class="line">    console.log(CreatePreson.__proto__)</span><br><span class="line">    per1.sayHi();</span><br><span class="line">    per1.sayBye();</span><br><span class="line">    console.log(per1.gender)</span><br><span class="line">    //constructor :原型下的属性，可以通过该属性获取到原型对应的构造函数  </span><br><span class="line">    console.log(CreatePreson.prototype.constructor)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="三、通过构造函数创建对象方法的二次优化"><a href="#三、通过构造函数创建对象方法的二次优化" class="headerlink" title="三、通过构造函数创建对象方法的二次优化"></a>三、通过构造函数创建对象方法的二次优化</h3><p>把拥有相同值的属性，方法添加到原型中，把不同的属性和方法添加到各自的对象中  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreateAnimal(name,age){</span><br><span class="line">     //因为动物的名字和年龄各不相同，所以把这两个属性添加到对象中</span><br><span class="line">    	this.name = name;</span><br><span class="line">    	this.age = age;</span><br><span class="line">     //因为动物都有吃东西的方法，所以可以放到原型中</span><br><span class="line">    	CreateAnimal.prototype.eat = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">    		console.log(<span class="string">'吃东西'</span>)</span><br><span class="line">    	}</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="四、通过构造函数创建对象方法的三次优化"><a href="#四、通过构造函数创建对象方法的三次优化" class="headerlink" title="四、通过构造函数创建对象方法的三次优化"></a>四、通过构造函数创建对象方法的三次优化</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreatePerson(name,age){</span><br><span class="line">    	this.name = name;</span><br><span class="line">    	this.age = age;</span><br><span class="line">    //每次调用都会在在原型里面创建一次，很累赘。所以用<span class="keyword">if</span>来判断，如果原型里面  </span><br><span class="line">    //有该方法，就不用再往原型里面放了因为每个对象的方法都是相同，所以我们可  </span><br><span class="line">    //以把相同的方法添加到原型里传统添加方式：每次调用都会给原型添加一次方法</span><br><span class="line">    //优化方法：判断原型中是否已经存在要添加的方法，如果没有就添加，否则不添加。</span><br><span class="line">    <span class="keyword">if</span>(typeof(CreatePerson.prototype.sayHi) != <span class="string">'function'</span>){</span><br><span class="line">    		console.log(<span class="string">'我被执行了'</span>)</span><br><span class="line">    		CreatePerson.prototype.sayHi = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">    			console.log(<span class="string">'hello'</span>+this.name)</span><br><span class="line">    		}</span><br><span class="line">    	}</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+<p>   写在外面不太合理的原因，是因为程序由上到下执行，对象还没有调用，就已经把方<br>法添加到了原型中，有可能用不到方法  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CreatePerson.prototype.sayHi = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">    	console.log(<span class="string">'hello'</span>)</span><br><span class="line">    }</span><br><span class="line">    var per1 = new CreatePerson(<span class="string">'李四'</span>,22)</span><br><span class="line">    per1.sayHi();</span><br><span class="line">    var per2 = new CreatePerson(<span class="string">'向三'</span>,11)</span><br><span class="line">    per2.sayHi();</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="五、原型操作"><a href="#五、原型操作" class="headerlink" title="五、原型操作"></a>五、原型操作</h3><p>定义一个是构造函数，有一个实例属性：name，有一个原型属性age  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreatePerson(name,age){</span><br><span class="line">    	this.name = name;</span><br><span class="line">    	CreatePerson.prototype.age=age;</span><br><span class="line">    }</span><br><span class="line">        //调用构造函数创建对象</span><br><span class="line">        var per1 = new CreatePerson(<span class="string">'jio'</span>,22);</span><br><span class="line">        console.log(per1);</span><br><span class="line">        console.log(per1.age)</span><br><span class="line">        var per2 = new CreatePerson(<span class="string">'margi'</span>,18);</span><br><span class="line">        //原型修改会被提升，所以上面打印就是console.log(per1)的__proto__中就可以看到.</span><br><span class="line">        console.log(per1);</span><br><span class="line">        console.log(per2);</span><br><span class="line">        console.log(per1.age)</span><br><span class="line">        //定义一个是构造函数，有一个实例属性：name，有一个原型属性age</span><br><span class="line">    <span class="keyword">function</span> CreatePerson (name) {</span><br><span class="line">    	this.name = name;	</span><br><span class="line">    	CreatePerson.prototype.age = 18;</span><br><span class="line">    }		</span><br><span class="line">     //调用构造函数创建对象  </span><br><span class="line">    var per1 = new CreatePerson(<span class="string">'宁哥'</span>);</span><br><span class="line">    var per2 = new CreatePerson(<span class="string">'凯哥'</span>);	</span><br><span class="line">    //<span class="keyword">in</span>操作符，只能判断对象中有没有该属性，无法判断属性是实例属性还是原型属性</span><br><span class="line">    console.log(<span class="string">'name'</span> <span class="keyword">in</span> per1);//<span class="literal">true</span></span><br><span class="line">    console.log(<span class="string">'age'</span> <span class="keyword">in</span> per1);//<span class="literal">true</span>	</span><br><span class="line">    //hasOwnProperty方法：判断属性是否是对象的实例属性，是则返回<span class="literal">true</span>，不是或没有该属性，返回<span class="literal">false</span>。</span><br><span class="line">    console.log(per1.hasOwnProperty(<span class="string">'name'</span>));//<span class="literal">true</span></span><br><span class="line">    console.log(per1.hasOwnProperty(<span class="string">'age'</span>));//<span class="literal">false</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>判断属性是否是原型属性  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1、判断指定的字符串是对象下的属性</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">'age'</span> <span class="keyword">in</span> per1) {</span><br><span class="line">    2、判断属性是否是原型属性:对hasOwnProperty取反</span><br><span class="line">            <span class="keyword">if</span> (!per1.hasOwnProperty(<span class="string">'age'</span>)) {</span><br><span class="line">            	console.log(<span class="string">'原型属性'</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    简化操作</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">'age'</span> <span class="keyword">in</span> per1 &amp;&amp; !per1.hasOwnProperty(<span class="string">'age'</span>)) {</span><br><span class="line">        	console.log(<span class="string">'原型属性'</span>);</span><br><span class="line">        }</span><br><span class="line">    深度简化</span><br><span class="line">        CreatePerson.prototype.hello = <span class="keyword">function</span> hello (proto) {</span><br><span class="line">            <span class="keyword">if</span> (proto <span class="keyword">in</span> this &amp;&amp; !this.hasOwnProperty(proto)) {</span><br><span class="line">            		console.log(<span class="string">'原型属性'</span>);</span><br><span class="line">            }</span><br><span class="line">        };	</span><br><span class="line">         per1.hello(<span class="string">'age'</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="六、call和apply"><a href="#六、call和apply" class="headerlink" title="六、call和apply"></a>六、call和apply</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> sayHi(name1,name2){</span><br><span class="line">    	console.log(name1+<span class="string">' '</span>+name2+<span class="string">'  hahah'</span>);</span><br><span class="line">    	console.log(this)</span><br><span class="line">    	console.log(name)</span><br><span class="line">    }</span><br><span class="line">	sayHi();</span><br><span class="line">	sayHi.call();//call方法就是用来调用函数的</span><br><span class="line">	//第一个参数是可以改变this的指向，</span><br><span class="line">	//sayHi.call(Object);</span><br><span class="line">	//sayHi.call(Array);</span><br><span class="line">	//第二个参数是函数需要的参数</span><br><span class="line">	//sayHi.call(Object);</span><br><span class="line">	//sayHi.call(Array,<span class="string">'jj'</span>);</span><br><span class="line">	sayHi.call(null,<span class="string">'jj'</span>,<span class="string">'hh'</span>);//指向window</span><br><span class="line">	//apply第二个参数必须是数组类型的</span><br><span class="line">	sayHi.apply(Array,[<span class="string">'jj'</span>,<span class="string">'hh'</span>])</span><br></pre></td></tr></tbody></table></figure>
+
+<p>总结<br>    我们既可以使用”()”来调用函数，也可以使用call方法来调用函数<br>    使用call调用执行函数，该方法需要有两大类的参数<br>    第一大类参数是：用来修改要执行的函数中的this指针的指向<br>    第二大类参数是：要执行函数所需要的参数</p>
+<h3 id="七、call和apply的继承"><a href="#七、call和apply的继承" class="headerlink" title="七、call和apply的继承"></a>七、call和apply的继承</h3><p>创建出第一个函数（父函数\父类）  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreateAnimal (name, age) {</span><br><span class="line">		this.name = name;</span><br><span class="line">		this.age = age;</span><br><span class="line">		this.sayHi = <span class="function"><span class="title">function</span></span> () {</span><br><span class="line">			alert(<span class="string">'hello'</span>);</span><br><span class="line">		}</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>创建第二个函数：这个函数获取到的对象也有第一个函数中的属性和方法，我们可<br>以将这些相同的属性和方法从第一个函数中获取到，这样第二个函数就不必单独再<br>写一次赋值操作。</p>
+<p>因为第二个函数从第一个函数中拿到了全部属性、方法则我们认为第二个函数是第<br>一个函数的子类。</p>
+<p>通过call 方法实现继承：修改第一个函数中this的指向，改为person对象，<br>这样在执行第一个函数时，就给person对象添加了属性和方法  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreatePerson (name, age) {</span><br><span class="line">    	利用call调用执行第一个函数，并修改他的指针指向为person</span><br><span class="line">    	CreateAnimal.call(this, name, age);</span><br><span class="line">    	添加本函数独有的属性和方法</span><br><span class="line">    	this.sayBye = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">    		alert(<span class="string">'bye-bye'</span>);</span><br><span class="line">    	}</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="八、原型继承"><a href="#八、原型继承" class="headerlink" title="八、原型继承"></a>八、原型继承</h3><p>父函数  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreateAnimal (name,age) {</span><br><span class="line">		this.name = name;</span><br><span class="line">		this.age = age;</span><br><span class="line">		this.sayHi = <span class="function"><span class="title">function</span></span> () {</span><br><span class="line">			alert(<span class="string">'hello'</span>);</span><br><span class="line">		};</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>  子函数  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreatePerson (gender) {</span><br><span class="line">		this.gender = gender;</span><br><span class="line">		this.sayBye = <span class="function"><span class="title">function</span></span>() {</span><br><span class="line">			alert(<span class="string">'bye'</span>);</span><br><span class="line">		};</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>  1、创建一个父类的对象，把这个对象当做子类的原型  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CreatePerson.prototype = new CreateAnimal(<span class="string">'宁哥'</span>, 24);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>  2、因为此时子类原型中的constructor指向的是父类构造函数，所以创建出的对象也<br>  将指向Animal这个函数。为了让constructor的指向正确，需要修改Person原型中的constructor   </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CreatePerson.prototype.constructor = CreatePerson;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>  3、创建并使用子类对象  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var per = new CreatePerson(<span class="string">'男'</span>);</span><br><span class="line">     console.log(per.name);</span><br><span class="line">     console.log(per.age);</span><br><span class="line">     console.log(per.gender);</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="九、组合继承"><a href="#九、组合继承" class="headerlink" title="九、组合继承"></a>九、组合继承</h3><p>父类函数:属性保存在实例中，方法保存在原型中  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreateAnimal(name,age){</span><br><span class="line">		this.name = name;</span><br><span class="line">		this.age = age;</span><br><span class="line">		CreateAnimal.prototype.sayHi = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">			console.log(<span class="string">'hello'</span>);</span><br><span class="line">		}</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>子类函数:通过call继承实例相关  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CreatePerson(name,age,gender){</span><br><span class="line">    //使用call从父类继承属性和方法只是this的指向的问题，把父类中的this强变成子类中的this，也就是子类的对象，而sayHi方法不是在this上，而是在原型上</span><br><span class="line">     CreateAnimal.apply(this,arguments)</span><br><span class="line">    	this.gender = gender;</span><br><span class="line">    	CreateAnimal.prototype.sayBye = <span class="function"><span class="title">function</span></span>(){</span><br><span class="line">    		console.log(<span class="string">'bye'</span>);</span><br><span class="line">    	}</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+<p>因为父类有添加在原型中方法，通过call获取不到，所以需要使用原型来获取这<br>些方法<br>因为只是想获取到父类的原型方法，所以不需要给父类的属性传参  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CreatePerson.prototype = new CreateAnimal();</span><br><span class="line">    	把子类的constructor属性改回来</span><br><span class="line">    CreatePerson.prototype.constructor = CreatePerson</span><br><span class="line">    	var person= new CreatePerson(<span class="string">'jj'</span>,22,<span class="string">'man'</span>);</span><br><span class="line">    	console.log(person.name)</span><br><span class="line">    	console.log(person.age)</span><br><span class="line">    	console.log(person.gender)</span><br><span class="line">    	person.sayHi();</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+
+
+
+
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Javascript">Javascript</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Javascript">Javascript</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "继承&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

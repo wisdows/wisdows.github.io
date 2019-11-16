@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>谈谈计算机中的编码问题 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期三, 十月 31日 2018, 7:57 晚上
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    4.1k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      15 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>在介绍这个问题之前先扯一下计算机编码的发展史。</p>
+<p>有没有同学想过1个字节为什么等于8个比特（1B=8b）？为什么一个英文字母占用1字节，而一个汉字占用两字节（然而实际要考虑是什么编码）？</p>
+<p>如果处理足够的数据以使计算变得可行，那么更少的位就不起作用，而太多的位会导致昂贵的硬件。——摘自<strong>software enginering</strong>评论</p>
+<p>字节，原意就是用来表示一个完整的字符的。最原始的时候“计算机”（或许当时还不能称为计算机）完全是以二进制来计算工作的，当时是没有字节的概念的。字节其实就是编码发展的必然，然而历史为什么会折中选择8位？从最早的打孔I/O到后来的键盘显示器，我们处理的数据也在不断发展：数字、控制符、符号、英文字符、多国语言字符。最初的计算机性能和存储容量都比较差,所以普遍采用4位BCD编码(这个编码出现比计算机还早,最早是用在打孔卡上的)。BCD编码表示数字还可以,但表示字母或符号就很不好用,需要用多个编码来表示。后来又演变出6位的BCD编码(BCDIC),以及至今仍在广泛使用的7位ASCII编码。不过最终决定字节大小的,是大名鼎鼎的System/360（当时的大型计算机）。</p>
+<a id="more"></a>
+
+<p>当时IBM为System/360设计了一套8位EBCDIC编码，涵盖了数字、大小写字母和大部分常用符号,同时又兼容广泛用于打孔卡的6位BCDIC编码。System/360很成功，也奠定了字符存储单位采用8位长度的基础，IBM于1956年首先为Stretch项目推出了8位寻址，接下来的大多数主流电脑主要基于原来的IBM PC，这就是现在1字节=8位的由来。其实字节的大小在历史上与硬件有关，并且不存在规定大小的确定性标准 - 过去已知使用1到48位的字节大小。只是现在说的字节普遍等于8bit。</p>
+<p><strong><em>个人理解</em></strong>：计算机最初诞生于美国，计算机不断的从1位.2位….的发展，直到ASCII美国信息交换标准代码定义了一个7位字符集并成为了当时最流行的编码方式，但由于当时硬件的发展，提倡用2的幂来处理任何事情，人们并不介意在7位ascii码的基础上再加上一位，并把这八位叫作字节（后来这多加的一位被用于奇偶校验）。当时这8位可以容纳 - 26个小写字母+ 26个大写字母+ 10个数字+大量的标点符号和特殊符号。这已经足够好几年了！所以之后的发展都是基于这8bit的操作，但随着计算机全球化，256（2^8）个字符已经不够用于表达其他语言的符号…….继而发展出了各种各样的编码方式，但由于习惯…都是基于byte的基础上进行发展。 为何1byte=8bit？这一切都是因为硬件的发展和人类对于2的情有独钟而导致的，或许如果在当时发明了不同于晶体管的电子器件，处理器的设计构架不同，设计师的世界观改变….就会有完全不一样的结果了吧。</p>
+<p><strong>Tip</strong>:现代计算机的32位或64位指的是字长，即同一时间内处理的一组二进制数称为一个计算机的字，而这组二进制数的位数就是“字长”。和字节没有关系！</p>
+<hr>
+<p>这个历史的发展最终以8位胜出为结果。等到我们中国人使用计算机的时候已经没有多余的字节状态来表示汉字，何况有6000多个常用汉字需要保存呢。但是这难不倒智慧的中国 人民，我们不客气地把那些127号之后的扩展字符集直接取消掉, 规定：一个小于127的字符的意义与原来相同，但两个大于127的字符连在一起时，就表示一个汉字，前面的一个字节（他称之为高字节）从0xA1用到 0xF7，后面一个字节（低字节）从0xA1到0xFE，这样我们就可以组合出大约7000多个简体汉字了。在这些编码里，我们还把数学符号、罗马希腊的 字母、日文的假名们都编进去了，连在 ASCII 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的”全角”字符，而原来在127号以下的那些就叫”半角”字符了。 （一个汉字算两个字节的缘由）</p>
+<p>1980年，我们把这种汉字编码方案叫做“GB2312”。GB2312是ASCII的中文扩展。</p>
+<p>但这仅仅满足了常用汉字的录入，于是干脆不再要求低字节一定是127号之后的内码，只要第一个字节是大于127就固定表示这是一个汉字的开始，不管后面跟的是不是扩展字符 集里的内容。结果扩展之后的编码方案被称为 GBK 标准，GBK 包括了 GB2312 的所有内容，同时又增加了近20000个新的汉字（包括繁体字）和符号。再到后来又增加了几千个少数名族的字，GBK扩成 GB18030。</p>
+<p>进而全世界有上百种语言，日本把日文编到Shift_JIS里，韩国把韩文编到Euc-kr里，各国有各国的标准，就会不可避免地出现冲突，结果就是，在多语言混合的文本中，显示出来会有乱码。当时做多语言软件的公司可以说是非常难受。</p>
+<p>因此， ISO （国际标谁化组织）的国际组织决定着手解决这个问题，<strong>Unicode字符集</strong>应运而生。Unicode把所有语言都统一到一套字符集里，这样就不会再有乱码问题了。Unicode标准也在不断发展，但最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。由于”半角”英文符号只需要用到低8位，所以其高8位永远是0，因此这种方案在保存英文文本时会多浪费一倍的空间。现代操作系统和大多数编程语言都直接支持Unicode。</p>
+<p>接下里我们结合实例来详细介绍一下常用编码。</p>
+<hr>
+<h2 id="一、目前常用的编码"><a href="#一、目前常用的编码" class="headerlink" title="一、目前常用的编码"></a>一、目前常用的编码</h2><p>编码这个问题一直对新手很不友好，我也是深受困扰才写了这么一篇文章。特别在网页这一块。如果你码的代码不是乱码，而网页中出现了乱码，绝大部分原因就出在了编码上了。在程序设计中，编码问题也是尤为重要。</p>
+<h3 id="编码方面的一些概念"><a href="#编码方面的一些概念" class="headerlink" title="编码方面的一些概念"></a>编码方面的一些概念</h3><h4 id="大端-big-endian-和小端-little-endian"><a href="#大端-big-endian-和小端-little-endian" class="headerlink" title="大端(big endian)和小端(little endian)"></a>大端(big endian)和小端(little endian)</h4><p><img src="./%E8%B0%88%E8%B0%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/%E5%AD%97%E8%8A%82%E5%BA%8F.jpg" srcset="undefined" alt="字节序"></p>
+<p>Unicode码可以采用UCS-2格式直接存储。以汉字”严“为例，Unicode码是4E25，需要用两个字节存储，一个字节是4E，另一个字节是25。存储的时候，4E在前，25在后，就是Big endian方式；25在前，4E在后，就是Little endian方式。</p>
+<p>这两个古怪的名称来自英国作家斯威夫特的《格列佛游记》。在该书中，小人国里爆发了内战，战争起因是人们争论，吃鸡蛋时究竟是从大头(Big-Endian)敲开还是从小头(Little-Endian)敲开。为了这件事情，前后爆发了六次战争，一个皇帝送了命，另一个皇帝丢了王位。</p>
+<p>因此，第一个字节在前，就是”大头方式“（Big endian），第二个字节在前就是”小头方式“（Little endian）。</p>
+<p>那么很自然的，就会出现一个问题：计算机怎么知道某一个文件到底采用哪一种方式编码？</p>
+<p>Unicode规范中定义，每一个文件的最前面分别加入一个表示编码顺序的字符，这个字符的名字叫做”零宽度非换行空格“（ZERO WIDTH NO-BREAK SPACE），用FEFF表示。这正好是两个字节，而且FF比FE大1。</p>
+<p>如果一个文本文件的头两个字节是FE FF，就表示该文件采用大头方式；如果头两个字节是FF FE，就表示该文件采用小头方式。我们一般将<a href="https://zhuanlan.zhihu.com/p/21388517" target="_blank" rel="noopener">endian</a>翻译成“字节序”。</p>
+<h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><p>当使用类似 WINDOWS 自带的记事本等软件，在保存一个以UTF-8编码的文件时，会在文件开始的地方插入三个不可见的字符（0xEF 0xBB 0xBF，即BOM）。它是一串隐藏的字符，用于让记事本等编辑器识别这个文件是否以UTF-8编码。这样就可以避免这个问题了。对于一般的文件，这样并不会产生什么麻烦。</p>
+<p>这样做，也有弊处，尤其体现在网页中。PHP并不会忽略BOM，所以在读取、包含或者引用这些文件时，会把BOM作为该文件开头正文 的一部分。根据嵌入式语言的特点，这串字符将被直接执行（显示）出来。由此造成即使页面的 top padding 设置为0，也无法让整个网页紧贴<a href="http://blog.jobbole.com/12749/" target="_blank" rel="noopener">浏览器</a>顶部，因为在html一开头有这3个字符。如果你在网页中，发现了由未知的空白等，很有可能就是由于文件有 BOM 头造成的。遇到这种问题，把文件保存的时候，不要带有 BOM 头！</p>
+<h3 id="UTF"><a href="#UTF" class="headerlink" title="UTF"></a>UTF</h3><p>UTF（Universal Transformation Format，通用传输格式），其实就是不改变字符集中各个字符的代码，建立一套新的编码方式，把字符的代码通过这个编码方式映射成传输时的编码，最主要的任务就是在使用Unicode字符集保持通用性的同时节约流量和硬盘空间。主要分为UTF-8，UTF-16，UTF-32三种。其中最受欢迎的是UTF-8，UTF-8大受欢迎的主要原因就是对欧美而言，在保留Unicode通用性的情况下避免了流量和空间的浪费。因此广泛运用在互联网，统计2016年互联网87%的网页是用UTF-8编码的。</p>
+<h3 id="UCS"><a href="#UCS" class="headerlink" title="UCS"></a>UCS</h3><p>UCS规定了怎么用多个字节表示各种文字。怎样传输这些编码，是由UTF(UCS Transformation Format)规范规定的。UCS有两种不同的规定版本：UCS-2和UCS-4。顾名思义，UCS-2就是用2个字节编码，UCS-4就是用4个字节（实际上只用了31位，最高位必须为0）编码。因此，UCS-2有2^16=65536个码位，UCS-4有2^31=<a href="tel:2147483648" target="_blank" rel="noopener">2147483648</a>个码位。目前UCS-2已经足够用了，UCS-4估计都可以把Asgard和氪星的文字（传说都是英语？）也收录进来了……具体的符号对应表，可以查询<a href="https://link.zhihu.com/?target=http%3A//unicode.org">http://unicode.org</a>，或者相关的字符对应表。</p>
+<hr>
+<h2 id="二、windows记事本"><a href="#二、windows记事本" class="headerlink" title="二、windows记事本"></a>二、windows记事本</h2><p>接下来我们先从<strong>windows记事本</strong>的四种常用编码来说——部分内容摘自知乎<img src="./%E8%B0%88%E8%B0%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/%E8%AE%B0%E4%BA%8B%E6%9C%AC.jpg" srcset="undefined" alt="记事本"></p>
+<ul>
+<li>所谓的「ANSI」指的是对应当前系统 locale（地区） 的遗留（legacy）编码。[1]</li>
+<li>所谓的「Unicode」指的是带有 <a href="https://www.zhihu.com/question/20167122" target="_blank" rel="noopener">BOM</a> 的小端序 UTF-16。[2]</li>
+<li>所谓的「UTF-8」指的是带 BOM 的 UTF-8。[3]</li>
+</ul>
+<p>[1] Windows 里说的「ANSI」其实是 Windows code pages，这个模式根据当前 locale 选定具体的编码，比如简中 locale 下是 GBK。把自己这些 code page 称作「ANSI」是 Windows 的臭毛病。在 ASCII 范围内它们应该是和 ASCII 一致的。<br>[2] 把带有 BOM 的小端序 UTF-16 称作「Unicode」也是 Windows 的臭毛病。Windows 从 Windows 2000 开始就已经支持 surrogate pair 了，所以已经是 UTF-16 了，「UCS-2」这个说法已经不合适了。UCS-2 只能编码 BMP 范围内的字符，从 1996 年起就在 Unicode/ISO 标准中被 UTF-16 取代了（UTF-16 通过蛋疼的 surrogate pair 来编码超出 BMP 的字符）。<br>[3] 把带 BOM 的 UTF-8 称作「UTF-8」又是 Windows 的臭毛病。如果忽略 BOM，那么在 ASCII 范围内与 ASCII 一致。</p>
+<p>GBK 等遗留编码最麻烦，所以除非你知道自己在干什么否则不要再用了。<br>UTF-16 理论上其实很好，字节序也标明了，但 UTF-16 毕竟不常用。<br>UTF-8 本来是兼容性最好的编码但 Windows的记事本偏要加 <a href="https://www.zhihu.com/question/20167122" target="_blank" rel="noopener">BOM</a> 于是经常出问题。</p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5><p>1.打开”记事本“程序，新建一个文本文件，内容就是一个”严“字，依次采用ANSI，Unicode，Unicode big endian 和 UTF-8编码方式保存。</p>
+<p>然后，用文本编辑软件<a href="http://www.google.cn/search?aq=t&amp;oq=UltraEdit&amp;complete=1&amp;hl=zh-CN&amp;newwindow=1&amp;rlz=1B3GGGL_zh-CNCN216CN216&amp;q=ultraedit+%E4%B8%8B%E8%BD%BD&amp;btnG=Google+%E6%90%9C%E7%B4%A2&amp;meta=" target="_blank" rel="noopener">UltraEdit中</a>的”十六进制功能“，观察该文件的内部编码方式。</p>
+<p>1）ANSI：文件的编码就是两个字节“D1 CF”，这正是“严”的GB2312编码，这也暗示GB2312是采用大头方式存储的。</p>
+<p>2）Unicode：编码是四个字节“FF FE 25 4E”，其中“FF FE”表明是小头方式存储，真正的编码是4E25。</p>
+<p>3）Unicode big endian：编码是四个字节“FE FF 4E 25”，其中“FE FF”表明是大头方式存储。</p>
+<p>4）UTF-8：编码是六个字节“EF BB BF E4 B8 A5”，前三个字节“EF BB BF”表示这是UTF-8编码，后三个“E4B8A5”就是“严”的具体编码，它的存储顺序与编码顺序是一致的。</p>
+<p>2.当你在 windows 的记事本里新建一个文件，输入”联通”两个字之后，保存，关闭，然后再次打开，你会发现这两个字已经消失了，代之的是几个乱码！</p>
+<p><img src="./%E8%B0%88%E8%B0%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/2.png" srcset="undefined" alt="1522922967841"></p>
+<p><img src="./%E8%B0%88%E8%B0%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/2-1.png" srcset="undefined" alt=""></p>
+<p>因为记事本默认保存的编码方式是ANSI，在我国也就对应着gb2312，但是由于联通这两个字的ANSI编码符合UTF-8编码的第二个模板，记事本当再次打开这个文件的时候，就会误以为是UTF-8编码的文件，</p>
+<p>就是因为编码和解码使用的码表不同，导致了”联通”乱码的问题</p>
+<hr>
+<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>一、把字符转换成字节的过程称为编码，将字节转换成字符的过程称为解码。如果编码和解码使用的码表不一致，就会导致乱码问题。</p>
+<p>二、平时尽量避免记事本编程（带BOM而且转换方式奇葩），特别是网页开发。</p>
+<p>三、如果你是为了跨平台，那么最有效的办法确实是<strong>坚持使用 UTF-8</strong>。关于用带不带BOM的utf-8，推荐without BOM。微软在 UTF-8 中使用 BOM 是因为这样可以把 UTF-8 和 ASCII 等编码明确区分开，但这样的文件在 Windows 之外的操作系统里会带来问题。因为它<strong>不需要</strong>，于是<u>很多</u>跨平台的软件其实并不支持这种格式甚至语言。</p>
+<p>四、少使用遗留编码(GBK、Big-5等等)，都8102年，Unicode字符集规范都提出来多少年了。</p>
+<p>三、使用其他文本编辑器（例如：notepad ++或 EmEdit）来查看或修改！</p>
+<p>四、在编程方面编码还有许许多多的坑，当遇到编码问题有时候会很麻烦，所以平时应养成良好的习惯，遇到这些问题记录下来加深印象！</p>
+<p>参考链接和推荐链接：</p>
+<p><a href="https://blog.csdn.net/hherima/article/details/39548551" target="_blank" rel="noopener">https://blog.csdn.net/hherima/article/details/39548551</a> 记事本输入”联通”</p>
+<p><a href="http://www.bobbemer.com/BYTE.HTM" target="_blank" rel="noopener">http://www.bobbemer.com/BYTE.HTM</a>   “ASCII码之父” Bob Bemer——WHY IS A BYTE 8 BITS? OR IS IT?</p>
+<p><a href="https://softwareengineering.stackexchange.com/questions/120126/what-is-the-history-of-why-bytes-are-eight-bits" target="_blank" rel="noopener">https://softwareengineering.stackexchange.com/questions/120126/what-is-the-history-of-why-bytes-are-eight-bits</a>  What is the history of why bytes are eights bits? - Software Engineering</p>
+<p><a href="https://zhuanlan.zhihu.com/p/21388517" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21388517</a>   “字节序”是个什么鬼？- 知乎</p>
+<p><a href="https://blog.csdn.net/ldanduo/article/details/8203532" target="_blank" rel="noopener">https://blog.csdn.net/ldanduo/article/details/8203532</a>    编码格式简介（ANSI、GBK、GB2312、UTF-8、GB18030和 UNICODE） - CSDN博客</p>
+<p><a href="https://www.zhihu.com/question/20167122" target="_blank" rel="noopener">https://www.zhihu.com/question/20167122</a>  「带 BOM 的 UTF-8」和「无 BOM 的 UTF-8」有什么区别？- 知乎</p>
+<p><a href="https://www.zhihu.com/question/20152853" target="_blank" rel="noopener">https://www.zhihu.com/question/20152853</a>   对于字符编码，程序员的话应该了解它的哪些方面？- 知乎</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A0%81">编码</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "谈谈计算机中的编码问题&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

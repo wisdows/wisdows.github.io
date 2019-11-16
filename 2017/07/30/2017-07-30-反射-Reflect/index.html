@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>reflect WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期日, 七月 30日 2017, 11:52 中午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.3k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      6 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="什么是Java反射机制"><a href="#什么是Java反射机制" class="headerlink" title="什么是Java反射机制"></a>什么是Java反射机制</h1><p> JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法；这种<code>动态获取</code>的以及<code>动态调用对象</code>的方法的功能称为Java的反射机制。</p>
+<h2 id="反射提供的功能"><a href="#反射提供的功能" class="headerlink" title="反射提供的功能:"></a>反射提供的功能:</h2><ul>
+<li>运行时判断任意一个对象的类</li>
+<li>运行时构造任意一个类的对象</li>
+<li>运行时判定一个类具有的成员变量和方法</li>
+<li>运行时调用任意一个对象的方法</li>
+<li>动态代理</li>
+</ul>
+<h2 id="反射机制类："><a href="#反射机制类：" class="headerlink" title="反射机制类："></a>反射机制类：</h2><ul>
+<li><code>java.lang.Class</code>: 类</li>
+<li><code>java.lang.reflect.Constructor</code> : 构造方法</li>
+<li><code>java.lang.reflect.Field</code> : 类的成员变量</li>
+<li><code>java.lang.reflect.Method</code> : 类的方法</li>
+<li><code>java.lang.reflect.Modifier</code> : 访问权限</li>
+</ul>
+<h2 id="实现反射："><a href="#实现反射：" class="headerlink" title="实现反射："></a>实现反射：</h2><h3 id="1-获取Class对象：3种方式"><a href="#1-获取Class对象：3种方式" class="headerlink" title="1. 获取Class对象：3种方式"></a>1. 获取Class对象：3种方式</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Dog dog = <span class="keyword">new</span> Dog(<span class="string">"tom"</span>);</span><br><span class="line"><span class="comment">//1.通过对象获取</span></span><br><span class="line">Class class1 = dog.getClass();</span><br><span class="line"><span class="comment">//2.通过类的属性获取</span></span><br><span class="line">class1 = Dog<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line"><span class="comment">//3.通过Class类的静态方法获取</span></span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    class1 = Class.forName(<span class="string">"Dog"</span>);</span><br><span class="line">} <span class="keyword">catch</span> (ClassNotFoundException e) {</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="2-获取class对象的摘要信息"><a href="#2-获取class对象的摘要信息" class="headerlink" title="2. 获取class对象的摘要信息:"></a>2. 获取class对象的摘要信息:</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断是否是基础类</span></span><br><span class="line">class1.isPrimitive();</span><br><span class="line"><span class="comment">//java.lang.Boolean</span></span><br><span class="line"><span class="comment">//java.lang.Character</span></span><br><span class="line"><span class="comment">//java.lang.Byte</span></span><br><span class="line"><span class="comment">//java.lang.Short</span></span><br><span class="line"><span class="comment">//java.lang.Integer</span></span><br><span class="line"><span class="comment">//java.lang.Long</span></span><br><span class="line"><span class="comment">//java.lang.Float</span></span><br><span class="line"><span class="comment">//java.lang.Double</span></span><br><span class="line"><span class="comment">//java.lang.Void</span></span><br><span class="line"><span class="comment">//判断是否是集合</span></span><br><span class="line">class1.isArray();</span><br><span class="line"><span class="comment">//判断是否是注解</span></span><br><span class="line">class1.isAnnotation();</span><br><span class="line"><span class="comment">//判断是否是接口</span></span><br><span class="line">class1.isInterface();</span><br><span class="line"><span class="comment">//判断是否是枚举</span></span><br><span class="line">class1.isEnum();</span><br><span class="line"><span class="comment">//判断是否是匿名内部类</span></span><br><span class="line">class1.isAnonymousClass();</span><br><span class="line"><span class="comment">//判断是否被某个注解类修饰</span></span><br><span class="line">class1.isAnnotationPresent(Deprecated<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"><span class="comment">//获取内部类</span></span><br><span class="line">Class&lt;?&gt;[] innerClasses = class1.getDeclaredClasses();</span><br><span class="line"><span class="comment">//获取外部类</span></span><br><span class="line">Class&lt;?&gt; outClasses = class1.getDeclaringClass();</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="3-获取class对象的属性，方法，构造函数等"><a href="#3-获取class对象的属性，方法，构造函数等" class="headerlink" title="3. 获取class对象的属性，方法，构造函数等"></a>3. 获取class对象的属性，方法，构造函数等</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">class Base {</span><br><span class="line">    public String age;</span><br><span class="line">    public Base() {}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">class Dog extends Base {</span><br><span class="line">    private String name;</span><br><span class="line">    protected String shortName;</span><br><span class="line">    public Dog(String name) {this.name = name;}</span><br><span class="line">    private Dog() {}</span><br><span class="line">    public void displayName() {System.out.println(name);}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">//所有public属性,包括从父类继承的</span><br><span class="line">Field[] publicFields = class1.getFields();</span><br><span class="line">//所有属性,只包括自身声明过得</span><br><span class="line">Field[] allFields = class1.getDeclaredFields();</span><br><span class="line">//所有公共方法,包括从父类继承的</span><br><span class="line">Method[] publicMethods = class1.getMethods();</span><br><span class="line">//所有方法,只包括自身声明过得</span><br><span class="line">Method[] allMethods = class1.getDeclaredMethods();</span><br><span class="line">//所有公共构造函数</span><br><span class="line">Constructor[] publicConstructors = class1.getConstructors();</span><br><span class="line">//所有构造函数,,只包括自身声明过得</span><br><span class="line">Constructor[] allConstructors = class1.getDeclaredConstructors();</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">---publicFields---</span><br><span class="line">public java.lang.String Base.age</span><br><span class="line">---allFields---</span><br><span class="line">private java.lang.String Dog.name</span><br><span class="line">protected java.lang.String Dog.shortName</span><br><span class="line">---publicMethods---</span><br><span class="line">public void Dog.displayName()</span><br><span class="line">public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException</span><br><span class="line">public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException</span><br><span class="line">public final void java.lang.Object.wait() throws java.lang.InterruptedException</span><br><span class="line">public boolean java.lang.Object.equals(java.lang.Object)</span><br><span class="line">public java.lang.String java.lang.Object.toString()</span><br><span class="line">public native int java.lang.Object.hashCode()</span><br><span class="line">public final native java.lang.Class java.lang.Object.getClass()</span><br><span class="line">public final native void java.lang.Object.notify()</span><br><span class="line">public final native void java.lang.Object.notifyAll()</span><br><span class="line">---allMethods---</span><br><span class="line">public void Dog.displayName()</span><br><span class="line">---publicConstructors---</span><br><span class="line">public Dog(java.lang.String)</span><br><span class="line">---allConstructors---</span><br><span class="line">public Dog(java.lang.String)</span><br><span class="line">private Dog()</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="4-class对象动态生成"><a href="#4-class对象动态生成" class="headerlink" title="4. class对象动态生成"></a>4. class对象动态生成</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> {</span><br><span class="line">	<span class="comment">//1. 调用Dog类的无参构造函数(这种方式需要确保无参构造函数不是私有的)</span></span><br><span class="line">    obj = class1.newInstance();</span><br><span class="line">    Constructor cs = class1.getDeclaredConstructor(<span class="keyword">new</span> Class[]{String<span class="class">.<span class="keyword">class</span>})</span>;</span><br><span class="line">    <span class="comment">//2. 调用有参构造函数</span></span><br><span class="line">    obj = cs.newInstance(<span class="keyword">new</span> Object[]{<span class="string">"tom's dog"</span>});</span><br><span class="line">} <span class="keyword">catch</span> (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="5-动态调用函数"><a href="#5-动态调用函数" class="headerlink" title="5. 动态调用函数"></a>5. 动态调用函数</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取方法对应的Method对象</span><br><span class="line">Method method = class1.getDeclaredMethod("displayName");</span><br><span class="line">//调用函数</span><br><span class="line">method.invoke(obj);</span><br><span class="line">//获取含参方法</span><br><span class="line">Method method2 = class1.getDeclaredMethod("setName", new Class[]{String.class});</span><br><span class="line">//调用函数并传递参数</span><br><span class="line">method2.invoke(obj, new Object[]{"new name"});</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="6-通过反射机制获取泛型类型"><a href="#6-通过反射机制获取泛型类型" class="headerlink" title="6. 通过反射机制获取泛型类型"></a>6. 通过反射机制获取泛型类型</h3><p><a href="http://www.cnblogs.com/whoislcj/p/6038511.html" target="_blank" rel="noopener">摘自:Java学习之反射机制及应用场景</a></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//People类</span><br><span class="line">public class People&lt;T&gt; {}</span><br><span class="line">//Person类继承People类</span><br><span class="line">public class Person&lt;T&gt; extends People&lt;String&gt; implements PersonInterface&lt;Integer&gt; {}</span><br><span class="line">//PersonInterface接口</span><br><span class="line">public interface PersonInterface&lt;T&gt; {}</span><br></pre></td></tr></tbody></table></figure>
+<p>获取泛型类型</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Person&lt;String&gt; person = new Person&lt;&gt;();</span><br><span class="line">//第一种方式 通过对象getClass方法</span><br><span class="line">Class&lt;?&gt; class1 = person.getClass();</span><br><span class="line">Type genericSuperclass = class1.getGenericSuperclass();//获取class对象的直接超类的 Type</span><br><span class="line">Type[] interfaceTypes = class1.getGenericInterfaces();//获取class对象的所有接口的Type集合</span><br><span class="line"></span><br><span class="line">getComponentType(genericSuperclass);</span><br><span class="line">getComponentType(interfaceTypes[0]);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>getComponetType:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private Class&lt;?&gt; getComponentType(Type type) {</span><br><span class="line">Class&lt;?&gt; componentType = null;</span><br><span class="line">if (type instanceof ParameterizedType) {</span><br><span class="line">    //getActualTypeArguments()返回表示此类型实际类型参数的 Type 对象的数组。</span><br><span class="line">    Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();</span><br><span class="line">    if (actualTypeArguments != null &amp;&amp; actualTypeArguments.length &gt; 0) {</span><br><span class="line">    componentType = (Class&lt;?&gt;) actualTypeArguments[0];</span><br><span class="line">    }</span><br><span class="line">} else if (type instanceof GenericArrayType) {</span><br><span class="line">    // 表示一种元素类型是参数化类型或者类型变量的数组类型</span><br><span class="line">    componentType = (Class&lt;?&gt;) ((GenericArrayType) type).getGenericComponentType();</span><br><span class="line">} else {</span><br><span class="line">    componentType = (Class&lt;?&gt;) type;</span><br><span class="line">}</span><br><span class="line">return componentType;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="7-通过反射获取注解："><a href="#7-通过反射获取注解：" class="headerlink" title="7. 通过反射获取注解："></a>7. 通过反射获取注解：</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">    Class&lt;Mela&gt; melaClass = null;</span><br><span class="line">    try {</span><br><span class="line">        melaClass = (Class&lt;Mela&gt;) Class.forName("Mela");</span><br><span class="line">    } catch (ClassNotFoundException e) {</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line">    try {</span><br><span class="line">        //获取指定方法</span><br><span class="line">        Method method = melaClass.getDeclaredMethod("setName", String.class);</span><br><span class="line">        //获取所有注解</span><br><span class="line">        Annotation[] annotations = method.getAnnotations();</span><br><span class="line">        //获取类型指定注解</span><br><span class="line">        Annotation annotationType1 = method.getAnnotation(Deprecated.class);</span><br><span class="line">        //获取所有参数注解</span><br><span class="line">        Annotation[][] paramsAno = method.getParameterAnnotations();</span><br><span class="line">        for (Annotation[] aParamsAno : paramsAno) {</span><br><span class="line">            for (Annotation anAParamsAno : aParamsAno) {</span><br><span class="line">                System.out.println(anAParamsAno);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        System.out.println(annotationType1);</span><br><span class="line">    } catch (NoSuchMethodException e) {</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    //获取所有成员变量的注解</span><br><span class="line">    Field[] fields = melaClass.getDeclaredFields();</span><br><span class="line">    for (Field f : fields) {</span><br><span class="line">        Annotation[] annotations = f.getDeclaredAnnotations();</span><br><span class="line">        for (Annotation a : annotations) {</span><br><span class="line">            System.out.println(a);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="8-反射机制的应用场景："><a href="#8-反射机制的应用场景：" class="headerlink" title="8. 反射机制的应用场景："></a>8. 反射机制的应用场景：</h3><ul>
+<li>逆向代码 ，例如反编译</li>
+<li>与注解相结合的框架 例如Retrofit</li>
+<li>单纯的反射机制应用框架 例如EventBus 2.x</li>
+<li>动态生成类框架 例如Gson</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Java">Java</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "reflect&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

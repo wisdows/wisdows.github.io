@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>联机编写教程-极光 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 16日 2019, 3:32 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    832 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      3 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p><strong>无名杀联机扩展编写教程</strong></p>
+<p><strong>前言：</strong></p>
+<p>用这个方法相当于源码添加武将包（卡包），跳过了一些禁止联机的判断，从而达到扩展联机效果。</p>
+<p><strong>框架：</strong></p>
+<p>game.import(“extension”,function(lib,game,ui,get,ai,_status){return {name:”扩展名”,content:function (config,pack){</p>
+<p>​    if(config.武将包名英文){</p>
+<p>​        for(var i in lib.characterPack[‘武将包名英文’]) {</p>
+<p>​            if(lib.character[i][4].indexOf(“forbidai”)&lt;0) lib.character[i][4].push(“forbidai”);</p>
+<p>​        };</p>
+<p>​    };//选项触发内容，原因见config</p>
+<p>},precontent:function(武将包名英文){</p>
+<p>​    if(武将包名英文.enable){</p>
+<p>​        //武将包</p>
+<p>​        game.import(‘character’,function(){</p>
+<p>​            var 武将包名英文={</p>
+<p>​                name:’武将包名英文’,//武将包命名（必填）</p>
+<p>​                connect:true,//该武将包是否可以联机（必填）</p>
+<p>​                character:{ </p>
+<p>​                    //武将格式:</p>
+<p>​                    //“武将名字”:[“性别”,”势力”,体力,[技能],[]],</p>
+<p>​                    //格式内每一样东西都不能缺少，否则无法导入该武将包及其以下内容</p>
+<p>​                },//武将（必填）</p>
+<p>​                characterIntro:{}, //武将介绍（选填）</p>
+<p>​                characterTitle:{},//武将标题（用于写称号或注释）（选填）</p>
+<p>​                skill:{},//技能（必填）</p>
+<p>​                translate:{},//翻译（必填）</p>
+<p>​                perfectPair:{},//珠联璧合武将（选填）</p>
+<p>​            };</p>
+<p>​            if(lib.device||lib.node){</p>
+<p>​                for(var i in 武将包名英文.character){武将包名英文.character[i][4].push(‘ext:扩展名/‘+i+’.jpg’);}</p>
+<p>​            }else{</p>
+<p>​                for(var i in 武将包名英文.character){武将包名英文.character[i][4].push(‘db:extension-扩展名:’+i+’.jpg’);}</p>
+<p>​            }//由于以此法加入的武将包武将图片是用源文件的，所以要用此法改变路径</p>
+<p>​            return 武将包名英文;</p>
+<p>​        });</p>
+<p>​        lib.config.all.characters.push(‘武将包名英文’);</p>
+<p>​        if(!lib.config.characters.contains(‘武将包名英文’)) lib.config.characters.push(‘武将包名英文’);</p>
+<p>​        lib.translate[‘武将包名英文_character_config’]=’武将包名’;// 包名翻译</p>
+<p>​        //卡包（手牌）</p>
+<p>​        game.import(‘card’,function(){</p>
+<p>​            var 卡包名英文={</p>
+<p>​            name:’卡包名英文’,//卡包命名</p>
+<p>​            connect:true,//卡包是否可以联机</p>
+<p>​            card:{</p>
+<p>​                ‘卡名’:{</p>
+<p>​                    image:’ext:扩展名/卡名.jpg’,    //卡牌图片</p>
+<p>​                    //以下与一般卡牌一样</p>
+<p>​                },//卡 格式</p>
+<p>​                skill:{},//技能</p>
+<p>​                translate:{},//翻译</p>
+<p>​                list:[],//牌堆添加</p>
+<p>​            };</p>
+<p>​            return 卡包名英文;</p>
+<p>​        });</p>
+<p>​        lib.translate[‘卡包名英文_card_config’]=’卡包名’;</p>
+<p>​        lib.config.all.cards.push(‘卡包名英文’);</p>
+<p>​        if(!lib.config.cards.contains(‘卡包名英文’)) lib.config.cards.push(‘卡包名英文’);//包名翻译</p>
+<p>​    };</p>
+<p>},config:{</p>
+<p>​    “武将包名英文”:{“name”:”将武将包名内武将设为禁用”,”init”:false},</p>
+<p>​    //由于以此法添加的武将包自带的禁用按钮无法使用，需要写这个选项来禁用该武将包武将（单机）</p>
+<p>},help:{},package:{</p>
+<p>​    character:{</p>
+<p>​        character:{</p>
+<p>​        },</p>
+<p>​        translate:{</p>
+<p>​        },</p>
+<p>​    },</p>
+<p>​    card:{</p>
+<p>​        card:{</p>
+<p>​        },</p>
+<p>​        translate:{</p>
+<p>​        },</p>
+<p>​        list:[],</p>
+<p>​    },</p>
+<p>​    skill:{</p>
+<p>​        skill:{</p>
+<p>​        },</p>
+<p>​        translate:{</p>
+<p>​        },</p>
+<p>​    },</p>
+<p>​    intro:””,</p>
+<p>​    author:”Aurora”,</p>
+<p>​    diskURL:””,</p>
+<p>​    forumURL:””,</p>
+<p>​    version:””,</p>
+<p>},files:{“character”:[],”card”:[],”skill”:[]}}})</p>
+<p><strong>注意事项：</strong></p>
+<p>1.有些函数触发时，主机不会发送触发内容给客机，这是就要用game.broadcastAll(function(){})或game.broadcast (function(){})。（具体用法看源码，不举例）</p>
+<p>2.如果是储存类的联机扩展（不如联机皮肤什么的）解决方法：</p>
+<p>（1）数据位于服务器，直接读取。</p>
+<p>（2）数据位于本地，在主机将信息发送给客机时改动。（我找不到端口，不具体说明）</p>
+<p>3.联机时，客机扩展要和主机一致，否则客机发生错误。</p>
+<p>4.同一个扩展可以以此法添加多个武将包或卡包。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "联机编写教程-极光&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

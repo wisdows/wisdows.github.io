@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>扩展编写教程-水乎 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 16日 2019, 3:32 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.2k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      5 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="水乎无名杀教程"><a href="#水乎无名杀教程" class="headerlink" title="水乎无名杀教程"></a>水乎无名杀教程</h2><h3 id="1-扩展的基本格式"><a href="#1-扩展的基本格式" class="headerlink" title="1. 扩展的基本格式"></a>1. 扩展的基本格式</h3><p>扩展为zip格式，包含extension.js</p>
+<p>extension.js的格式：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">game.import(<span class="string">'extension'</span>,{</span><br><span class="line"></span><br><span class="line">name:<span class="string">'扩展名称'</span>,</span><br><span class="line"></span><br><span class="line">content:<span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>{</span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展内容</span></span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">image:[<span class="string">'xxx.png'</span>,<span class="string">'xxx.png'</span>],<span class="comment">//扩展包内所有图片名</span></span><br><span class="line"></span><br><span class="line">config:{</span><br><span class="line"></span><br><span class="line"><span class="comment">//在扩展界面提供的选项，作为content函数的参数</span></span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">help:{</span><br><span class="line"></span><br><span class="line"><span class="comment">//帮助界面中显示的内容</span></span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h3 id="2-content函数"><a href="#2-content函数" class="headerlink" title="2. content函数"></a>2. content函数</h3><p>content函数调用时机为游戏最初载入时，可用来修改游戏本身的内容。</p>
+<p>若要修改现有的武将或卡牌的内容，须等扩展载入完毕后再触发，写法如下</p>
+<p>lib.arenaReady.push(function(){</p>
+<p>//要执行的内容</p>
+<p>})</p>
+<h3 id="3-添加武将"><a href="#3-添加武将" class="headerlink" title="3. 添加武将"></a>3. 添加武将</h3><p>通过扩展添加的武将与武将包有部分区别，它的管理方式与自带武将相同，可自由决定放在哪个现有武将包（或创建新武将包）</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">name:<span class="string">'xxx'</span>,</span><br><span class="line"></span><br><span class="line">content:<span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>{</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(config.x_caocao){</span><br><span class="line"></span><br><span class="line">lib.character.x_caocao=[<span class="string">'male'</span>,<span class="string">'wei'</span>,<span class="number">4</span>,[<span class="string">'x_jianxiong'</span>],[<span class="string">'db:extension-xxx:x_caocao.jpg'</span>,<span class="string">'zhu'</span>]]</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">lib.translate.x_caocao=<span class="string">'曹操'</span>;</span><br><span class="line"></span><br><span class="line">lib.skill.x_jianxiong={</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义技能</span></span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">dlib.translate.x_jianxiong=<span class="string">'奸雄'</span>;</span><br><span class="line"></span><br><span class="line">lib.translate.x_jianxiong_info=<span class="string">'技能描述'</span>;</span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">image:[<span class="string">'x_caocao.jpg'</span>],</span><br><span class="line"></span><br><span class="line">config:{</span><br><span class="line"></span><br><span class="line">x_caocao:{</span><br><span class="line"></span><br><span class="line">name:<span class="string">'启用曹操'</span>,</span><br><span class="line"></span><br><span class="line">init:<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其中</p>
+<p>‘db:extension-xxx:x_caocao.jpg’表示武将图为导入的图片</p>
+<p>‘zhu’表示这是一个常备主公</p>
+<p>config里表示在扩展界面加一个选项（即content中的config.x_caocao），init:true表示这个选项默认为true</p>
+<h4 id="3-1-将武将放入一个扩展包"><a href="#3-1-将武将放入一个扩展包" class="headerlink" title="3.1 将武将放入一个扩展包"></a>3.1 将武将放入一个扩展包</h4><h5 id="3-1-1创建一个新武将包"><a href="#3-1-1创建一个新武将包" class="headerlink" title="3.1.1创建一个新武将包"></a>3.1.1创建一个新武将包</h5><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> caocao=[<span class="string">'male'</span>,<span class="string">'wei'</span>,<span class="number">4</span>,[<span class="string">'x_jianxiong'</span>],[<span class="string">'db:extension-xxx:x_caocao.jpg'</span>,<span class="string">'zhu'</span>]];</span><br><span class="line"></span><br><span class="line">lib.character.x_caocao=caocao;</span><br><span class="line"></span><br><span class="line">lib.characterPack.mode_extension_xxx={<span class="attr">x_caocao</span>:caocao};</span><br><span class="line"></span><br><span class="line">lib.translate.mode_extension_xxx_character_config=<span class="string">'示例'</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>mode_前缀代表这是一个由扩展创建的武将包，不能在武将页面关闭 </p>
+<h5 id="3-1-2放入一个现有的武将包中"><a href="#3-1-2放入一个现有的武将包中" class="headerlink" title="3.1.2放入一个现有的武将包中"></a>3.1.2放入一个现有的武将包中</h5><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lib.packageReady.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line"><span class="comment">//将武将放入标准包</span></span><br><span class="line"></span><br><span class="line">lib.characterPack.standard.x_caocao=lib.character.x_caocao</span><br><span class="line"></span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>packageReady发动时机为扩展载入完毕，界面创建之前</p>
+<p>arenaReady发动时机为界面创建完毕</p>
+<p>由于创建菜单时用到了武将包，所以修改现有武将包的时机为界面创建之前，即packageReady</p>
+<h4 id="3-2-武将的其它设置"><a href="#3-2-武将的其它设置" class="headerlink" title="3.2 武将的其它设置"></a>3.2 武将的其它设置</h4><p>设为boss：lib.character.x_caocao=[‘male’,’wei’,4,[‘x_jianxiong’],[‘db:extension-xxx:x_caocao.jpg’,’zhu’,’boss’]]</p>
+<p>设为boss且可在正常模式中出现：lib.character.x_caocao=[‘male’,’wei’,4,[‘x_jianxiong’],[‘db:extension-xxx:x_caocao.jpg’,’zhu’,’boss’,’bossallowed’]]</p>
+<p>设置ai禁选：lib.config.forbidai.push(‘x_caocao’)</p>
+<p>设置双将禁选：lib.config.forbiddouble.push(‘x_caocao’)</p>
+<p>设置武将强度</p>
+<p>（影响部分ai，屏蔽弱将时不出现c及以下的武将，屏蔽强将时不出现ap及以上的武将）</p>
+<p>强度分为9个等级：s&gt;ap&gt;a&gt;am&gt;bp&gt;b&gt;bm&gt;c&gt;d</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lib.arenaReady.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line">lib.rank.s.push(<span class="string">'x_caocao'</span>);<span class="comment">//将强度设为S级</span></span><br><span class="line"></span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>设置珠联壁合：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lib.arenaReady.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!lib.perfectPair.x_caocao) lib.perfectPair.x_caocao=[];</span><br><span class="line"></span><br><span class="line">lib.perfectPair.x_caocao.push(<span class="string">'dianwei'</span>);<span class="comment">//设置与典韦珠联壁合</span></span><br><span class="line"></span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="3-3-添加武将的简便写法"><a href="#3-3-添加武将的简便写法" class="headerlink" title="3.3 添加武将的简便写法"></a>3.3 添加武将的简便写法</h4><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">game.addCharacter(<span class="string">'x_caoca'</span>,{</span><br><span class="line"></span><br><span class="line">sex:<span class="string">'male'</span>,</span><br><span class="line"></span><br><span class="line">translate:<span class="string">'曹操'</span>,</span><br><span class="line"></span><br><span class="line">skills:[<span class="string">'x_jianxiong'</span>],</span><br><span class="line"></span><br><span class="line">tags:[<span class="string">'zhu'</span>]</span><br><span class="line"></span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>等价于</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> caocao=[<span class="string">'male'</span>,<span class="string">'wei'</span>,<span class="number">4</span>,[<span class="string">'x_jianxiong'</span>],[<span class="string">'db:extension-xxx:x_caocao.jpg'</span>,<span class="string">'zhu'</span>]];</span><br><span class="line"></span><br><span class="line">lib.character.x_caocao=caocao;</span><br><span class="line"></span><br><span class="line">lib.translate.x_caocao=<span class="string">'曹操'</span>;</span><br><span class="line"></span><br><span class="line">lib.characterPack.mode_extension_xxx={<span class="attr">x_caocao</span>:caocao};</span><br><span class="line"></span><br><span class="line">lib.translate.mode_extension_xxx_character_config=<span class="string">'xxx'</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="4-添加卡牌"><a href="#4-添加卡牌" class="headerlink" title="4. 添加卡牌"></a>4. 添加卡牌</h3><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">lib.card.yuanshengfazhang={</span><br><span class="line"></span><br><span class="line">fullimage:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">image:<span class="string">'db:extension-示例扩展:yuanshengfazhang.jpg'</span>,</span><br><span class="line"></span><br><span class="line">enable:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">type:<span class="string">'trick'</span>,</span><br><span class="line"></span><br><span class="line">filterTarget:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">content:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line">target.damage(<span class="string">'thunder'</span>);</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">lib.translate.yuanshengfazhang=<span class="string">'原生法杖'</span>;</span><br><span class="line"></span><br><span class="line">lib.translate.yuanshengfazhang_info=<span class="string">'造成1点雷电伤害'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> n=<span class="built_in">parseInt</span>(config.yuanshengfazhang);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(n--){</span><br><span class="line"></span><br><span class="line">lib.card.list.push([<span class="string">'club'</span>,<span class="number">3</span>,<span class="string">'yuanshengfazhang'</span>]);</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">lib.cardPack.mode_extension_example=[<span class="string">'yuanshengfazhang'</span>];</span><br><span class="line"></span><br><span class="line">lib.translate.mode_extension_example_card_config=<span class="string">'示例'</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>等价写法：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">game.addCard(<span class="string">'yuanshengfazhang'</span>,{</span><br><span class="line"></span><br><span class="line">fullimage:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">enable:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">type:<span class="string">'trick'</span>,</span><br><span class="line"></span><br><span class="line">filterTarget:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">content:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line">target.damage(<span class="string">'thunder'</span>);</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">translate:<span class="string">'原生法杖'</span>,</span><br><span class="line"></span><br><span class="line">description:<span class="string">'造成1点雷电伤害'</span>,</span><br><span class="line"></span><br><span class="line">number:<span class="built_in">parseInt</span>(config.yuanshengfazhang)</span><br><span class="line"></span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>fullskin（左）与fullimage（右）</p>
+<h3 id="5-创建模式"><a href="#5-创建模式" class="headerlink" title="5. 创建模式"></a>5. 创建模式</h3><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">name:<span class="string">'新模式'</span>,</span><br><span class="line"></span><br><span class="line">content:<span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>{</span><br><span class="line"></span><br><span class="line">game.addMode(<span class="string">'xxmode'</span>,{</span><br><span class="line"></span><br><span class="line"><span class="comment">//模式内容</span></span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">},{</span><br><span class="line"></span><br><span class="line">translate:<span class="string">'新模式'</span>,</span><br><span class="line"></span><br><span class="line">config:{</span><br><span class="line"></span><br><span class="line">xxx:{</span><br><span class="line"></span><br><span class="line">name:<span class="string">'一个选项'</span>,</span><br><span class="line"></span><br><span class="line">init:<span class="string">'a'</span>,</span><br><span class="line"></span><br><span class="line">item:{</span><br><span class="line"></span><br><span class="line">a:<span class="string">'A'</span>,</span><br><span class="line"></span><br><span class="line">b:<span class="string">'B'</span>,</span><br><span class="line"></span><br><span class="line">c:<span class="string">'C'</span></span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">frequent:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">restart:<span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">});</span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">help:{</span><br><span class="line"></span><br><span class="line"><span class="string">'新模式'</span>:<span class="string">'帮助内容'</span></span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">},</span><br><span class="line"></span><br><span class="line">onremove:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line">game.clearModeConfig(<span class="string">'xxmode'</span>);},</span><br><span class="line"></span><br><span class="line">image:[<span class="string">'xxmode.jpg'</span>]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其中</p>
+<p>image应包含与模式同名的图片（即xxmode.jpg），用于在开始界面显示</p>
+<p>config为模式选择菜单中的选项，不是扩展菜单中的选项</p>
+<p>onremove为此扩展被删除时的操作，模式添加的选项需手动删除（clearModeConfig）</p>
+<h5 id="5-1-载入现有模式的内容"><a href="#5-1-载入现有模式的内容" class="headerlink" title="5.1 载入现有模式的内容"></a>5.1 载入现有模式的内容</h5> <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'step 0'</span></span><br><span class="line"></span><br><span class="line">game.loadMode(<span class="string">'identity'</span>);</span><br><span class="line"></span><br><span class="line"><span class="string">'step 1'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> result.ai.get){</span><br><span class="line"></span><br><span class="line">ai.get[i]=result.ai.get[i];</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"><span class="comment">//引用身份模式的ai</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="1-9写法改变："><a href="#1-9写法改变：" class="headerlink" title="1.9写法改变："></a>1.9写法改变：</h3><ol>
+<li><p>添加/移除技能必须使用addSkill/removeSkill或addAdditionalSkill/removeAdditionalSkill函数</p>
+</li>
+<li><p>添加/移除全局技能必须使用addGlobalSkill/removeGlobalSkill函数</p>
+</li>
+<li><p>禁用/启用技能必须使用disableSkill/enableSkill函数</p>
+</li>
+<li><p>检查是否有某技能必须使用hasSkill函数</p>
+</li>
+<li><p>装备不再能直能通过appendChild函数添加，也不再能通过remove函数移除</p>
+</li>
+<li><p>使用createEvent创建事件，事件的content必须用setContent添加</p>
+</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "扩展编写教程-水乎&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>移动端布局 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 七月 18日 2015, 4:20 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.4k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      6 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h3 id="一、视口-viewport"><a href="#一、视口-viewport" class="headerlink" title="一、视口 viewport"></a>一、视口 viewport</h3><p>手机有不不同的分辨率，不不同的屏幕大小，如何使我们开发的应用或页<br>面大小能适合各种高端手机使用？<br>学习html5 viewport能帮助我们实现这一点。  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">width=device-width    设置宽度为屏幕宽度</span><br><span class="line">maximum-scale=1.0     设置最大缩放比例0.25 — 10.0  </span><br><span class="line">minimum-scale=1.0</span><br><span class="line">设置最小缩放比例:不能小于初始化的比例0.25 — 10.0  </span><br><span class="line">user-scalable=no 禁止用户捏合  </span><br><span class="line">width=device-width  </span><br><span class="line">height=device-height  </span><br><span class="line">设置宽度为屏幕的宽度/设置⾼高度为屏幕的高度</span><br><span class="line">可以设置⼀一个固定的值 尽可能不不这样使用</span><br><span class="line">设置为设备的宽度： device-width  </span><br><span class="line">height是设置高度使用的，我们很少使用  </span><br><span class="line">initial-scale=1.0 设置初始化的缩放比例 </span><br><span class="line">maximum-scale=1.0  </span><br><span class="line">minimum-scale=1.0  </span><br><span class="line">设置最大缩放比和最小缩放比值的范围是0.25 ~ 10.0</span><br><span class="line">user-scalable=no  </span><br><span class="line">user-scalable=0  </span><br><span class="line">是否允许用户进行缩放网页  </span><br><span class="line">值</span><br><span class="line">yes(默认) / 1</span><br><span class="line">no / 0</span><br><span class="line">如果设置为no，</span><br><span class="line">那么minimax-scale和maximum-scale将被忽</span><br><span class="line">略，因为不不允许缩放</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>所以一般我们可以复制这段到我们的项目中</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span>content=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,uer-scalable=no"</span> /&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="二、响应式布局"><a href="#二、响应式布局" class="headerlink" title="二、响应式布局"></a>二、响应式布局</h3><p>定义<br>为不不同屏幕分辨率定义不不同的布局使一个网站能兼容多个终端—而不不是为每个终端做一个特定的版本 这个概念是为了了解决移动互联网浏览而诞生的 。</p>
+<p>为什什么需要？<br>响应式布局可以为不不同终端的用户提供更更加舒适的页面和更更好的用户体验<br>随着目前大屏幕移动设备的普及，可以用“大势所趋”来形容。</p>
+<p>CSS3加入的媒体查询使得无需修改内容便便可以使样式应用于某些特定的设备范围  </p>
+<p>作用 通过不不同的屏幕大小定义不不同的样式  </p>
+<p>媒体查询的大部分媒介特性都接收min和max用于表达：大于或等于和小于或等于  </p>
+<p>媒体类型 ：<br>screen 屏幕<br>print 打印机<br>默认为all，我们通常写screen<br>媒体属性<br>min-width<br>max-width<br>逻辑操作符and用来把多个媒体属性组合起来，合并到同一条媒体查询中    </p>
+<p>样式表中内嵌@media  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">div {</span><br><span class="line">    	width: 100px;</span><br><span class="line">    	height: 100px;</span><br><span class="line">    	background: red;		</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">@media only screen and (min-width: 1000px) and (max-width: 1100px){</span><br><span class="line">	div {</span><br><span class="line">		background: yellow;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>在link中使用@media   </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=“stylesheet” <span class="built_in">type</span>=“text/css” media=“only screen and (max-width: 480px)” href=“link.css”&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="三、多列布局"><a href="#三、多列布局" class="headerlink" title="三、多列布局"></a>三、多列布局</h3><p>简介：CSS多列列布局继承自块级布局模式，允许简单地定义多列文本  </p>
+<p>当阅读文字的时候，从干一行末尾移动到下一行开始处，容易弄错读到了哪一行。<br>为了最优化使用大的显示屏幕，设计中应限制文字段落的宽度而并列列排布类似报纸   </p>
+<p>使用 ：<br> 列数和宽度：  </p>
+<p> 设置列数：      column-count  </p>
+<p>设置每列列宽度 ：column-width  </p>
+<p>columns ：column-count和column-width的简写,优先保证宽度，在宽度至少能达到指定宽度时，设置列列数  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">columns: 5;</span><br><span class="line">columns: 20em;</span><br><span class="line">columns: 12 8em;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>列间隙 ：列之间的间隙建议值为1em  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">column-gap</span><br><span class="line">column-gap: 2em;</span><br><span class="line">column-gap: 20px;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>优雅降级(浏览器器兼容性)：  </p>
+<p>多列属性会被不支持多列模型的浏览器器忽略  </p>
+<p>注意<br>不是所有的浏览器器都支持不带前缀的属性  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-moz-</span><br><span class="line">-webkit-</span><br></pre></td></tr></tbody></table></figure>
+
+<p>写的时候最好写三次  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-webkit-columns: 3;</span><br><span class="line">-moz-columns: 3;</span><br><span class="line">columns: 3;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>列边框设置：  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">column-rule-width：  </span><br><span class="line">                5px;  </span><br><span class="line">                thin 最窄  </span><br><span class="line">                medium 中等  </span><br><span class="line">                thick 最厚</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>column-rule-color<br>column-rule-style 和border-style的值一样<br>column-rule 复合属性  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">column-rule: 2px solid cyan;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>跨列列 ：  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">column-span all 指定元素跨越所有列</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h3 id="四、用户界面"><a href="#四、用户界面" class="headerlink" title="四、用户界面"></a>四、用户界面</h3><p>简介 在CSS3中，增加了一些新的用户界面特性来跳转元素尺寸，框尺寸和外边框。<br>1.resize :指定了某个元素是否可以由用户调整大小<br>使用时，需要添加 overflow: auto;<br>值<br>vertical 竖直方向<br>horizontal 水平方向<br>both 都<br>2.outline-offset   </p>
+<p>轮廓相关属性 :<br>outline-width(2)<br>outline-style(2)<br>outline-color(2)<br>outline(2)  :轮廓特点 不占用空间<br>轮廓偏移值  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outline-offset: 10px;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>3.text-overflow<br>当文本超出时，应该显示什么<br>值<br>ellipsis …<br>clip 直接被裁剪掉<br>配合属性<br>overflow: hidden;<br>white-space: no-wrap;    </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#div1 {</span></span><br><span class="line">    	width: 100px;</span><br><span class="line">    	height: 100px;</span><br><span class="line">    	border: 1px solid red;</span><br><span class="line">    	overflow: auto;</span><br><span class="line">    	resize: horizontal;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#p1 {</span></span><br><span class="line">    	width: 8rem;</span><br><span class="line">    	border: 1px solid green;</span><br><span class="line">    	</span><br><span class="line">    	outline: 1px dotted red;</span><br><span class="line">    	outline-offset: 5px;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">#p2 {</span></span><br><span class="line">    	width: 10rem;</span><br><span class="line">    	height: 1rem;</span><br><span class="line">    	border: 1px solid gray;</span><br><span class="line">    	</span><br><span class="line">    	</span><br><span class="line">    	/*overflow: hidden;*/</span><br><span class="line">    	white-space: nowrap;</span><br><span class="line">    	text-overflow: ellipsis;</span><br><span class="line">    	white-space: normal;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>4.cursor  </p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id=<span class="string">"p1"</span> style=<span class="string">"cursor:none"</span>&gt;none&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p2"</span> style=<span class="string">"cursor: context-menu;"</span>&gt;contentxt-menu&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p3"</span> style=<span class="string">"cursor: cell;"</span>&gt;cell&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p4"</span> style=<span class="string">"cursor: vertical-text;"</span>&gt;vertical-text&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p5"</span> style=<span class="string">"cursor: alias;"</span>&gt;<span class="built_in">alias</span>&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p6"</span> style=<span class="string">"cursor: copy;"</span>&gt;copy&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p7"</span> style=<span class="string">"cursor: no-drop;"</span>&gt;no-drop&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p8"</span> style=<span class="string">"cursor: not-allowed;"</span>&gt;not-allowed&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p9"</span> style=<span class="string">"cursor: nesw-resize;"</span>&gt;nesw-resize&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p10"</span> style=<span class="string">"cursor: nwse-resize;"</span>&gt;nwse-resize&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p11"</span> style=<span class="string">"cursor: col-resize;"</span>&gt;col-resize&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p12"</span> style=<span class="string">"cursor: row-resize;"</span>&gt;row-resize&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p13"</span> style=<span class="string">"cursor: all-scroll;"</span>&gt;all-scroll&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p14"</span> style=<span class="string">"cursor: zoom-in;"</span>&gt;zoom-in&lt;/p&gt;</span><br><span class="line">    &lt;p id=<span class="string">"p15"</span> style=<span class="string">"cursor: zoom-out;"</span>&gt;zoom-out&lt;/p&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF">移动端</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF">移动端</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "移动端布局&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

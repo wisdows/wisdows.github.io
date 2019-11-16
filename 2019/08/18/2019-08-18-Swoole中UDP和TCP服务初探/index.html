@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Swoole中UDP和TCP服务初探 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期日, 八月 18日 2019, 5:08 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.2k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      4 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <blockquote>
+<p>什么是 Swoole？</p>
+</blockquote>
+<p>Swoole 是一个高性能的网络通信引擎,提供了多种的网络通信协议。例如 UDP、TCP、Http 和 WebSocket 等各种通信协议。可以使完全同步的代码实现异步执行程序，例如异步 Redis、异步 MySQL、协程 Http 等异步 IO 操作。</p>
+<blockquote>
+<p>如何安装 Swoole</p>
+</blockquote>
+<p>Swoole 作为 PHP 的一个扩展库，在使用的过程中也和其他的函数库并无什么使用上的差别，但这个库又不是一个普通的库。这个库分为服务端和客户端，首先我们需要去通过内置的函数启动服务，然后在去请求服务。<br>安装的步骤也很简单，和其他的 PHP 函数库操作并差别，直接可以参考<a href="https://wiki.swoole.com/wiki/page/6.html" target="_blank" rel="noopener">安装步骤</a> ,按照教程安装完成之后，我们就可以正常使用啦！</p>
+<blockquote>
+<p>第一个 Demo</p>
+</blockquote>
+<p>该 demo 是一个 TCP 服务的简单示例。 1.服务端代码</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//  1.创建一个swoole对象</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * swoole_server(主机地址,端口号);</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">$swoole = <span class="keyword">new</span> swoole_server(<span class="string">'127.0.0.1'</span>, <span class="number">9502</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置连接参数</span></span><br><span class="line">$swoole-&gt;set([</span><br><span class="line">    <span class="string">'reactor_num'</span> =&gt; <span class="number">2</span>, <span class="comment">// 线程数(全异步非阻塞服务器 worker_num配置为CPU核数的1-4倍即可)</span></span><br><span class="line">    <span class="string">'worker_num'</span> =&gt; <span class="number">2</span>, <span class="comment">// 工作进程数,该配置小于reactor_num配置时，swoole自动降低reactor_num的配置数</span></span><br><span class="line">    <span class="string">'max_conn'</span> =&gt; <span class="number">2</span>, <span class="comment">// 最大连接数(当前演示版本最低为36)</span></span><br><span class="line">    <span class="string">'max_request'</span> =&gt; <span class="number">100</span>, <span class="comment">// 最大请求数,表示在worker进程处理完n个请求之后，manager进程重新创建一个worker进程来处理请求，避免造成内存溢出情况.</span></span><br><span class="line">    <span class="string">'log_file'</span> =&gt; <span class="string">'/usr/local/var/www/swoole/log/log.log'</span>,<span class="comment">// 错误日志文件</span></span><br><span class="line">    <span class="string">'heartbeat_check_interval'</span> =&gt; <span class="number">30</span>, <span class="comment">// 轮询所有TCP连接，将超过心跳时间的连接关闭掉</span></span><br><span class="line">    <span class="string">'heartbeat_idle_time'</span> =&gt; <span class="number">30</span> <span class="comment">// 心跳时间检测，如果tcp连接超过该时间之后，会自动关闭连接</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  2.监听连接事件</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * on(event_name,function(swoole对象,客户端标识){});</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">$swoole-&gt;on(<span class="string">'connect'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($swoole, $fd)</span> </span>{</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'客户端'</span> . $fd . <span class="string">'在'</span> . date(<span class="string">'Y-m-d H:i:s'</span>) . <span class="string">'连接成功'</span>;</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="comment">//  3.监听接收数据事件</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *on(event_name,function(swoole对象,客户端标识,线程数,客户端数据){});</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">$swoole-&gt;on(<span class="string">'receive'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($swoole, $fd, $reactor_id, $data)</span> </span>{</span><br><span class="line">    $swoole-&gt;send($fd, <span class="string">'用户发送的数据为'</span> . $data . <span class="string">'客户端标志为'</span> . $fd . <span class="string">'来源form_id为'</span> . $reactor_id);</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="comment">//  4.监听链接关闭事件</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * on(event_name,function(swoole对象,客户端标识){});</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">$swoole-&gt;on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($swoole, $fd)</span> </span>{</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'客户端'</span> . $fd . <span class="string">'在'</span> . date(<span class="string">'Y-m-d H:i:s'</span>) . <span class="string">'close-success'</span>;</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5.启动服务</span></span><br><span class="line">$swoole-&gt;start();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>2.客户端代码</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created Author: 编程浪子走四方</span></span><br><span class="line"><span class="comment"> * Author: 编程浪子走四方</span></span><br><span class="line"><span class="comment"> * System: Mac Pro</span></span><br><span class="line"><span class="comment"> * System User: apple</span></span><br><span class="line"><span class="comment"> * Date: 2019-07-12</span></span><br><span class="line"><span class="comment"> * Time: 11:15</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 1.创建客户端连接对象并且连接为tcp连接</span></span><br><span class="line">$ser = <span class="keyword">new</span> swoole_client(SWOOLE_SOCK_TCP);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.创建swoole连接</span></span><br><span class="line">$ser-&gt;connect(<span class="string">'127.0.0.1'</span>, <span class="number">9502</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.客户端输入数据并接收</span></span><br><span class="line">fwrite(STDOUT, <span class="string">'请输入内容:'</span>);</span><br><span class="line">$content = fwrite(STDOUT, fgets(STDIN));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4.将数据发送到swoole服务(可以将服务端的代码中的3相互对应参考)</span></span><br><span class="line">$ser-&gt;send($content);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5.接受swoole服务返回的数据</span></span><br><span class="line">$result = $ser-&gt;recv();</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6.关闭连接</span></span><br><span class="line">$ser-&gt;close();</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>如何操作第一个 Demo</p>
+</blockquote>
+<p>1.启动我们的 Swoole，服务端的代码是 PHP 文件编写，所以我们用 cli 模式来启动服务<font color="red">(在 Swoole 中绝大部分的操作都是 cli 模式)</font></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php index.php</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://qiniucloud.qqdeveloper.com/mweb/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1.png" srcset="undefined" alt=""><br>这样 Swoole 服务就启动了。接下来，查看我们设置的 9502 端口是否被开启，来验证我们的服务是否真正的被打开了。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -anp | grep 9502</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://qiniucloud.qqdeveloper.com/mweb/%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E6%98%AF%E5%90%A6%E5%90%AF%E5%8A%A8.png" srcset="undefined" alt=""><br>接下来，我们测试一个客户端向服务器端发送数据.执行客户端代码,这个案例需要结合上面的服务端和客户端的代码便知晓.</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php index.php</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://qiniucloud.qqdeveloper.com/mweb/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94.png" srcset="undefined" alt=""><br>除了使用 PHP 代码当客户端使用外，TCP 协议还支持 telnet 连接，下面使用 telnet 测试连接.</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet 127.0.0. 9502</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果出现下面的结果，则表示能够正常连接，同时我们也可以输入任意内容，服务端接收到数据之后就会输出到终端.<br><img src="http://qiniucloud.qqdeveloper.com/mweb/telnet%E8%BF%9E%E6%8E%A5.png" srcset="undefined" alt=""><br>测试多个连接.在 Swoole 中，可以开启一个服务多个客户端，因此我们只需要启动一个 Swoole 服务，创建多个 telnet 连接也是可行的.我们打开多个窗口去使用 telnet 连接服务端，此时会看到服务端终端输出如下信息.<br><img src="http://qiniucloud.qqdeveloper.com/mweb/%E5%88%9B%E5%BB%BA%E8%BF%87%E4%B8%AA%E8%BF%9E%E6%8E%A5.png" srcset="undefined" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/PHP">PHP</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B">原创</a>
+                
+                  <a class="hover-with-bg" href="/tags/swoole">swoole</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Swoole中UDP和TCP服务初探&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

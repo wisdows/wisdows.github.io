@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>分析实现Android自定义View之扇形图 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 16日 2019, 3:26 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.4k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      6 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <blockquote>
+<p>继承View基类，画了这样的扇形图</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-0a14fa31332e99a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="粗糙的样子^_^"></p>
+<h2 id="直接来步骤吧"><a href="#直接来步骤吧" class="headerlink" title="直接来步骤吧"></a>直接来步骤吧</h2><blockquote>
+<p>(参考了<a href="http://www.gcssloop.com/customview/Canvas_BasicGraphics" target="_blank" rel="noopener">GcsSloop的教程</a>)</p>
+</blockquote>
+<h1 id="1-分析"><a href="#1-分析" class="headerlink" title="1.分析"></a>1.分析</h1><blockquote>
+<p>自定义View需要认真的分析下，里面还是会用到一些数学知识</p>
+</blockquote>
+<ul>
+<li><p>首先是扇形该怎么表现</p>
+<ol>
+<li><p>扇形的外观是个圆弧，而且是围绕一个中心点旋转一定角度构成的</p>
+</li>
+<li><p>View主要的绘制都是通过画布(canvas)进行，canvas里提供了许多绘制的方法。其中有一个 <code>drawArc()</code> 画圆弧的方法。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawArc</span><span class="params">(@NonNull RectF oval, <span class="keyword">float</span> startAngle, <span class="keyword">float</span> sweepAngle, <span class="keyword">boolean</span> useCenter,@NonNull Paint paint)</span> </span>{</span><br><span class="line">        	drawArc(oval.left, oval.top, oval.right, oval.bottom, startAngle, sweepAngle, useCenter,paint);</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+</ol>
+<p>这个方法就给画扇形提供了捷径。</p>
+</li>
+<li><p>发现里面有个RectF参数，隐约有点是矩形的感觉，网查一下： 这个类包含一个矩形的四个单精度浮点坐标。矩形通过上下左右4个边的坐标来表示一个矩形</p>
+</li>
+</ul>
+<p>参数说明一下：</p>
+<ul>
+<li>oval :指定圆弧的外轮廓矩形区域</li>
+<li>startAngle: 圆弧起始角度，单位为度。</li>
+<li>sweepAngle: 圆弧扫过的角度，顺时针方向，单位为度。</li>
+<li>useCenter: 如果为True时，在绘制圆弧时将圆心包括在内，通常用来绘制扇形。</li>
+<li>paint: 绘制圆弧的画笔属性，如颜色，是否填充等。</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-a4d1dc7492c7255f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="cu cao的分析^_^"></p>
+<h2 id="1-1-分析需要哪些数据"><a href="#1-1-分析需要哪些数据" class="headerlink" title="1.1 分析需要哪些数据"></a>1.1 分析需要哪些数据</h2><p>参照上面的画圆弧函数的参数需求和上面那个结(cu)果(cao)图</p>
+<p>要使用canvas画扇形需要这些参数吧</p>
+<ul>
+<li>外轮廓矩形</li>
+<li>起始角度</li>
+<li>扫过的角度</li>
+<li>画笔</li>
+</ul>
+<p>再看上面那个结(cu)果(cao)图，还需要</p>
+<ul>
+<li>颜色</li>
+<li>文字</li>
+</ul>
+<p>这样就可以定义一个数据结构了</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewData</span> </span>{</span><br><span class="line">	<span class="keyword">public</span> String name; <span class="comment">//名字</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> value;   <span class="comment">//数值</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> color;   <span class="comment">//颜色</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">float</span> percentage; <span class="comment">//百分比</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">float</span> angle; <span class="comment">//角度</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ViewData</span><span class="params">(<span class="keyword">int</span> value, String name)</span> </span>{</span><br><span class="line">		<span class="keyword">this</span>.value = value;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="1-2-角度计算"><a href="#1-2-角度计算" class="headerlink" title="1.2 角度计算"></a>1.2 角度计算</h2><p>扇形图应该反应的是里面每块扇形占总数的百分比，在我们的数据结构里应该是通过数值(value)计算出扇形区域占总体的比例和扫过的角度</p>
+<ul>
+<li>比例 = 数值 / 各块数值之和</li>
+<li>角度 = 比例 x 圆周(360度)</li>
+</ul>
+<h2 id="1-3-文字位置确定"><a href="#1-3-文字位置确定" class="headerlink" title="1.3 文字位置确定"></a>1.3 文字位置确定</h2><p>文字不像扇形区域可以直接调用画布的圆弧方法绘制，文字使用画布的<strong>drawText()</strong>方法</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawText</span><span class="params">(@NonNull String text, <span class="keyword">float</span> x, <span class="keyword">float</span> y, @NonNull Paint paint)</span> </span>{</span><br><span class="line">  	......</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查看源码可知需要传递字符内容、x坐标、y坐标和画笔，字符内容和画笔容易，就是坐标位置我们要好好想想</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-311c8f88441de6f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="文字位置"></p>
+<blockquote>
+<p>需要注意这里的文字的位置坐标都是基于canvas为父元素的</p>
+</blockquote>
+<p>回到以前的数学应用题，先摆出我们有哪些已知量</p>
+<ul>
+<li>扇形圆的半径</li>
+<li>每块扇形的扫过的角度</li>
+<li>起始的角度</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-4a770fa51634ad78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="文字位置"></p>
+<p>想想根据这些数据，应该可以求出文字位置(上图黑圆点)的坐标</p>
+<ul>
+<li>文字位置角度 = 起始角度 + 扇形块角度/2</li>
+<li>文字x坐标 = 半径/2  x cos(文字位置角度)</li>
+<li>文字y坐标 = 半径/2  x sin(文字位置角度)</li>
+</ul>
+<blockquote>
+<p>分析差不多了，开始实践了</p>
+</blockquote>
+<h1 id="2-实践"><a href="#2-实践" class="headerlink" title="2 实践"></a>2 实践</h1><h2 id="2-1-数据结构"><a href="#2-1-数据结构" class="headerlink" title="2.1 数据结构"></a>2.1 数据结构</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewData</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> String name; <span class="comment">//名字</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> value;   <span class="comment">//数值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> color;   <span class="comment">//颜色</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> percentage; <span class="comment">//百分比</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> angle; <span class="comment">//角度</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewData</span><span class="params">(<span class="keyword">int</span> value, String name)</span> </span>{</span><br><span class="line">		<span class="keyword">this</span>.value = value;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="2-2-View实现"><a href="#2-2-View实现" class="headerlink" title="2.2 View实现"></a>2.2 View实现</h2><blockquote>
+<p>先来一张图镇店</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-a6387b0da6f6f659.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="图片来自@GcsSloop"></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>{</span><br><span class="line">	    <span class="keyword">private</span> <span class="keyword">int</span>[] mColors = {Color.BLUE, Color.DKGRAY, Color.CYAN, Color.RED, Color.GREEN};</span><br><span class="line">	    <span class="keyword">private</span> Paint paint;    <span class="comment">//画笔</span></span><br><span class="line">	    <span class="keyword">private</span> ArrayList&lt;ViewData&gt; viewDatas;    <span class="comment">//数据集</span></span><br><span class="line">	    <span class="keyword">private</span> <span class="keyword">int</span> w;          <span class="comment">//View宽高</span></span><br><span class="line">	    <span class="keyword">private</span> <span class="keyword">int</span> h;</span><br><span class="line">	    <span class="keyword">private</span> RectF rectF;    <span class="comment">//矩形</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyView</span><span class="params">(Context context)</span> </span>{</span><br><span class="line">		<span class="keyword">super</span>(context);</span><br><span class="line">		initPaint();    <span class="comment">//设置画笔</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(ArrayList&lt;ViewData&gt; viewDatas)</span> </span>{</span><br><span class="line">		<span class="keyword">this</span>.viewDatas = viewDatas;</span><br><span class="line">		initData();     <span class="comment">//设置数据的百分度和角度</span></span><br><span class="line">		invalidate();   <span class="comment">//刷新UI</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{</span><br><span class="line">		<span class="keyword">super</span>(context, attrs);</span><br><span class="line">		initPaint();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>{</span><br><span class="line">		<span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">		initPaint();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化画笔</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initPaint</span><span class="params">()</span> </span>{</span><br><span class="line">		paint = <span class="keyword">new</span> Paint();</span><br><span class="line">		<span class="comment">//设置画笔默认颜色</span></span><br><span class="line">		paint.setColor(Color.WHITE);</span><br><span class="line">		<span class="comment">//设置画笔模式：填充</span></span><br><span class="line">		paint.setStyle(Paint.Style.FILL);</span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">		paint.setTextSize(<span class="number">30</span>);</span><br><span class="line">		<span class="comment">//初始化区域</span></span><br><span class="line">		rectF = <span class="keyword">new</span> RectF();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//确定View大小</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span> </span>{</span><br><span class="line">		<span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">		<span class="keyword">this</span>.w = w;     <span class="comment">//获取宽高</span></span><br><span class="line">		<span class="keyword">this</span>.h = h;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>{</span><br><span class="line">		<span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">		canvas.translate(w / <span class="number">2</span>, h / <span class="number">2</span>);             <span class="comment">//将画布坐标原点移到中心位置</span></span><br><span class="line">		<span class="keyword">float</span> currentStartAngle = <span class="number">0</span>;                <span class="comment">//起始角度</span></span><br><span class="line">		<span class="keyword">float</span> r = (<span class="keyword">float</span>) (Math.min(w, h) / <span class="number">2</span>);     <span class="comment">//饼状图半径(取宽高里最小的值)</span></span><br><span class="line">		rectF.set(-r, -r, r, r);                    <span class="comment">//设置将要用来画扇形的矩形的轮廓</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; viewDatas.size(); i++) {</span><br><span class="line">		    ViewData viewData = viewDatas.get(i);</span><br><span class="line">		    paint.setColor(viewData.color);</span><br><span class="line">		    <span class="comment">//绘制扇形(通过绘制圆弧)</span></span><br><span class="line">		    canvas.drawArc(rectF, currentStartAngle, viewData.angle, <span class="keyword">true</span>, paint);</span><br><span class="line">		    <span class="comment">//绘制扇形上文字</span></span><br><span class="line">		    <span class="keyword">float</span> textAngle = currentStartAngle + viewData.angle / <span class="number">2</span>;    <span class="comment">//计算文字位置角度</span></span><br><span class="line">		    paint.setColor(Color.BLACK);</span><br><span class="line">		    <span class="keyword">float</span> x = (<span class="keyword">float</span>) (r / <span class="number">2</span> * Math.cos(textAngle * Math.PI / <span class="number">180</span>));    <span class="comment">//计算文字位置坐标</span></span><br><span class="line">		    <span class="keyword">float</span> y = (<span class="keyword">float</span>) (r / <span class="number">2</span> * Math.sin(textAngle * Math.PI / <span class="number">180</span>));</span><br><span class="line">		    paint.setColor(Color.YELLOW);        <span class="comment">//文字颜色</span></span><br><span class="line">		    canvas.drawText(viewData.name, x, y, paint);    <span class="comment">//绘制文字</span></span><br><span class="line"></span><br><span class="line">		    currentStartAngle += viewData.angle;     <span class="comment">//改变起始角度</span></span><br><span class="line">		}</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initData</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">null</span> == viewDatas || viewDatas.size() == <span class="number">0</span>) {</span><br><span class="line">		    <span class="keyword">return</span>;</span><br><span class="line">		}</span><br><span class="line"></span><br><span class="line">		<span class="keyword">float</span> sumValue = <span class="number">0</span>;                 <span class="comment">//数值和</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; viewDatas.size(); i++) {</span><br><span class="line">			    ViewData viewData = viewDatas.get(i);</span><br><span class="line">			    sumValue += viewData.value;</span><br><span class="line">			    <span class="keyword">int</span> j = i % mColors.length;     <span class="comment">//设置颜色</span></span><br><span class="line">			    viewData.color = mColors[j];</span><br><span class="line">		}</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (ViewData data : viewDatas) {</span><br><span class="line">		    <span class="keyword">float</span> percentage = data.value / sumValue;    <span class="comment">//计算百分比</span></span><br><span class="line">		    <span class="keyword">float</span> angle = percentage * <span class="number">360</span>;           <span class="comment">//对应的角度</span></span><br><span class="line">		    data.percentage = percentage;</span><br><span class="line">		    data.angle = angle;</span><br><span class="line">		}</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>最终实现效果就是开头那张了，自定义View还有很长路要走</p>
+</blockquote>
+<p> <a href="https://github.com/stefanji/AndroidView" target="_blank" rel="noopener">完整代码请移步这里</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Android">Android</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/View">View</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "分析实现Android自定义View之扇形图&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

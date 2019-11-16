@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>实现数据结构dos系统 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期四, 六月 14日 2018, 1:31 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    5.5k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      22 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="数据结构课设报告"><a href="#数据结构课设报告" class="headerlink" title="数据结构课设报告"></a>数据结构课设报告</h1><h2 id="1．-设计方案"><a href="#1．-设计方案" class="headerlink" title="1． 设计方案"></a>1． 设计方案</h2><p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.jpg" srcset="undefined" alt="算法与数据结构"></p>
+<a id="more"></a> 
+
+<h3 id="1-单链表的基本操作及应用"><a href="#1-单链表的基本操作及应用" class="headerlink" title="1.单链表的基本操作及应用"></a>1.单链表的基本操作及应用</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">名称</th>
+<th align="center">函数名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">创建链表</td>
+<td align="center">LinkList::LinkList()</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">插入结点</td>
+<td align="center">Create_List(int i)</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">删除结点</td>
+<td align="center">Delete_List_Head();  Delete_List_End();   Delet_List_Point(int i, int &amp;e);   DeleteAll();</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">查找结点</td>
+<td align="center">Find(int i)</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">显示链表</td>
+<td align="center">print()</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">通讯录（查找联系人）</td>
+<td align="center">Address_books::ElemType Find(string info)</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">通讯录（删除联系人）</td>
+<td align="center">Address_books::Delete()</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">通讯录（修改联系人）</td>
+<td align="center">Address_books::Change_contact()</td>
+</tr>
+</tbody></table>
+<h3 id="2-栈的基本操作及应用"><a href="#2-栈的基本操作及应用" class="headerlink" title="2.栈的基本操作及应用"></a>2.栈的基本操作及应用</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">名称</th>
+<th align="center">函数名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">初始化栈</td>
+<td align="center">InitStack(Stack &amp;s)</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">进栈</td>
+<td align="center">Push(Stack &amp;s, int e, int i)</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">出栈</td>
+<td align="center">Pop(Stack &amp;s, int &amp;e, int i)</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">取栈顶元素</td>
+<td align="center">GetTop(Stack s, int &amp;e)</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">表达式求值（最终运算操作）</td>
+<td align="center">EvalueateExpression(const char *expression)</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">表达式求值（对操作数进行四则运算）</td>
+<td align="center">operate(int a, char theta, int b)</td>
+</tr>
+</tbody></table>
+<h3 id="3-数组的基本操作及应用"><a href="#3-数组的基本操作及应用" class="headerlink" title="3.数组的基本操作及应用"></a>3.数组的基本操作及应用</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">名称</th>
+<th align="center">函数名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">以三元组方式创建矩阵</td>
+<td align="center">CreateSMtrix(TSMatrix &amp; m)</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">显示三元组</td>
+<td align="center">PrintSMtrix(TSMatrix m)</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">矩阵乘法</td>
+<td align="center">MultSMatrix(TSMatrix A, TSMatrix B, TSMatrix &amp; C)</td>
+</tr>
+</tbody></table>
+<h3 id="4-二叉树的基本操作"><a href="#4-二叉树的基本操作" class="headerlink" title="4.二叉树的基本操作"></a>4.二叉树的基本操作</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">名称</th>
+<th align="center">函数名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">创建二叉树</td>
+<td align="center">CreateBiTree(BiTree &amp;T)</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">先序遍历二叉树</td>
+<td align="center">PreOrderTraverse(BiTree T, Status(*Visit)(TElemType e))</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">中序遍历二叉树</td>
+<td align="center">InOrderTraverse(BiTree T, Status(*Visit)(TElemType e))</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">后序遍历二叉树</td>
+<td align="center">PostOrderTraverse(BiTree T, Status(*Visit)(TElemType e))</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">计算叶子结点数</td>
+<td align="center">BiTree_leaf_nodes(BiTree T)</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">树的深度</td>
+<td align="center">BiTree_depth(BiTree T)</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">结点的双亲</td>
+<td align="center">BiTree_parents(BiTree T, char e)</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">结点的兄弟</td>
+<td align="center">BiTree_lbrothers(BiTree T, char e)；BiTree_rbrothers(BiTree T, char e)</td>
+</tr>
+</tbody></table>
+<h3 id="5-图的基本操作"><a href="#5-图的基本操作" class="headerlink" title="5.图的基本操作"></a>5.图的基本操作</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">名称</th>
+<th align="center">函数名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">有向图的创建</td>
+<td align="center">CreateDG(ALGraph &amp;G)</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">无向图的创建</td>
+<td align="center">CreateUDG(ALGraph &amp;G)</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">有向网的创建</td>
+<td align="center">CreateDN(ALGraph &amp;G)</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">无向网的创建</td>
+<td align="center">CreateUDN(ALGraph &amp;G)</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">打印邻接表</td>
+<td align="center">Print_vertices(ALGraph &amp;G)</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">深度搜索</td>
+<td align="center">DFS(ALGraph G, int v)</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">广度搜索</td>
+<td align="center">BFSTraverse(ALGraph G)</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">拓扑排序</td>
+<td align="center">Topological_sort(ALGraph G)</td>
+</tr>
+</tbody></table>
+<h2 id="2．-实现过程"><a href="#2．-实现过程" class="headerlink" title="2． 实现过程"></a>2． 实现过程</h2><h4 id="1-单链表的应用（通讯录）"><a href="#1-单链表的应用（通讯录）" class="headerlink" title="1.单链表的应用（通讯录）"></a>1.单链表的应用（通讯录）</h4><p>由于通讯录的实现包含了单链表的基本操作，这里只讨论通讯录的实现</p>
+<p>①定义一个通讯录类Address_books</p>
+<p>在类中定义结构体Book包括：姓名name，定义一个string类型来存储好友姓名。</p>
+<p>​              电话号tel，定义一个string类型来存储好友电话号。</p>
+<p> 在类中定义结构体Node，在Node结构体中定义一个Book型变量，定义一个Node型指针指向该结构体。</p>
+<p>并在类中添加Node*类型的head成员变量</p>
+<p>②在构造函数中进行初始化 Address_books()</p>
+<p>Address_books()函数中，即初始化head头结点</p>
+<p>③定义一个插入结点（联系人）的函数Create_contact()</p>
+<p>Create_contact()函数中，当位置参数传入函数体中，首先判断传进的位置参数是否合理，判断合理之后，去要找该位置，断开链子，将结点插入其中。</p>
+<p>④定义一个删除结点（联系人）的函数Delete()</p>
+<p>Delete()函数中，与插入函数类似，首先判断传入的位置参数是否合理，找到该结点，删除结点之后，将前一个结点的指针域指向下一个结点的空间。</p>
+<p>⑤定义一个查找结点（联系人）的函数Find()</p>
+<p>Find()函数中，首先输入好友的姓名，判断字符串是否相等找到联系人，并输出该联系人的相关信息。</p>
+<p>⑥显示函数print()</p>
+<p>print()函数需要传入一个指向链表的头指针，判断头指针不为空时，输出链表里所有的结点元素（联系人信息）。</p>
+<p>⑦显示链表菜单函数Show_Books()</p>
+<p>Show_Books()函数的菜单项是通过switch()语句实现选择功能。</p>
+<h4 id="2-栈的基本操作及应用-1"><a href="#2-栈的基本操作及应用-1" class="headerlink" title="2.栈的基本操作及应用"></a>2.栈的基本操作及应用</h4><p>①定义一个栈的结构体</p>
+<p>结构体中包括：栈底指针<em>base，栈顶指针</em>top。</p>
+<p>②定义一个进栈函数</p>
+<p>​    用Push()函数，将元素压入栈低，S.top++；，栈顶指针加一。</p>
+<p>③定义一个出栈函数</p>
+<p>​    将后进入的元素弹出，e = *(S.top-1); S.top–;栈顶指针减一。</p>
+<p>④定义一个取栈顶元素</p>
+<p>保存栈顶元素，并把值带回主函数，top指针不变。</p>
+<p>⑤表达式求值的应用</p>
+<p>定义一个操作符栈，一个操作数栈，建议优先级表，对输入的表达式进行条件入栈出栈操作，实现表达式求值的功能</p>
+<h4 id="3-数组的基本操作及应用-1"><a href="#3-数组的基本操作及应用-1" class="headerlink" title="3.数组的基本操作及应用"></a>3.数组的基本操作及应用</h4><p>①  创建三元组</p>
+<p>要求用户输入稀疏矩阵的行数列数，非零元个数，然后进行判断接下来的输入是否合理和输入完成，把输入的值依次加入Triple data[MAXSIZE]中</p>
+<p>②  显示三元组</p>
+<p>循环打印三元组的非零元行、列下标及其数据。</p>
+<p>③  矩阵乘法（应用）</p>
+<p>为了简化矩阵乘法运算，首先找到矩阵中的非零元，存储于三元组数组data[MAXRL+1]中，然后再将数组中对应行、列的非零元相乘、再相加，将和及对应的行、列下标存储于三元组W中，通过打印三元组函数PrintSMtrix(TSMatrix m)，将矩阵相乘结果输出。得到非零元所在的行、列下标及其数据。</p>
+<h4 id="4-二叉树的基本操作-1"><a href="#4-二叉树的基本操作-1" class="headerlink" title="4.二叉树的基本操作"></a>4.二叉树的基本操作</h4><p>①  创建二叉树</p>
+<p>构造一个链式存储结构体，其中包括数据域、左、右孩子指针。设计一个以先序方式创建二叉树，通过递归调用CreateBiTree()，T-&gt;data=ch;生成根结点CreateBiTree(T-&gt;lchild);构造左子树CreateBiTree(T-&gt;rchild); 构造右子树，完成构造二叉树。</p>
+<p>②  遍历二叉树（先序、中序、后序）</p>
+<p>先序遍历二叉树PreOrderTraverse()，通过设计Visit()显示函数，递归InOrderTraverse(T-&gt;lchild,Visit)遍历左子树，递归InOrderTraverse(T-&gt;rchild,Visit)遍历右子树。访问顺序：根、左、右。</p>
+<p>中序遍历二叉树InOrderTraverse()，递归PostOrderTraverse(T-&gt;lchild,Visit）遍历左子树，递归PostOrderTraverse(T-&gt;rchild,Visit）遍历右子树。访问顺序：左、根、右。</p>
+<p>后序遍历二叉树PostOrderTraverse ()，递归PostOrderTraverse (T-&gt;lchild,Visit）遍历左子树，递归PostOrderTraverse (T-&gt;rchild,Visit）遍历右子树。访问顺序：左、右、根。</p>
+<p>③  计算叶子结点个数及树的深度</p>
+<p>叶子节点个数：递归调用BiTree_leaf_nodes()，当结点的左右孩子都无，</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> BiTree_leaf_nodes(T-&gt;lchild) + BiTree_leaf_nodes(T-&gt;rchild) + <span class="number">1</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>否则</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> BiTree_leaf_nodes(T-&gt;lchild) + BiTree_leaf_nodes(T-&gt;rchild);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>树的深度：递归调用Depth()，输出左子树、右子树中最大值。</p>
+<p>④  查找指定结点的双亲</p>
+<p>非递归BiTree_parents()函数，遍历根结点的左右子树，获取所有结点的情况，在最后进行打印</p>
+<p>⑤  查找指定结点的兄弟</p>
+<p>递归调用找左兄弟BiTree_lbrothers()函数，遍历结点的左右子树，看双亲，输出结果。</p>
+<p>递归调用找右兄弟BiTree_rbrothers()函数，遍历结点的左右子树，看双亲，输出结果。</p>
+<h4 id="5-图的基本操作-1"><a href="#5-图的基本操作-1" class="headerlink" title="5.图的基本操作"></a>5.图的基本操作</h4><p>①创建无向图</p>
+<p>先构造邻接矩阵结构体AdjList vertices; 函数CreateDG(ALGraph &amp; G)要求先输入顶点数与边数，用于输入判断。然后再输入所有顶点信息和边的信息存入邻接表vertices中，输入完成后自动提示，并打印对应的邻接表</p>
+<p>②创建有向图</p>
+<p>③创建无向网</p>
+<p>网相对于图多了一个权重，表结点结构体中的info用于存储权值，在创建网的函数中输入权值的信息。并在创建完成后打印邻接表</p>
+<p>④创建有向网</p>
+<p>⑤DFS和BFS遍历</p>
+<p>深度优先遍历图：构造访问标记数组visited[]，递归调用DFS()，直至图中所有结点被访问来实现深度遍历图。</p>
+<p>广度优先遍历图：类似于树的层序遍历，同时也需要构造访问数组visited[]，个人是调用STL中的队列queue来实现。</p>
+<p>⑥拓扑排序   </p>
+<p>Topological_sort(ALGraph G)；在头结点的结构体中加了一个int型的conut成员用于存储结点的入度，入度的获取在创建图(网)的函数中实现。先将入度为0的结点入栈，然后实现拓扑排序的算法原理，计算出最后的顶点数，若小于当前图的顶点数，则说明有回路，打印出结果，若无回路，提示并打印拓扑有序序列</p>
+<h2 id="3．-实现代码"><a href="#3．-实现代码" class="headerlink" title="3． 实现代码"></a>3． 实现代码</h2><h4 id="通讯录的数据结构及部分实现函数"><a href="#通讯录的数据结构及部分实现函数" class="headerlink" title="通讯录的数据结构及部分实现函数"></a>通讯录的数据结构及部分实现函数</h4><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Book</span> {</span></span><br><span class="line">		<span class="built_in">string</span> name;</span><br><span class="line">		<span class="built_in">string</span> tel;</span><br><span class="line">	};</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Node</span> {</span></span><br><span class="line">		Book data;</span><br><span class="line">		Node * next;</span><br><span class="line">	};</span><br><span class="line">	Node *head;</span><br><span class="line">	Node *_temp;	<span class="comment">//用作临时结点指针方便函数调用</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Address_books::Change_contact()<span class="comment">//修改联系人信息</span></span><br><span class="line">{</span><br><span class="line">	<span class="built_in">string</span> info;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"输入你要修改的联系人的相关信息(姓名或联系方式):"</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; info;</span><br><span class="line">	<span class="keyword">if</span> (!Find(info))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">else</span> {</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"输入该联系人新的姓名:"</span>;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; info;</span><br><span class="line">		<span class="keyword">this</span>-&gt;_temp-&gt;next-&gt;data.name = info;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"输入该联系人新的电话号码:"</span>;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; info;</span><br><span class="line">		<span class="keyword">this</span>-&gt;_temp-&gt;next-&gt;data.tel = info;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="string">"联系人信息更新成功!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Address_books::Delete()<span class="comment">//删除联系人</span></span><br><span class="line">{</span><br><span class="line">	<span class="built_in">string</span> info;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"输入你要删除的联系人的相关信息(姓名或联系方式):"</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; info;</span><br><span class="line">	<span class="keyword">if</span> (!Find(info))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span> {</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"确定删除联系人 "</span>&lt;&lt; _temp-&gt;next-&gt;data.name &lt;&lt;<span class="string">" 的信息吗?	(y or n)?:"</span>;</span><br><span class="line">		<span class="keyword">char</span> c;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; c;</span><br><span class="line">		<span class="keyword">if</span> (c == <span class="string">'y'</span> || c == <span class="string">'Y'</span>) {</span><br><span class="line">			Node *q = _temp-&gt;next;</span><br><span class="line">			<span class="keyword">this</span>-&gt;_temp-&gt;next = _temp-&gt;next-&gt;next;</span><br><span class="line">			<span class="keyword">delete</span> q;</span><br><span class="line">			q = <span class="literal">NULL</span>;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="string">"联系人信息删除成功!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span>;	</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Address_books::Find_contact()<span class="comment">//查找联系人</span></span><br><span class="line">{</span><br><span class="line">	<span class="built_in">string</span> info;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"输入你要查找的联系人的相关信息(姓名或联系方式):"</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; info;</span><br><span class="line">	Find(info);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">ElemType Address_books::Find(<span class="built_in">string</span> info)</span><br><span class="line">{</span><br><span class="line">	Node *temp = head-&gt;next;</span><br><span class="line">	<span class="keyword">this</span>-&gt;_temp = head;	<span class="comment">//查找第一个结点时没有进入while循环_temp为空的情况</span></span><br><span class="line">	<span class="keyword">if</span> (head-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"空电话本,没有联系人!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">while</span> (temp != <span class="literal">NULL</span> &amp;&amp; temp-&gt;data.name != info &amp;&amp; temp-&gt;data.tel!=info)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">this</span>-&gt;_temp = temp;	<span class="comment">//_temp指向信息结点的前一个,方便删除</span></span><br><span class="line">		temp = temp-&gt;next;	</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (!temp)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"查找失败，相关联系人不存在！"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"查找成功，相关联系人信息如下: "</span> &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">		&lt;&lt; <span class="string">"姓名:"</span> &lt;&lt; temp-&gt;data.name &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="string">"电话号码:"</span> &lt;&lt; temp-&gt;data.tel &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="表达式求值的数据结构及部分函数"><a href="#表达式求值的数据结构及部分函数" class="headerlink" title="表达式求值的数据结构及部分函数"></a>表达式求值的数据结构及部分函数</h4><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义操作数栈</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">OPERANDSTACK</span> {</span></span><br><span class="line">	<span class="keyword">int</span> *base;</span><br><span class="line">	<span class="keyword">int</span> *top;</span><br><span class="line">	<span class="keyword">int</span> stacksize;</span><br><span class="line">}OPERANDSTACK;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义操作符栈</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">OPERATORSTACK</span> {</span></span><br><span class="line">	<span class="keyword">char</span> *base;</span><br><span class="line">	<span class="keyword">char</span> *top;</span><br><span class="line">	<span class="keyword">int</span> stacksize;</span><br><span class="line">}OPERATORSTACK;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断c是否是一个运算操作符  </span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isOperator</span><span class="params">(<span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">switch</span> (c) {</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'+'</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'-'</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'*'</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'/'</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'('</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="string">')'</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'#'</span>:	<span class="comment">//将'#'作为运算符栈opter的栈底元素，判断表达式是否求值完毕</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果以*c开始的操作数后仍是数字就加上前面的数字进行合并</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">getOpnd</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *c, <span class="keyword">int</span> *op)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//获得以*c开始的操作数，返回后c为操作符  </span></span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>, temp;</span><br><span class="line">	<span class="keyword">while</span> (!isOperator(*c))</span><br><span class="line">	{</span><br><span class="line">		temp = *c - <span class="string">'0'</span>;</span><br><span class="line">		sum = sum * <span class="number">10</span> + temp;</span><br><span class="line">		c++;</span><br><span class="line">	}</span><br><span class="line">	*op = sum;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> c;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> op[<span class="number">7</span>][<span class="number">7</span>] =</span><br><span class="line">{</span><br><span class="line">{ <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span> },</span><br><span class="line">{ <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span> },</span><br><span class="line">{ <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span> },</span><br><span class="line">{ <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span> },</span><br><span class="line">{ <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'='</span>, <span class="string">' '</span> },</span><br><span class="line">{ <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span>, <span class="string">' '</span>, <span class="string">'&gt;'</span>, <span class="string">'&gt;'</span> },</span><br><span class="line">{ <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">'&lt;'</span>, <span class="string">' '</span>, <span class="string">'='</span> }</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">//优先级的处理</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">precede</span><span class="params">(<span class="keyword">char</span> op1, <span class="keyword">char</span> op2)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> i, j; <span class="comment">//用来记录优先级坐标点位置</span></span><br><span class="line">	<span class="keyword">switch</span> (op1) {</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'+'</span>: i = <span class="number">0</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'-'</span>: i = <span class="number">1</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'*'</span>: i = <span class="number">2</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'/'</span>: i = <span class="number">3</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'('</span>: i = <span class="number">4</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">')'</span>: i = <span class="number">5</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'#'</span>: i = <span class="number">6</span>; <span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">switch</span> (op2) {</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'+'</span>: j = <span class="number">0</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'-'</span>: j = <span class="number">1</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'*'</span>: j = <span class="number">2</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'/'</span>: j = <span class="number">3</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'('</span>: j = <span class="number">4</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">')'</span>: j = <span class="number">5</span>; <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'#'</span>: j = <span class="number">6</span>; <span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> op[i][j];</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="稀疏矩阵的数据结构及乘法实现"><a href="#稀疏矩阵的数据结构及乘法实现" class="headerlink" title="稀疏矩阵的数据结构及乘法实现"></a>稀疏矩阵的数据结构及乘法实现</h4><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*---稀疏矩阵的三元组顺序表存储表示---*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Triple</span>{</span></span><br><span class="line">	<span class="keyword">int</span> i, j;		<span class="comment">//非零元的行下标和列下标</span></span><br><span class="line">	ElemType e;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TSMatrix</span> {</span></span><br><span class="line">	Triple data[MAXSIZE];		<span class="comment">//非零元的三元组表</span></span><br><span class="line">	<span class="keyword">int</span> row, col, total;		<span class="comment">//矩阵的行数、列数、非零元个数</span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function">Status <span class="title">MultSMatrix</span><span class="params">(TSMatrix A, TSMatrix B, TSMatrix &amp; C)</span></span></span><br><span class="line"><span class="function"></span>{<span class="comment">// 将稀疏矩阵A和B进行乘法运算后赋给矩阵C</span></span><br><span class="line"><span class="comment">// 原理:用A的一行的元素与B的每一列的元素对应相乘再相加求解</span></span><br><span class="line"><span class="comment">// 时间复杂度:O(A.row*B.col+A.total/A.col*B.total)</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (A.col != B.row)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"A的列标不等于B的行标!计算失败"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> ERROR;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	C.row = A.row;</span><br><span class="line">	C.col = B.col;</span><br><span class="line">	C.total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*memset()用于逐字节的把整个数组设置为一个指定的值*/</span></span><br><span class="line">	<span class="keyword">int</span>* Anum = <span class="keyword">new</span> <span class="keyword">int</span>[A.row + <span class="number">1</span>];</span><br><span class="line">	<span class="built_in">memset</span>(Anum, <span class="number">0</span>, (A.row + <span class="number">1</span>) * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="keyword">int</span>* Arpos = <span class="keyword">new</span> <span class="keyword">int</span>[A.row + <span class="number">1</span>];</span><br><span class="line">	<span class="built_in">memset</span>(Arpos, <span class="number">0</span>, (A.row + <span class="number">1</span>) * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* Bnum = <span class="keyword">new</span> <span class="keyword">int</span>[B.row + <span class="number">1</span>];</span><br><span class="line">	<span class="built_in">memset</span>(Bnum, <span class="number">0</span>, (B.row + <span class="number">1</span>) * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="keyword">int</span>* Brpos = <span class="keyword">new</span> <span class="keyword">int</span>[B.row + <span class="number">1</span>];</span><br><span class="line">	<span class="built_in">memset</span>(Brpos, <span class="number">0</span>, (B.row + <span class="number">1</span>) * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> i, arow, p, p_up, brow, q, q_up, ccol;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; A.total; i++)</span><br><span class="line">		Anum[A.data[i].i]++;</span><br><span class="line">	<span class="comment">//计算A中每行的非零元在data中的起始下标</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= A.row; i++)</span><br><span class="line">		Arpos[i] = Arpos[i - <span class="number">1</span>] + Anum[i - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; B.total; i++)</span><br><span class="line">		Bnum[B.data[i].i]++;</span><br><span class="line">	<span class="comment">//计算B中每行的非零元在data中的起始下标</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= B.row; i++)</span><br><span class="line">		Brpos[i] = Brpos[i - <span class="number">1</span>] + Bnum[i - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* mult = <span class="keyword">new</span> <span class="keyword">int</span>[B.col + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (arow = <span class="number">0</span>; arow &lt;= A.row; arow++)</span><br><span class="line">	{</span><br><span class="line"></span><br><span class="line">		p_up = arow &lt; A.row ? Arpos[arow + <span class="number">1</span>] : A.total;	<span class="comment">//条件表达式，若arow&lt;A.row,执行:前一条语句，否则后一条</span></span><br><span class="line">		<span class="keyword">for</span> (p = Arpos[arow]; p &lt; p_up; p++)</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">memset</span>(mult, <span class="number">0</span>, (B.col + <span class="number">1</span>) * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line">			brow = A.data[p].j;</span><br><span class="line">			q_up = brow &lt; B.row ? Brpos[brow + <span class="number">1</span>] : B.total;</span><br><span class="line">			<span class="keyword">for</span> (q = Brpos[brow]; q &lt; q_up; q++)</span><br><span class="line">			{</span><br><span class="line">				mult[B.data[q].j] += A.data[p].e * B.data[q].e;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">for</span> (ccol = <span class="number">1</span>; ccol &lt;= B.col; ccol++)</span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">fabs</span>(mult[ccol])&gt;<span class="number">1e-7</span>)</span><br><span class="line">				{</span><br><span class="line">					C.data[C.total].i = arow;</span><br><span class="line">					C.data[C.total].j = ccol;</span><br><span class="line">					C.data[C.total].e = mult[ccol];</span><br><span class="line"></span><br><span class="line">					C.total++;</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">delete</span>[] Anum;</span><br><span class="line">	<span class="keyword">delete</span>[] Arpos;</span><br><span class="line">	<span class="keyword">delete</span>[] Bnum;</span><br><span class="line">	<span class="keyword">delete</span>[] Brpos;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> OK;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="求二叉树叶子结点及双亲的实现函数"><a href="#求二叉树叶子结点及双亲的实现函数" class="headerlink" title="求二叉树叶子结点及双亲的实现函数"></a>求二叉树叶子结点及双亲的实现函数</h4><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BiTree_leaf_nodes</span><span class="params">(BiTree T)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (T == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (T-&gt;lchild == <span class="number">0</span> &amp;&amp; T-&gt;rchild == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> BiTree_leaf_nodes(T-&gt;lchild) + BiTree_leaf_nodes(T-&gt;rchild) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> BiTree_leaf_nodes(T-&gt;lchild) + BiTree_leaf_nodes(T-&gt;rchild);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BiTree_parents</span><span class="params">(BiTree T, <span class="keyword">char</span> e)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;	<span class="comment">//记录相同值的结点数</span></span><br><span class="line">	<span class="keyword">bool</span> root = <span class="literal">false</span>;	<span class="comment">//记录结点是根节点的情况</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; v1;	<span class="comment">//存储具有双亲结点的双亲结点值</span></span><br><span class="line">	<span class="built_in">stack</span>&lt;BiTree&gt; S;	<span class="comment">//非递归先序遍历</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (T == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (T-&gt;data == e) {</span><br><span class="line">		count++;</span><br><span class="line">		root = <span class="literal">true</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">while</span> (!S.empty() || T)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">while</span> (T)</span><br><span class="line">		{</span><br><span class="line">			S.push(T);</span><br><span class="line">			<span class="keyword">if</span> ((T-&gt;lchild &amp;&amp; T-&gt;lchild-&gt;data == e) || (T-&gt;rchild &amp;&amp; T-&gt;rchild-&gt;data == e)) {</span><br><span class="line">				count++;</span><br><span class="line">				v1.push_back(T-&gt;data);</span><br><span class="line">			}	</span><br><span class="line">			T = T-&gt;lchild;</span><br><span class="line">		}</span><br><span class="line">		T = S.top(); S.pop();</span><br><span class="line">		T = T-&gt;rchild;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"该值对应的结点共有 "</span> &lt;&lt; count &lt;&lt; <span class="string">" 个,对应的双亲为:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (root) {</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"第"</span> &lt;&lt; ++n &lt;&lt;<span class="string">"个结点为根结点,无双亲结点!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : v1) {</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"第"</span> &lt;&lt; ++n &lt;&lt; <span class="string">"个结点的双亲结点:"</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="图的拓扑排序实现"><a href="#图的拓扑排序实现" class="headerlink" title="图的拓扑排序实现"></a>图的拓扑排序实现</h4><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Topological_sort</span><span class="params">(ALGraph G)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	<span class="keyword">int</span> i, k;</span><br><span class="line">	<span class="comment">//入度为0入栈</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; G.vexnum; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (!G.vertices[i].count)<span class="comment">//把入度为零的点先放入栈中</span></span><br><span class="line">			s.push(i);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	ArcNode *p = <span class="keyword">new</span> ArcNode;</span><br><span class="line">	<span class="keyword">while</span> (!s.empty())</span><br><span class="line">	{</span><br><span class="line">		i = s.top();</span><br><span class="line">		s.pop();</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; G.vertices[i].data &lt;&lt; <span class="string">"-"</span>;</span><br><span class="line">		count++;</span><br><span class="line">		<span class="keyword">for</span> (p = G.vertices[i].firstarc; p ; p = p-&gt;nextarc)</span><br><span class="line">		{</span><br><span class="line">			k = p-&gt;adjvex;</span><br><span class="line">			<span class="keyword">if</span> (!(--G.vertices[k].count))</span><br><span class="line">				s.push(k);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (count &lt; G.vexnum)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"该图(网)有回路！"</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"该图(网)无回路"</span>;</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h2 id="4．-测试"><a href="#4．-测试" class="headerlink" title="4． 测试"></a>4． 测试</h2><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528951391042.png" srcset="undefined" alt="1528951391042"></p>
+<p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528952033074.png" srcset="undefined" alt="1528952033074"></p>
+<h3 id="栈的操作"><a href="#栈的操作" class="headerlink" title="栈的操作"></a>栈的操作</h3><p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528952207864.png" srcset="undefined" alt="1528952207864"></p>
+<p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528952855802.png" srcset="undefined" alt="1528952855802"></p>
+<h3 id="稀疏矩阵乘法"><a href="#稀疏矩阵乘法" class="headerlink" title="稀疏矩阵乘法"></a>稀疏矩阵乘法</h3><p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528953148654.png" srcset="undefined" alt="1528953148654"></p>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528953287141.png" srcset="undefined" alt="1528953287141"></p>
+<p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528953337914.png" srcset="undefined" alt="1528953337914"></p>
+<h3 id="图的操作"><a href="#图的操作" class="headerlink" title="图的操作"></a>图的操作</h3><p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528953521869.png" srcset="undefined" alt="1528953521869"></p>
+<h2 id="5．-结论"><a href="#5．-结论" class="headerlink" title="5． 结论"></a>5． 结论</h2><p>这个系统人性化方面和界面做得还算不错，但还是有不足的地方，例如在每个函数中得到exit字符的话会退出当前函数以免每次输入错误无法返回上一级；console的清屏效果也没有实现，因为调用system(‘cls’)来实现的话不会保存之前的记录，我想实现linux中的clear会把屏幕下拉的效果，但由于时间关系这些点都没有实现。对于这次课设的设计框架方面也有不足，没有用到面向对象的多态性；虽说技术无优劣，面向过程在这次设计中的应用设计非常简单方便，但实现面向对象编程才是C++的难点，因为其标准之多，对培养语言思维有很大的帮助，在今后还要多多编写有关项目。</p>
+<h2 id="6．-难点与收获"><a href="#6．-难点与收获" class="headerlink" title="6． 难点与收获"></a>6． 难点与收获</h2><h3 id="•-难点"><a href="#•-难点" class="headerlink" title="•   难点"></a>•   难点</h3><p><strong>1.</strong> 在我完成的三个应用中，个人认为表达式求解的难度较其余两个(通讯录和稀疏矩阵乘法)更大，要考虑到1数值运算，2运算符优先级，3进栈出栈的条件，4特殊情况(连续两个字符都是操作数要进行合并)，对于这个应用来说还有改进的地方：输入字符中带有空格的处理；输入错误的提示信息等等</p>
+<p><strong>2.</strong> 第一个应用(通讯录的实现)，用链表来实现通讯录的原理很简单，即把链表的data结构再用一个数据结构(包含要输入的信息)来表示。因为考虑到代码的精简性，实现过程中唯一的一个问题就是函数的相互调用。比如说当我要删除联系人或修改联系人的时候都会用到查找这个函数，但是接下来如何实现删除和修改，就需要获取指向这个联系人的指针，所以我在类中定义了一个私有成员Node *_temp;    用于指向查找到的前一个结点(因为对于删除操作，要获取前一个结点的指针)。这个简易通讯录还有改进的地方：利用正则表达式实现”电话输入格式判断”，”联想搜索”；多链表进行分组管理等等</p>
+<p><strong>3.</strong> 在二叉树的设计中，递归的灵活运用可以算是一个难点，个人总结出了一些自己的想法：</p>
+<p>把原有的问题分解为一个新问题，而新问题又要用原有问题的解决方案 </p>
+<p>在实现的过程中，它采用了分治法的思想：即将整体分割成部分，并总是从最小的部分（基本部分）开始入手（输出），其背后的原理在于 当整体递归到部分时，会保留整体的信息，部分满足条件输出的结果会被回溯给整体使用，从而使得整体输出结果。</p>
+<p>例如在求树的深度时：我们都知道将左子树与右子树的深度进行比较，深度大的子树深度+1即为整颗二叉树的深度，从最简单的二叉树来看也满足这个条件，而在求左右子树的深度时也是一样的方法，所以我们可以利用递归的方式，一条语句即可实现树的深度求解</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> (BiTree_depth(T-&gt;lchild) &gt; BiTree_depth(T-&gt;rchild)) ? (BiTree_depth(T-&gt;lchild) + <span class="number">1</span>) : (BiTree_depth(T-&gt;rchild) + <span class="number">1</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其他的 遍历，求叶子结点，双亲，兄弟都是用到了同样的思想。</p>
+<p>这里我要着重说一下双亲(兄弟)的求解，递归固然方便，但也削弱了对流程的可控性。在双亲的求解中可能会出现以下两种情况：1.根节点，无双亲；2.有多个值相同的结点。从人性化方面：我会在最后输出该值对应的结点有几个，然后分别打印出对应结点的情况。如果用递归的话也是可以做到，但无法控制最后一次递归打印信息，可以将获取的信息存到全局静态容器中，再用另一个函数对其进行打印。而如果要在一个函数中实现其功能就必须用非递归算法了，这里我用了栈对其进行循环控制，添加了一个verctor容器存储双亲结点，然后在最后进行打印。实现代码与测试结果如下:</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BiTree_parents</span><span class="params">(BiTree T, <span class="keyword">char</span> e)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;	<span class="comment">//记录相同值的结点数</span></span><br><span class="line">	<span class="keyword">bool</span> root = <span class="literal">false</span>;	<span class="comment">//记录结点是根节点的情况</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; v1;	<span class="comment">//存储具有双亲结点的双亲结点值</span></span><br><span class="line">	<span class="built_in">stack</span>&lt;BiTree&gt; S;	<span class="comment">//非递归先序遍历</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (T == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (T-&gt;data == e) {</span><br><span class="line">		count++;</span><br><span class="line">		root = <span class="literal">true</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">while</span> (!S.empty() || T)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">while</span> (T)</span><br><span class="line">		{</span><br><span class="line">			S.push(T);</span><br><span class="line">			<span class="keyword">if</span> ((T-&gt;lchild &amp;&amp; T-&gt;lchild-&gt;data == e) || (T-&gt;rchild &amp;&amp; T-&gt;rchild-&gt;data == e)) {</span><br><span class="line">				count++;</span><br><span class="line">				v1.push_back(T-&gt;data);</span><br><span class="line">			}	</span><br><span class="line">			T = T-&gt;lchild;</span><br><span class="line">		}</span><br><span class="line">		T = S.top(); S.pop();</span><br><span class="line">		T = T-&gt;rchild;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"该值对应的结点共有 "</span> &lt;&lt; count &lt;&lt; <span class="string">" 个,对应的双亲为:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (root) {</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"第"</span> &lt;&lt; ++n &lt;&lt;<span class="string">"个结点为根结点,无双亲结点!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : v1) {</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"第"</span> &lt;&lt; ++n &lt;&lt; <span class="string">"个结点的双亲结点:"</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/1528899426220.png" srcset="undefined" alt="查找双亲"></p>
+<p><strong>4.</strong> 图的邻接表存储表示，涉及到的链表比较多，数据结构间的逻辑也较难理解。我画一个图来表示其间的联系。</p>
+<p><img src="./%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84dos%E7%B3%BB%E7%BB%9F/%E7%BB%98%E5%9B%BE1.jpg" srcset="undefined" alt="绘图1"></p>
+<h3 id="•-收获"><a href="#•-收获" class="headerlink" title="•   收获"></a>•   收获</h3><p><strong>1.</strong> 实现了数据结构的dos系统。系统内容包括:带头结点的单链表 2.栈的顺序存储表示 3.稀疏矩阵的三元组顺序表示 4.二叉树的链式结构表示 5.图的邻接表存储表示  及前三项的简单应用</p>
+<p><strong>2.</strong> 了解了数据结构的本质:数据的各种逻辑结构和存储结构，以及对数据的各种操作。</p>
+<p>熟悉了如何建立一个数据结构和使用它。</p>
+<p><strong>3.</strong> 深刻的感受到了数据结构对算法效率的提高</p>
+<p><strong>4.</strong> 加强了独自解决问题的能力，培养了程序设计的思路，加深了逻辑推理思维</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/C++">C++</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "实现数据结构dos系统&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

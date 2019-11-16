@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Java读取CSV文件，并批量写入数据库 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期五, 七月 12日 2019, 6:26 晚上
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      9 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本）。纯文本意味着该文件是一个字符序列，不含必须像二进制数字那样被解读的数据。CSV文件由任意数目的记录组成，记录间以某种换行符分隔；每条记录由字段组成，字段间的分隔符是其它字符或字符串。</p>
+<p><strong>如果不想看过程分析，想直接看代码请跳到最后！！！</strong></p>
+<h4 id="分隔符"><a href="#分隔符" class="headerlink" title="分隔符:"></a>分隔符:</h4><p>最常见的分隔符是逗号或制表符，但是由于项目中使用的是<code>︴</code>，所以以下案例以此字符演示。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路:"></a>思路:</h4><ul>
+<li>传入.csv文件集所在的目录，例如<code>new File("C:\\Users\\brbai\\Desktop\\files")</code></li>
+<li>递归读取此目录下所有层级的.csv文件</li>
+<li>调用insertData(File file,int type)使用字符缓冲流读取首行的字段名，并将字符缓冲流传给readCSV使用</li>
+<li>按需求对读取的字符做转换，使其与数据库类型匹配，方便插入数据库。<strong>例如</strong> : 首行为字段名，用<code>,</code>连接，其他行数据，普通字符串用<code>''</code>包裹，时间转换为相应格式，其他同理</li>
+<li>readCSV(BufferedReader reader)每次读取1000行数据返回，批量插入数据库，插入成功后继续读取，每个.csv文件读取完后，关闭缓冲流</li>
+<li>依次读取每个文件，直至所有文件读取写入结束<h5 id="遍历文件夹，读取所有-csv文件，插入数据库"><a href="#遍历文件夹，读取所有-csv文件，插入数据库" class="headerlink" title="遍历文件夹，读取所有.csv文件，插入数据库"></a>遍历文件夹，读取所有.csv文件，插入数据库</h5></li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/** </span></span><br><span class="line"><span class="comment">* <span class="doctag">@Description</span>: 遍历文件夹，读取文件插入数据库</span></span><br><span class="line"><span class="comment">* <span class="doctag">@Param</span>: [f] 目录（文件夹）</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span>: void </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getFileName</span><span class="params">(File f)</span> </span>{</span><br><span class="line"></span><br><span class="line">      <span class="comment">//获取当前目录的子目录对象的数组</span></span><br><span class="line">      File[] file = f.listFiles();</span><br><span class="line">      <span class="comment">//遍历当前File数组(父目录的)</span></span><br><span class="line">      <span class="keyword">for</span> (File file2 : file) {</span><br><span class="line"></span><br><span class="line">          String fileName = file2.getName();</span><br><span class="line">          <span class="keyword">if</span>(!file2.isDirectory()){</span><br><span class="line"></span><br><span class="line">              <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">              <span class="keyword">if</span>(fileName.indexOf(<span class="string">"soa_bank"</span>) != -<span class="number">1</span>){</span><br><span class="line">                  insertData(file2,SOA_BANK);</span><br><span class="line">              }<span class="keyword">else</span> <span class="keyword">if</span>(fileName.indexOf(<span class="string">"soa_account"</span>) != -<span class="number">1</span>){</span><br><span class="line">                  insertData(file2,SOA_ACCOUNT);</span><br><span class="line">              }</span><br><span class="line"></span><br><span class="line">              log.info(<span class="string">"文件{}导入完成，用时{}ms"</span>,file2.getPath(),(System.currentTimeMillis()-start));</span><br><span class="line">          }</span><br><span class="line">          <span class="comment">//如果file2是一个文件夹则递归遍历子目录，否则结束当前目录遍历</span></span><br><span class="line">          <span class="keyword">if</span>(file2.isDirectory() &amp;&amp; !<span class="string">"today"</span>.equals(fileName)) {</span><br><span class="line">              getFileName(file2);</span><br><span class="line">          }</span><br><span class="line">      }</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="读取csv文件"><a href="#读取csv文件" class="headerlink" title="读取csv文件"></a>读取csv文件</h5><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 把数据从csv文件中读取到list</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Param</span>: [reader] 字符缓冲流</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>: java.util.List 读取到的数据（一次读取1000行）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List <span class="title">readCSV</span><span class="params">(BufferedReader reader)</span></span>{</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        String line = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) {</span><br><span class="line">            line = reader.readLine();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(line == <span class="keyword">null</span>){</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            line = <span class="string">"'"</span>+line.replaceAll(<span class="string">"︴"</span>,<span class="string">"','"</span>)+<span class="string">"'"</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//匹配'2019-01-01'这种时间格式的正则表达式</span></span><br><span class="line">            String regex1 = <span class="string">"['][0-9]{4}[-][0-9]{1,2}[-][0-9]{1,2}[']"</span>;</span><br><span class="line">            Pattern pattern1 = Pattern.compile(regex1);</span><br><span class="line">            Matcher m1 = pattern1.matcher(line);</span><br><span class="line">            line = line.replaceAll(regex1 ,<span class="string">"︴"</span>);</span><br><span class="line">            <span class="comment">//替换时间格式</span></span><br><span class="line">            <span class="keyword">while</span>(m1.find()){</span><br><span class="line">                line = line.replaceFirst(<span class="string">"︴"</span>,<span class="string">" to_date ( "</span>+m1.group()+<span class="string">", 'YYYY-MM-DD HH24:MI:SS' )"</span>);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="comment">//匹配'2019-01-01 12：12：06'这种时间格式的正则表达式</span></span><br><span class="line">            String regex2 = <span class="string">"['][0-9]{4}[-][0-9]{1,2}[-][0-9]{1,2}[ ][0-9]{1,2}[:][0-9]{1,2}[:][0-9]{1,2}[']"</span>;</span><br><span class="line">            Pattern pattern2 = Pattern.compile(regex2);</span><br><span class="line">            Matcher m2 = pattern2.matcher(line);</span><br><span class="line">            line = line.replaceAll(regex2 ,<span class="string">"︴"</span>);</span><br><span class="line">            <span class="comment">//替换时间格式</span></span><br><span class="line">            <span class="keyword">while</span>(m2.find()){</span><br><span class="line">                line = line.replaceFirst(<span class="string">"︴"</span>,<span class="string">" to_date ( "</span>+m2.group()+<span class="string">", 'YYYY-MM-DD HH24:MI:SS' )"</span>);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            list.add(line);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">        log.error(<span class="string">"文件:{}读取信息出错"</span>);</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            reader.close();</span><br><span class="line">        } <span class="keyword">catch</span> (IOException ex) {</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<hr>
+<h5 id="批量插入数据库"><a href="#批量插入数据库" class="headerlink" title="批量插入数据库"></a>批量插入数据库</h5><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/** </span></span><br><span class="line"><span class="comment">* <span class="doctag">@Description</span>: 批量插入到数据库</span></span><br><span class="line"><span class="comment">* <span class="doctag">@Param</span>: [file, type] file：文件，type：数据库对应表</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span>: void </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertData</span><span class="params">(File file,<span class="keyword">int</span> type)</span> </span>{</span><br><span class="line"></span><br><span class="line">      String head = <span class="keyword">null</span>;</span><br><span class="line">      List&lt;String&gt; list = <span class="keyword">null</span>;</span><br><span class="line">      BufferedReader reader = <span class="keyword">null</span>;</span><br><span class="line">      <span class="comment">//读取第一行的标题信息</span></span><br><span class="line">      <span class="keyword">try</span> {</span><br><span class="line">          reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(file));</span><br><span class="line">          head = reader.readLine();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span>(head == <span class="keyword">null</span>){</span><br><span class="line">              log.info(<span class="string">"文件{}内容为空!!!"</span>,file.getPath());</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">          } <span class="keyword">else</span> {</span><br><span class="line">              head = head.replaceAll(<span class="string">"︴"</span>,<span class="string">","</span>);</span><br><span class="line">          }</span><br><span class="line"></span><br><span class="line">          <span class="keyword">while</span> ((list = readCSV(reader)).size() != <span class="number">0</span>){</span><br><span class="line"></span><br><span class="line">              <span class="keyword">switch</span> (type){</span><br><span class="line">                  <span class="keyword">case</span> <span class="number">1</span>:{</span><br><span class="line">                      bankInfoMapper.insertListData(head,list);</span><br><span class="line">                  }</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">                  <span class="keyword">case</span> <span class="number">2</span>:{</span><br><span class="line">                      accountMapper.insertListData(head,list);</span><br><span class="line">                  }</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">              }</span><br><span class="line"></span><br><span class="line">              log.info(<span class="string">"文件{}导入中--- +{}行"</span>,file.getPath(),list.size());</span><br><span class="line">          }</span><br><span class="line">      } <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">          log.info(<span class="string">"***文件{}导入数据库出现异常***"</span>,file.getPath());</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      }<span class="keyword">finally</span> {</span><br><span class="line">          <span class="keyword">try</span> {</span><br><span class="line">             reader.close();</span><br><span class="line">          } <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">              e.printStackTrace();</span><br><span class="line">          }</span><br><span class="line">      }</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="Mapper接口（AccountMapper为例）"><a href="#Mapper接口（AccountMapper为例）" class="headerlink" title="Mapper接口（AccountMapper为例）"></a>Mapper接口（AccountMapper为例）</h5><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AccountMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Account</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertListData</span><span class="params">(@Param(<span class="string">"head"</span>)</span> String head,@<span class="title">Param</span><span class="params">(<span class="string">"list"</span>)</span> List&lt;String&gt; list)</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="批量插入（Oracle数据库）（对应Mapper接口的xml文件，例）"><a href="#批量插入（Oracle数据库）（对应Mapper接口的xml文件，例）" class="headerlink" title="批量插入（Oracle数据库）（对应Mapper接口的xml文件，例）"></a>批量插入（Oracle数据库）（对应Mapper接口的xml文件，例）</h5><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.xxx.spmacore.soa.mapper.AccountMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertListData"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">        insert into  T_ACCOUNT ( ${head} )</span><br><span class="line">        <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">separator</span> =<span class="string">"UNION ALL"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">            (</span><br><span class="line">            SELECT</span><br><span class="line">            ${item}</span><br><span class="line">            FROM DUAL</span><br><span class="line">            )</span><br><span class="line">        <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<hr>
+<h6 id="读取数据库表结构"><a href="#读取数据库表结构" class="headerlink" title="读取数据库表结构"></a>读取数据库表结构</h6><blockquote>
+<p>当csv文件中时间为null，或数据字段不含全部的表字段时，可能需要查询数据库各字段属性与其对应做相关处理，此处只提供数据库表结构的读取，相关处理按实际业务情况。</p>
+</blockquote>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注入SqlSessionFactory</span></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">   <span class="keyword">private</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line">   </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@Description</span>: 读取数据库表结构</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@Param</span>: [tableName]</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span>: java.util.Map&lt;java.lang.String,java.util.Map&lt;java.lang.String,java.lang.String&gt;&gt;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> Map&lt;String,Map&lt;String, String&gt;&gt; getDatabaseAttribute(String tableName) {</span><br><span class="line"></span><br><span class="line">       SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">       Connection connection = sqlSession.getConnection();</span><br><span class="line"></span><br><span class="line">       Map&lt;String,Map&lt;String, String&gt;&gt; database = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">       DatabaseMetaData metaData = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">try</span> {</span><br><span class="line">           metaData = connection.getMetaData();</span><br><span class="line"></span><br><span class="line">           ResultSet columns = metaData</span><br><span class="line">                   .getColumns(<span class="keyword">null</span>, <span class="string">"DEVTEST"</span>, tableName, <span class="string">"%"</span>);</span><br><span class="line"></span><br><span class="line">           Map&lt;String,String&gt; attributes = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">           <span class="keyword">while</span> (columns.next()){</span><br><span class="line">               attributes.put(columns.getString(<span class="string">"COLUMN_NAME"</span>),columns.getString(<span class="string">"TYPE_NAME"</span>));</span><br><span class="line">           }</span><br><span class="line"></span><br><span class="line">           database.put(tableName,attributes);</span><br><span class="line">       } <span class="keyword">catch</span> (SQLException e) {</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       }<span class="keyword">finally</span> {</span><br><span class="line">           <span class="keyword">try</span> {</span><br><span class="line">               connection.close();</span><br><span class="line">           } <span class="keyword">catch</span> (SQLException e) {</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">           }</span><br><span class="line">       }</span><br><span class="line">       <span class="keyword">return</span> database;</span><br><span class="line">   }</span><br></pre></td></tr></tbody></table></figure>
+<hr>
+<hr>
+<h4 id="完整工具类-CSVUtils"><a href="#完整工具类-CSVUtils" class="headerlink" title="完整工具类 CSVUtils"></a>完整工具类 CSVUtils</h4><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xxx.spmacore.common.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xxx.spmacore.soa.mapper.AccountMapper;</span><br><span class="line"><span class="keyword">import</span> com.xxx.spmacore.soa.mapper.BankInfoMapper;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Matcher;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: brbai</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2019-07-09 11:29:41</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CSVUtils</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BankInfoMapper bankInfoMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AccountMapper accountMapper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SOA_BANK = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SOA_ACCOUNT = <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Description</span>: 遍历文件夹，读取文件插入数据库</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Param</span>: [f] 目录（文件夹）</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>: void </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getFileName</span><span class="params">(File f)</span> </span>{</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取当前目录的子目录对象的数组</span></span><br><span class="line">        File[] file = f.listFiles();</span><br><span class="line">        <span class="comment">//遍历当前File数组(父目录的)</span></span><br><span class="line">        <span class="keyword">for</span> (File file2 : file) {</span><br><span class="line"></span><br><span class="line">            String fileName = file2.getName();</span><br><span class="line">            <span class="keyword">if</span>(!file2.isDirectory()){</span><br><span class="line"></span><br><span class="line">                <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>(fileName.indexOf(<span class="string">"soa_bank"</span>) != -<span class="number">1</span>){</span><br><span class="line">                    insertData(file2,SOA_BANK);</span><br><span class="line">                }<span class="keyword">else</span> <span class="keyword">if</span>(fileName.indexOf(<span class="string">"soa_account"</span>) != -<span class="number">1</span>){</span><br><span class="line">                    insertData(file2,SOA_ACCOUNT);</span><br><span class="line">                }</span><br><span class="line">                log.info(<span class="string">"文件{}导入完成，用时{}ms"</span>,file2.getPath(),(System.currentTimeMillis()-start));</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">//如果file2是一个文件夹则递归遍历子目录，否则结束当前目录遍历</span></span><br><span class="line">            <span class="keyword">if</span>(file2.isDirectory()) {</span><br><span class="line">                getFileName(file2);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">     <span class="comment">/** </span></span><br><span class="line"><span class="comment">      * <span class="doctag">@Description</span>: 把数据从csv文件中读取到list</span></span><br><span class="line"><span class="comment">      * <span class="doctag">@Param</span>: [reader] 字符缓冲流</span></span><br><span class="line"><span class="comment">      * <span class="doctag">@return</span>: java.util.List 读取到的数据（一次读取1000行）</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">readCSV</span><span class="params">(BufferedReader reader)</span></span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">            String line = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) {</span><br><span class="line">                line = reader.readLine();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>(line == <span class="keyword">null</span>){</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line"></span><br><span class="line">                line = <span class="string">"'"</span>+line.replaceAll(<span class="string">"︴"</span>,<span class="string">"','"</span>)+<span class="string">"'"</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//'xxxx-xx-xx'正则表达式</span></span><br><span class="line">                String regex1 = <span class="string">"['][0-9]{4}[-][0-9]{1,2}[-][0-9]{1,2}[']"</span>;</span><br><span class="line">                Pattern pattern1 = Pattern.compile(regex1);</span><br><span class="line">                Matcher m1 = pattern1.matcher(line);</span><br><span class="line">                line = line.replaceAll(regex1 ,<span class="string">"︴"</span>);</span><br><span class="line">                <span class="comment">//替换时间格式</span></span><br><span class="line">                <span class="keyword">while</span>(m1.find()){</span><br><span class="line">                    line = line.replaceFirst(<span class="string">"︴"</span>,<span class="string">" to_date ( "</span>+m1.group()+<span class="string">", 'YYYY-MM-DD HH24:MI:SS' )"</span>);</span><br><span class="line">                }</span><br><span class="line"></span><br><span class="line">                <span class="comment">//'xxxx-xx-xx xx:xx:xx'正则表达式</span></span><br><span class="line">                String regex2 = <span class="string">"['][0-9]{4}[-][0-9]{1,2}[-][0-9]{1,2}[ ][0-9]{1,2}[:][0-9]{1,2}[:][0-9]{1,2}[']"</span>;</span><br><span class="line">                Pattern pattern2 = Pattern.compile(regex2);</span><br><span class="line">                Matcher m2 = pattern2.matcher(line);</span><br><span class="line">                line = line.replaceAll(regex2 ,<span class="string">"︴"</span>);</span><br><span class="line">                <span class="comment">//替换时间格式</span></span><br><span class="line">                <span class="keyword">while</span>(m2.find()){</span><br><span class="line">                    line = line.replaceFirst(<span class="string">"︴"</span>,<span class="string">" to_date ( "</span>+m2.group()+<span class="string">", 'YYYY-MM-DD HH24:MI:SS' )"</span>);</span><br><span class="line">                }</span><br><span class="line"></span><br><span class="line">                list.add(line);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            log.error(<span class="string">"文件:{}读取信息出错"</span>);</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                reader.close();</span><br><span class="line">            } <span class="keyword">catch</span> (IOException ex) {</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Description</span>: 批量插入到数据库</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Param</span>: [file, type] file：文件，type：数据库对应表</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>: void </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertData</span><span class="params">(File file,<span class="keyword">int</span> type)</span> </span>{</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        String head = <span class="keyword">null</span>;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">null</span>;</span><br><span class="line">        BufferedReader reader = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//读取第一行的标题信息</span></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(file));</span><br><span class="line">            head = reader.readLine();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(head == <span class="keyword">null</span>){</span><br><span class="line">                log.info(<span class="string">"文件{}内容为空!!!"</span>,file.getPath());</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                head = head.replaceAll(<span class="string">"︴"</span>,<span class="string">","</span>);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> ((list = readCSV(reader)).size() != <span class="number">0</span>){</span><br><span class="line"></span><br><span class="line">                <span class="keyword">switch</span> (type){</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">1</span>:{</span><br><span class="line">                        bankInfoMapper.insertListData(head,list);</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">2</span>:{</span><br><span class="line">                        accountMapper.insertListData(head,list);</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line"></span><br><span class="line">                log.info(<span class="string">"文件{}导入中--- +{}行"</span>,file.getPath(),list.size());</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">            log.info(<span class="string">"***文件{}导入数据库出现异常***"</span>,file.getPath());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }<span class="keyword">finally</span> {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">               reader.close();</span><br><span class="line">            } <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91">功能开发</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Java">Java</a>
+                
+                  <a class="hover-with-bg" href="/tags/IO">IO</a>
+                
+                  <a class="hover-with-bg" href="/tags/CSV%E6%96%87%E4%BB%B6">CSV文件</a>
+                
+                  <a class="hover-with-bg" href="/tags/MyBatis">MyBatis</a>
+                
+                  <a class="hover-with-bg" href="/tags/Oracle">Oracle</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Java读取CSV文件，并批量写入数据库&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

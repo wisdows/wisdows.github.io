@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>走着官方的教程入门Material-Design WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 16日 2019, 3:26 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.2k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      5 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <blockquote>
+<p>又到期末了，学习下Google的材料设计。写下此文记录自己的同时，分享给需要的同学，若发现文中有什么问题和不对，欢迎指出</p>
+</blockquote>
+<h1 id="使用-Material-Design-创建新应用"><a href="#使用-Material-Design-创建新应用" class="headerlink" title="使用 Material Design 创建新应用"></a>使用 Material Design 创建新应用</h1><h2 id="首先需要使用材料主题"><a href="#首先需要使用材料主题" class="headerlink" title="首先需要使用材料主题"></a>首先需要使用材料主题</h2><p> <strong>如果是在5.0及以上的系统，可以直接使用材料主题。否则，就需要做5.0之前系统的兼容</strong></p>
+<p>引用Google官方的话:</p>
+<blockquote>
+<p>您可对您的应用进行配置，使应用能够在支持它的设备上使用材料主题，并且能够在运行早期版本 Android 的设备上还原至早期版本的主题</p>
+</blockquote>
+<p>具体操作就是:</p>
+<ol>
+<li>定义备用样式   <em>style<em>和v-21的</em>style</em></li>
+<li>提供备用布局     <em>xx布局.xml<em>和v-21的</em>xx布局.xml</em></li>
+<li>使用支持内容库  使用<em>v7</em>支持库</li>
+</ol>
+<h3 id="定义备用样式"><a href="#定义备用样式" class="headerlink" title="定义备用样式"></a>定义备用样式</h3><ol>
+<li><p>定义一个从 res/values/styles.xml 中的早期版本主题（例如 Holo）继承的主题。</p>
+</li>
+<li><p>定义一个从 res/values-v21/styles.xml 中的材料主题继承且拥有相同名称的主题。</p>
+</li>
+<li><p>在清单文件中将此主题设置为您的应用主题。</p>
+<pre><code>//5.0以上系统使用的主题(res\values-v21文件夹中)
+&lt;style name="AppTheme" parent="android:Theme.Material.Light"&gt;
+    &lt;!-- Customize your theme here. --&gt;            
+&lt;/style&gt;
+
+//5.0以下系统使用的主题(res\values文件夹中)
+&lt;style name="AppTheme" parent="Theme.AppCompat.Light"&gt;
+    &lt;!-- Customize your theme here. --&gt;
+&lt;/style&gt;</code></pre></li>
+</ol>
+<h3 id="提供备用布局"><a href="#提供备用布局" class="headerlink" title="提供备用布局"></a>提供备用布局</h3><p>Google是这样说的</p>
+<blockquote>
+<p>您可在res/layout-v21/内创建用于 Android 5.0（API 级别 21）的布局文件，同时也可在res/layout/内创建用于早期版本 Android 的备用布局文件。</p>
+</blockquote>
+<blockquote>
+<p>例如，res/layout/my_activity.xml是res/layout-v21/my_activity.xml的备用布局。</p>
+</blockquote>
+<blockquote>
+<p>为避免代码重复，请在res/values/内定义您的风格，在res/values-v21/内为新 API 修改风格，以及使用风格继承（即：在res/values/内定义基础风格，然后在res/values-v21/内继承这些风格）。</p>
+</blockquote>
+<p>具体操作如下:</p>
+<ol>
+<li><p>像平时一样在layout目录里新建布局文件( 例: <em>activity_main.xml</em> )</p>
+</li>
+<li><p>在里面书写布局属性(例如: 新建一个<em>TextView</em> )</p>
+<pre><code>&lt;TextView        
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/black"
+    android:padding="5dp"
+    android:text="@string/app_name"
+    android:textColor="@android:color/white"
+    android:textSize="18sp" /&gt;</code></pre></li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-f8c987e499d01791.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="5.0以下效果"></p>
+<p>可以看出5.0以上的效果除了两者的ActionBar有所不同，其余没有明显差别</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-91fc8c7734bf5a18.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="5.0以上的效果"></p>
+<p>现在给TextView加上<strong>Material Design</strong>新增的视图静态高度属性: <strong>elevation</strong> (ps:还要一个动画用的动态高度转换)</p>
+<pre><code>android:elevation="20dp"</code></pre><p>加上之后，AS就会提示我们该属性只能使用在5.0(Api 21)系统之上<br><img src="http://upload-images.jianshu.io/upload_images/2833342-bcbea9417747bf79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="Material新增的视图的高度属性"></p>
+<p>于是按着AS的提示来，Ctrl+Enter,在layout-v21文件夹复写该布局文件，然后把</p>
+<pre><code>android:elevation="20dp"</code></pre><p>移到v-21布局文件里</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-6f0ae41dff47853f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="复写之后"></p>
+<p>为了看出加了<em>elevation</em>之后的效果，我们还需要给TextView加个简单的背景轮廓(shape).</p>
+<pre><code>&lt;shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"&gt;
+    &lt;corners android:radius="5dp" /&gt;
+    &lt;solid android:color="@android:color/black" /&gt;
+&lt;/shape&gt;</code></pre><p>两者布局</p>
+<pre><code>//layout文件夹中 activity_main
+&lt;TextView
+    android:id="@+id/tv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tv_back"
+    android:padding="5dp"
+    android:text="@string/app_name"
+    android:textColor="@android:color/white"
+    android:textSize="18sp" /&gt;
+
+//layout-v21文件夹中 activity_main
+&lt;TextView
+    android:id="@+id/tv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tv_back"
+    android:elevation="15dp"
+    android:padding="5dp"
+    android:text="@string/app_name"
+    android:textColor="@android:color/white"
+    android:textSize="18sp" /&gt;</code></pre><p>其实我们应该按照官方的将两者重复的属性写到样式(style)里复用,这里暂时就不了^_^</p>
+<p>比较两者</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-a738ef1a941b72ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="5.0以上"><br><img src="http://upload-images.jianshu.io/upload_images/2833342-a7b52139b5cef091.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="5.0以下"></p>
+<p>现在就能看出两者的区别了</p>
+<h3 id="使用V7支持库"><a href="#使用V7支持库" class="headerlink" title="使用V7支持库"></a>使用V7支持库</h3><blockquote>
+<p>前面的方式都没有使用V7支持库，在v-21文件夹（style和layout）中复写只是为了让应用能在5.0以下和5.0以上的系统正常运行，所以材料设计都只能显示在5.0以上的系统</p>
+</blockquote>
+<pre><code>//v7包Gradle依赖
+compile 'com.android.support:appcompat-v7:21.0.+'</code></pre><p>官方的V7包给下面这些组件提供了Material Design 风格，让材料设计在5.0以下的系统也能显示</p>
+<ul>
+<li>EditText</li>
+<li>Spinner</li>
+<li>CheckBox</li>
+<li>RadioButton</li>
+<li>SwitchCompat</li>
+<li>CheckedTextView</li>
+</ul>
+<p>这些控件都在android.support.v7.widget.AppCompatView包下</p>
+<pre><code>//例如EditText
+&lt;android.support.v7.widget.AppCompatEditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"        
+    android:hint="@string/app_name"
+    android:padding="5dp"   
+    android:textSize="18sp" /&gt;</code></pre><p>同时要在我们的主题(style)里加上这段颜色配置，因为AppCompatTextView默认是从colorAccent着色的</p>
+<pre><code>&lt;item name="colorPrimary"&gt;@color/colorPrimary&lt;/item&gt;
+&lt;item name="colorPrimaryDark"&gt;@color/colorPrimaryDark&lt;/item&gt;
+&lt;item name="colorAccent"&gt;@color/my_red&lt;/item&gt;</code></pre><p>效果图</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-3e0976fadc11aef7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="5.0以下的AppCompatEditText"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2833342-2e418a147504ef49.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="undefined" alt="5.0以下的EditText"></p>
+<blockquote>
+<p>以上只是小生简单的使用了Material Design。主要是为了熟悉要在应用中使用材料设计，需要注意的地方和正确方法。后面继续学习更加好看的材料设计^_^</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Android">Android</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Material">Material</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "走着官方的教程入门Material-Design&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

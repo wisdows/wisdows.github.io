@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>PHP session与cookie详解 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期日, 八月 18日 2019, 5:01 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    3.2k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      11 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="PHP-session-与-cookie-区别"><a href="#PHP-session-与-cookie-区别" class="headerlink" title="PHP session 与 cookie 区别"></a>PHP session 与 cookie 区别</h1><blockquote>
+<p>session 与 cookie 是什么?</p>
+</blockquote>
+<p>session 与 cookie 属于一种会话控制技术.常用在身份识别，登录验证，数据传输等.举个例子，就像我们去超市买东西结账的时候，我们要拿出我们的会员卡才会获取优惠.这时候，我们怎么识别这个会员卡真实有效的呢?当我们将会员号给到收银员，收银员根据我们提供的会员号，输入到系统中，系统根据这个会员号去查询，如果查询到了就证明这个会员号是真实存在的.这里的会员号就好比 cookie 与 session.会员系统就好比服务器端，收银员就好比客户端.</p>
+<blockquote>
+<p>为什么会用到 session 与 cookie 呢?</p>
+</blockquote>
+<p>根据上述的例子，我们知道 session 与 cookie 是可以干什么的了，那为什么必须用这个来实现呢？这里就有必要了解一下 http 应用传输协议的特点了。由于 http 协议是无状态的，即浏览器去请求了一个网页，这时候就是一个 http 请求，当服务端接收到请求之后，返回客户端需要的数据，在这过程中浏览器与服务器是建立了一个连接的。但是当服务端返回数据，客户端收到数据之后，他们的这种连接关系就断开了。下次浏览器再去发送请求的时候，又是重新建立一个连接，这两个链接没有任何关系。试想一下，当我们登录一个商场系统的时候，进入首页做了登录操作，但是我们下单或者加入购物车的时候，还需要登录，每访问一个页面就要登录，是不是很繁琐同时也是很不科学的，万一我们加入购物车的商品，我们点击下单了，下单页面要登录而且还无法正确的反馈出你下单时的那些商品.</p>
+<h2 id="Http-特点"><a href="#Http-特点" class="headerlink" title="Http 特点"></a>Http 特点</h2><p>1.http 协议支持客户端/服务端模式，也是一种请求/响应模式的协议。 2.无连接。所谓的无连接就是服务器收到了客户端的请求之后，响应完成并收到客户端的应答之后，即断开连接。限制每次的连接只处理一次请求。从而节省传输时间。 3.无状态。http 协议对事务的处理没有记忆能力。也就意味着如果需要前面的信息，只能重传，这无形之中增加数据的传输量。这种方式某种方面上讲解放了服务器，但是却不利于客户端与服务器的连接。为了弥补这种不足，产生了两项记录 http 状态的技术，一个叫做 Cookie,一个叫做 Session，后面我们再细讲它们。 4.简单快捷：所谓的简单快捷是指客户端向服务器请求服务时，一般来说只需要传输请求方法和路径，就能进行访问 5.灵活：这里主要指的是客户端可以通过 http 协议传输任意类型的数据。比如传输.jpg 文件、.ppt 文件等等，只需要设定 content-type 就可以进行传输。</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><blockquote>
+<p>cookie 的基本概念</p>
+</blockquote>
+<p>cookie 是远程浏览器存储数据以此追踪用户和识别用户的的机制，从实现来说，cookie 是存储在客户端上的一个数据片段。</p>
+<blockquote>
+<p>cookie 的运行原理与存储机制</p>
+</blockquote>
+<p>.运行原理 1.客户端向服务端发起一个 http 请求. 2.服务端设置一个创建 cookie 的指令，响应给客户端. 3.客户端收到服务端响应的指令，根据指令在客户端创建一个 cookie. 4.挡下一次请求时，客户端携带这个 cookie 向服务端发送请求.<br>.存储机制<br>总的来说，cookie 在客户端存储的形式有三种,不同的浏览器的存储机制不同，存的 cookie 也不同. 1.文件存储.浏览器会针对不同的域，在磁盘的对应目录创建一个单独的文件，来存储该域下面的 cookie 值. 2.内存存储.当浏览器关闭时，该 cookie 随之消失.根据下面的创建语法，当我们未设置过期时间时则会出现这种情况.<br>3.flash 存储.这种存储方式是永久存储在磁盘中，即使通过浏览器删除一些数据都是无法删除该方式存储的 cookie，如果需要删除，可能通过磁盘的方式.</p>
+<blockquote>
+<p>cookie 的设置</p>
+</blockquote>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Bool setcookie(string $name[, string $values, $expire=<span class="number">0</span>[,string $path[,string $domain[, bool $secure = <span class="keyword">false</span>[, bool $httpOnly = <span class="keyword">false</span>]]]]] );</span><br><span class="line">$name:cookie存储的名称，必填选项.</span><br><span class="line">$values:cookie存储的值。这里需要注意的是，当把该值设置为<span class="keyword">false</span>时，客户端会尝试删除这个cookie值，因此在要将值这是为<span class="keyword">true</span>或者<span class="keyword">false</span>的时候，我们用另外的值来代替，例如<span class="keyword">true</span>用<span class="number">1</span>代替，<span class="keyword">false</span>用<span class="number">0</span>来代替.</span><br><span class="line">$expire:cookie的过期时间，秒为单位，当该值被设置时，定时删除；当该值没有设置时，该值是永久有效的.该值设置为小于当前时间时，会出发浏览器的删除机制，会自动删除cookie.</span><br><span class="line">$path:cookie有效的目录，默认的目录是<span class="string">"/"</span>，即表示当前的正个域名都生效.</span><br><span class="line">$domain:cookie的作用域名，默认的是当前域名有效，如果需要设置直接填写生效的域名即可.需要注意的是IE浏览器有长度限制，当只有大于<span class="number">5</span>的时候才会生效.</span><br><span class="line">$secure:cookie的加密处理，当设置为<span class="keyword">true</span>的时候，需要使用HTTPS协议，才会生效.</span><br><span class="line">$httpOnly:决定cookie是否只使用http协议，当设置为<span class="number">1</span>或者<span class="keyword">true</span>，其他非http协议是无法操作cookie的。例如我们未设置的时候，我们JavaScript是可以对cookie进行设置的.这样一定程度上保证了安全性.这种情况需考虑浏览器是否支持该配置项.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>. 设置 cookie 的函数还有 setrawcookie()函数，只不过该函数不会对值 进行 urlencode 序列号.<br>.<font color="red">有时候，我们可能遇到这种情况，我们在这个页面设置了 cookie，但是去刷新页面获取 cookie，按理说是会获取到 cookie 的，但实际情况是无法获取到，这是由于 cookie 运行机制导致，PHP 创建了 cookie 这个指令，告诉浏览器，你需要执行这个指令了，这时候浏览器才会去执行这个指令，因此是无法获取到 cookie 的.</font><br>. 在设置 cookie 之前，不能有任何输出.</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 实现方式一</span><br><span class="line">setcookie($cookie,"hello,world!", 3600);</span><br><span class="line">// 实现方式二</span><br><span class="line">header("header("Set-Cookie: testcookie=中文; path=/; domain=.sunphp.org; expires=".gmstrftime("%A, %d-%b-%Y %H:%M:%S GMT",time()+9600));");</span><br><span class="line">// 两则的作用是一样的，setcookie是PHP内置函数，是对http协议的操作封装。</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>cookie 的获取</p>
+</blockquote>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$_COOKIE[<span class="string">'$cookeName'</span>];</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>cookie 的应用</p>
+</blockquote>
+<p>. 用户身份识别<br>. 数据传输<br>. 登录控制(是否登录、单点登录)</p>
+<blockquote>
+<p>cookie 跨域设置</p>
+</blockquote>
+<p>我们都知道，在前端开发中时常会遇到 ajax 跨域问题，我们解决的方式有很多种，可以参考这篇文章<a href="http://www.qqdeveloper.com/web/detail/2" target="_blank" rel="noopener">传送门 1</a>，<a href="http://www.qqdeveloper.com/web/detail/8" target="_blank" rel="noopener">传送门 2</a>，cookie 跨域我们可以参考 p3p 传输协议<a href="https://www.cnblogs.com/lmy01/p/6369159.html" target="_blank" rel="noopener">传送门</a></p>
+<blockquote>
+<p>cookie 使用的注意事项</p>
+</blockquote>
+<p>.数量限制，客户端对每一个 domian 下的 cookie 是有数量限制的，不是创建任意数量就行.<br>.安全性，根据上面的创建语法，我们可以得知，当我们未设置$httpOnly值得时候，非http协议是可以操作cookie的值的，例如JavaScript通过cookie($cookieName).而且一些抓包工具也是可以抓取到 cookie 的,还有就是 cookie 存储在客户端的文件中，如果获取到这个 cookie，也是可以对 cookie 做一些操作的.为了防止别人可以拷贝 cookie 文件，进行恶意操作，可以对 cookie 进行加密处理.<br>数据传输:当 cookie 数量很多，数据很大的时候，其实对于带宽是有消耗的.比较 http 传输都需要带宽，当 http 传输的数据量大了，带了的带宽消耗就大.</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><blockquote>
+<p>运行原理与存储机制</p>
+</blockquote>
+<p>. 运行原理<br>1.客户端向服务端发起请求，建立通信 </p>
+<p>2.服务端根据设置的 session 创建指令，在服务端创建一个编号为 sessionid 的文件，里面的值就是 session 具体的值(组成部分 变量名 | 类型 :长度:值). </p>
+<p>3.服务端将创建好的 sessionid 编号响应给客户端，客户则将该编号存在 cookie 中(一般我们在浏览器存储的调试栏中会发现 cookie 中有一个 PHPSESSID 的键，这就是 sessionid，当然这个名称，我可以通过设置服务端是可以改变的).</p>
+<p>.当下一次请求时，客户端将这个 sessionid 携带在请求中，发送给服务端，服务端根据这个 sessionid 来做一些业务判断.</p>
+<p>.存储机制 1.存储方式.session 默认是文件存储的.我们可以通过 php.ini 的配置来设置存储驱动<a href="http://php.net/manual/zh/session.configuration.php#ini.session.serialize-handler" target="_blank" rel="noopener">传送门</a> 2.生命周期.当我们未设置 session 的生命周期时，当浏览器关闭之后存储在客户端的 phpsessid 自动消失，因为它是存在内存，下次建立连接的时候会重新创建一个 phpsessid.之前的 session，PHP 会自动的根据垃圾回收机制自动删除.这里我们可以根据<a href="http://php.net/manual/zh/function.session-set-cookie-params.php" target="_blank" rel="noopener">session_set_cookie_params($expire)函数</a>来设置一个生命周期;</p>
+<blockquote>
+<p>session 的设置</p>
+</blockquote>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">session_start();</span><br><span class="line">$_SESSION = $values;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>. session_start()设置之前，不能有任何输出</p>
+<blockquote>
+<p>session 的获取</p>
+</blockquote>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$_SESSION[<span class="string">'values'</span>];</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>session 的删除</p>
+</blockquote>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只是单纯的给重新赋了一个空的值</span></span><br><span class="line">$_SESSION[<span class="string">'values'</span>] = <span class="string">''</span>;</span><br><span class="line"><span class="comment">// 该函数是清空所有的session，慎用!</span></span><br><span class="line">session_destroy();</span><br><span class="line"><span class="comment">// 连values这个session键都会删除</span></span><br><span class="line"><span class="keyword">unset</span>($_SESSION[<span class="string">'values'</span>]);</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>session 的使用场景</p>
+</blockquote>
+<p>. 用户身份识别<br>. 数据传输<br>. 登录控制(是否登录、单点登录)</p>
+<blockquote>
+<p>session 的注意事项</p>
+</blockquote>
+<p>.安全性,sessionid 是按照一定的算法生成，要保证 session 的值唯一性和随机性.<br>.客户端禁用 cookie，根据上面 session 的运行原理可以得出，session 的存储于传送还是依赖于客户端，因此当客户端禁用 cookie 时，客户端是无法保存 PHPSESSID 的，这时候可以通过 url 重写或者表单来实现 session 的传输.<br>.存储优化,按照上面的 session 创建，所有的 session 都会创建在一个目录下面，同时有的无效 session 在垃圾回收机制时间内还不会删除，当一台服务器配置的站点较多时，这时候会生成很多的 session 文件，导致我们读取速度变慢，我们可以设置 session 的存储目录级别,<a href="http://php.net/manual/zh/session.configuration.php#ini.session.save-path" target="_blank" rel="noopener">save_path 函数</a>.一般大型的项目(如分布式的项目),可以使用其他的存储方式，如数据存储，内存存储.</p>
+<blockquote>
+<p>session 与 cookie 的区别</p>
+</blockquote>
+<p>. session 存储在服务端，cookie 存储在客户端.<br>.cookie 的创建指令由服务端设置.<br>.session 的 sessionid 需要客户端存储.</p>
+<blockquote>
+<p>cookie 与 session 的几个误区</p>
+</blockquote>
+<p>.客户端禁止 cookie，session 无法使用？</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用url重写或者表单提交可以实现.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>.session 和 cookie 的安全性比较，session 存在客户端安全更高?</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">由于cookie是存在客户端的，相对来说安全性是要低一些，不过在创建的时候可以设置$httpOnly值.</span><br><span class="line">由于cookie与session是相互关联的，获取到cookie一定程度上获取到了session，同样可以操作session.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>.cookie 与 session 是不是在浏览器关闭的时候会消失?</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这需要查看存储机制了。cookie可以存文件，内存，flash.存内存当然浏览器关闭则消失了；session由于垃圾回收机制，当在垃圾回收机制内是不会删除的，除非你代码中显示的做了删除操作.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>.cookie 是存储在客户端中，如何增加其安全性?</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们可以在设置cookie的时候，增加一些特殊参数，如客户端信息ip、浏览器信息等.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>.当 cookie 存在客户端的文件中，是不是每个浏览器获取到这个文件都可以进行操作?</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">要看浏览器之间对cookie的管理机制是不是一样.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>原文转自微信公众号:编程每日</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/PHP">PHP</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B">原创</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF">会话技术</a>
+                
+                  <a class="hover-with-bg" href="/tags/session">session</a>
+                
+                  <a class="hover-with-bg" href="/tags/cookie">cookie</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "PHP session与cookie详解&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

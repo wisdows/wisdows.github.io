@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Hexo博客搭建记录（二）：基本主题设置以及美化 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 七月 20日 2019, 3:41 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    4k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      18 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前一篇博客我主要介绍了如何一点一点搭建起Hexo博客系统，搭建方式还是挺简单的，但是Hexo的默认主题样式可能对于大多数人来说并不是足够炫酷，接下来我介绍一些Hexo的主题美化操作。</p>
+<a id="more"></a>
+
+<h3 id="1-更改主题。"><a href="#1-更改主题。" class="headerlink" title="1. 更改主题。"></a>1. 更改主题。</h3><p>Hexo的支持很多不同的主题，我们可以在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">Hexo主题页</a>去寻找自己喜欢的主题，我目前使用的就是<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next</a> 这款主题，下面我都围绕最新版 Next 7.2 来一步步说明如何进行美化。</p>
+<p><span style="color:red">注意</span></p>
+<blockquote>
+<p>在Hexo目录下有两份重要的配置文件，其名称都是<code>_config.yml</code> 。其中，一份位于站点根目录下，主要包含<code>Hexo</code>的自身配置，另一份位于主题目录下，主要用于配置主题相关的选项。<br>在接下来的描述中，我将前者称为  <strong>站点配置文件</strong>，后者称为  <strong>主题配置文件</strong> 。</p>
+</blockquote>
+<h4 id="1-1-安装Next"><a href="#1-1-安装Next" class="headerlink" title="1.1 安装Next"></a>1.1 安装Next</h4><p>安装Next主题的方式很简单，利用Git bash 在博客主目录下执行：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后我们打开站点配置文件，将theme属性从默认值landscape改为next</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>记住，所有的配置属性<code>:</code> 后面都要加一个空格,这样我们设定的值才会生效。</p>
+</blockquote>
+<p>这样我们即将主题修改为Next主题。</p>
+<h4 id="1-2-选择不同的Next主题样式"><a href="#1-2-选择不同的Next主题样式" class="headerlink" title="1.2 选择不同的Next主题样式"></a>1.2 选择不同的Next主题样式</h4><p>Next提供了四种主题风格scheme,可以在主题配置文件中配置：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># ---------------------------------------------------------------</span><br><span class="line"># Scheme Settings</span><br><span class="line"># ---------------------------------------------------------------</span><br><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">scheme: Gemini</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li><p>第一种 Muse</p>
+<p><img src="/img/HexoCreate2/scheme-musc.png" srcset="undefined" alt=""></p>
+</li>
+<li><p>第二种 Mist</p>
+<p><img src="/img/HexoCreate2/scheme-mist.png" srcset="undefined" alt=""></p>
+</li>
+<li><p>第三种 Pisces</p>
+<p><img src="/img/HexoCreate2/scheme-pisces.png" srcset="undefined" alt=""></p>
+</li>
+<li><p>第四种 Gemini</p>
+<p><img src="/img/HexoCreate2/scheme-gemini.png" srcset="undefined" alt=""></p>
+</li>
+</ul>
+<p>选择哪种风格基于个人喜好，我这里选的是最后一种<code>Gemini</code></p>
+<hr>
+<h3 id="2-更改站点属性（网站名，语言，作者）"><a href="#2-更改站点属性（网站名，语言，作者）" class="headerlink" title="2. 更改站点属性（网站名，语言，作者）"></a>2. 更改站点属性（网站名，语言，作者）</h3><p>打开站点配置文件，找到<code>site</code>字段，具体修改如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 设置网站属性信息</span><br><span class="line"># Site:</span><br><span class="line">title: 小白的博客 #网站标题（博客站点名字）。</span><br><span class="line">subtitle: 小小白 #网站副标题，显示在标题下方</span><br><span class="line">description: 我是小白 #个人描述，类似签名，用于搜索引擎对站点的描述，建议在里面加上你的站点的关键词</span><br><span class="line">keywords: </span><br><span class="line">author: 小白 #博客文章作者</span><br><span class="line">language: zh-CN  #设置博客站点语言为中文</span><br><span class="line">timezone:  #设置时区，默认当前电脑时区</span><br></pre></td></tr></tbody></table></figure>
+
+<p>设置效果如下：</p>
+<p><img src="/img/HexoCreate2/site.png" srcset="undefined" alt=""></p>
+<hr>
+<h3 id="3-菜单栏"><a href="#3-菜单栏" class="headerlink" title="3. 菜单栏"></a>3. 菜单栏</h3><h4 id="3-1-显示更多栏目"><a href="#3-1-显示更多栏目" class="headerlink" title="3.1 显示更多栏目"></a>3.1 显示更多栏目</h4><p>在主题配置文件中修改如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home # 首页</span><br><span class="line">  about: /about/ || user # 关于</span><br><span class="line">  tags: /tags/ || tags # 标签</span><br><span class="line">  categories: /categories/ || th # 分类</span><br><span class="line">  archives: /archives/ || archive  # 归档</span><br><span class="line">  # schedule: /schedule/ || calendar # 日历</span><br><span class="line">  # sitemap: /sitemap.xml || sitemap # 站点地图</span><br><span class="line">  # commonweal: /404/ || heartbeat # 腾讯公益404</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="3-2-图标和内容量"><a href="#3-2-图标和内容量" class="headerlink" title="3.2 图标和内容量"></a>3.2 图标和内容量</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">menu_settings:</span><br><span class="line">  icons: true # 是否显示各个页面的图标</span><br><span class="line">  badges: true # 是否显示分类/标签/归档页的内容量</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="3-3-效果图"><a href="#3-3-效果图" class="headerlink" title="3.3 效果图"></a>3.3 效果图</h4><p>以上修改如下图：</p>
+<p> <img src="/img/HexoCreate2/menu.png" srcset="undefined" alt=""></p>
+<hr>
+<h3 id="4-侧边栏"><a href="#4-侧边栏" class="headerlink" title="4. 侧边栏"></a>4. 侧边栏</h3><p>以下设置都是在<strong>主题配置</strong>文件中</p>
+<h4 id="4-1-显示可跳转-日志-分类-标签页-的链接"><a href="#4-1-显示可跳转-日志-分类-标签页-的链接" class="headerlink" title="4.1 显示可跳转 日志 / 分类 / 标签页 的链接"></a>4.1 显示可跳转 日志 / 分类 / 标签页 的链接</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Posts / Categories / Tags in sidebar.</span><br><span class="line">site_state: true</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="4-2-社交信息设置"><a href="#4-2-社交信息设置" class="headerlink" title="4.2 社交信息设置"></a>4.2 社交信息设置</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">social:</span><br><span class="line">  GitHub: https://github.com/yourname || github</span><br><span class="line">  #E-Mail: mailto:yourname@gmail.com || envelope</span><br><span class="line">  Weibo: https://weibo.com/yourname || weibo</span><br><span class="line">  #Google: https://plus.google.com/yourname || google</span><br><span class="line">  #Twitter: https://twitter.com/yourname || twitter</span><br><span class="line">  #FB Page: https://www.facebook.com/yourname || facebook</span><br><span class="line">  #VK Group: https://vk.com/yourname || vk</span><br><span class="line">  #StackOverflow: https://stackoverflow.com/yourname || stack-overflow</span><br><span class="line">  #YouTube: https://youtube.com/yourname || youtube</span><br><span class="line">  #Instagram: https://instagram.com/yourname || instagram</span><br><span class="line">  #Skype: skype:yourname?call|chat || skype</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Next 默认给出了一些模板，我们只要将其中的链接改为自己的链接就可以了，当然你也可以自己定义，格式为</p>
+<p>名字: 链接 || 图标名，图标必须是<a href="http://fontawesome.dashgame.com/" target="_blank" rel="noopener">FontAwesome</a>网站中能找到的图标名。</p>
+<p>例如我添加我的博客地址：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qianfanguojin: https://qianfanguojin.github.io/ || codepen</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="4-3-圆形头像设置"><a href="#4-3-圆形头像设置" class="headerlink" title="4.3 圆形头像设置"></a>4.3 圆形头像设置</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">avatar:</span><br><span class="line">  # In theme directory (source/images): /images/avatar.gif</span><br><span class="line">  # In site directory (source/uploads): /uploads/avatar.gif</span><br><span class="line">  # You can also use other linking images.</span><br><span class="line">  url: /images/avatar.jpg #头像文件目录</span><br><span class="line">  # If true, the avatar would be dispalyed in circle.</span><br><span class="line">  rounded: true #设置鼠标放在头像上面是否旋转</span><br><span class="line">  # If true, the avatar would be rotated with the cursor.</span><br><span class="line">  rotated: true #头像是否设为圆形</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将自己喜欢的头像头像按照需求自己更换自己喜欢的就可以了，不过这里要注意一下头像可能会变成椭圆，如果头像是椭圆的，是因为图片不是一个正方形的图片，找到一个宽高像素一样的的图片即可。</p>
+<p>以上修改如下图：</p>
+<p><img src="/img/HexoCreate2/sidebar.png" srcset="undefined" alt=""></p>
+<h4 id="4-4-其他"><a href="#4-4-其他" class="headerlink" title="4.4 其他"></a>4.4 其他</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">toc:</span><br><span class="line">  enable: true #自动生成目录</span><br><span class="line">  # Automatically add list number to toc.</span><br><span class="line">  number: true #自动产生目录编号</span><br><span class="line">  # If true, all words will placed on next lines if header width longer then sidebar width.</span><br><span class="line">  wrap: false #标题过长是否换行</span><br><span class="line">  # If true, all level of TOC in a post will be displayed, rather than the activated part of it.</span><br><span class="line">  expand_all: false # 是否显示所有等级的目录项。</span><br><span class="line">  # Maximum heading depth of generated toc. You can set it in one post through `toc_max_depth` in Front-matter.</span><br><span class="line">  max_depth: 6 #最大标题嵌套个数</span><br><span class="line"></span><br><span class="line">sidebar:</span><br><span class="line">  # Sidebar Position.#侧边栏的位置</span><br><span class="line">  position: left</span><br><span class="line">  #position: right</span><br><span class="line"></span><br><span class="line">  # Manual define the sidebar width. If commented, will be default for:</span><br><span class="line">  # Muse | Mist: 320</span><br><span class="line">  # Pisces | Gemini: 240</span><br><span class="line">  #width: 300</span><br><span class="line"></span><br><span class="line">  # Sidebar Display (only for Muse | Mist), available values:</span><br><span class="line">  #  - post    expand on posts automatically. Default.</span><br><span class="line">  #  - always  expand for all pages automatically.</span><br><span class="line">  #  - hide    expand only when click on the sidebar toggle icon.</span><br><span class="line">  #  - remove  totally remove sidebar including sidebar toggle.</span><br><span class="line">  display: post</span><br><span class="line"></span><br><span class="line">  # Sidebar offset from top menubar in pixels (only for Pisces | Gemini).</span><br><span class="line">  offset: 12 # 侧边栏相对主菜单的像素距离</span><br><span class="line">  # Enable sidebar on narrow view (only for Muse | Mist).</span><br><span class="line">  onmobile: false #在手机上侧边栏是否显示</span><br><span class="line"></span><br><span class="line"># 返回顶部</span><br><span class="line">back2top:</span><br><span class="line">  enable: true </span><br><span class="line">  # Back to top in sidebar.</span><br><span class="line">  sidebar: false  #侧边栏显示返回顶部信息,默认显示在页面右下方</span><br><span class="line">  # Scroll percent label in b2t button.</span><br><span class="line">  scrollpercent: #显示百分比</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h3 id="5-页面设置"><a href="#5-页面设置" class="headerlink" title="5. 页面设置"></a>5. 页面设置</h3><h4 id="5-1-鼠标点击红心"><a href="#5-1-鼠标点击红心" class="headerlink" title="5.1 鼠标点击红心"></a>5.1 鼠标点击红心</h4><p>目前网上大多数文章都是在<code>themes/next/source/js/src</code> 下新建文件，但笔者写这篇文章时最新版Next已经没有<code>src</code>文件夹了 ，于是，我们可以在<code>themes/next/source/js/</code>下新建<code>clicklove.js</code>内容如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e&lt;d.length;e++)d[e].alpha&lt;=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&amp;&amp;e.onclick;e.onclick=function(e){t&amp;&amp;t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后在修改<code>themes/next/layout/_layout.swig</code> 文件末尾添加：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 页面点击小红心 --&gt;</span><br><span class="line">{% if theme.clicklove %}</span><br><span class="line">      &lt;script type="text/javascript" src="/js/clicklove.js"&gt;&lt;/script&gt;</span><br><span class="line">{% endif %}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><span style="color:red">注意</span></p>
+<blockquote>
+<p>很多人配置正确但不显示的原因主要出在这里，也就是<code>src</code> 后面的文件链接错误，hexo中使用的是相对路径，也就是说,只要你不指定为绝对路径,设置的链接都将是<code>root+url</code>的形式，一般来说，大多数用户默认的<code>root</code> 都为<code>/</code> ，但是有些情况，例如设置了Git Page ,要修改<code>root</code>的路径，<code>root</code>路径我们可以在 <strong>站点配置文件</strong> 中找到：</p>
+</blockquote>
+<p><img src="/img/HexoCreate2/rootdir.png" srcset="undefined" alt=""></p>
+<p>上图就是在我设置了Git Page后 <code>root</code>路径的值，在这种情况下，我们在修改<code>themes/next/layout/_layout.swig</code> 文件时，<code>src</code> 的路径都应该加上<code>root</code> 的路径值，因此，在这种情况下代码应修改为：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 页面点击小红心 --&gt;</span><br><span class="line">{% if theme.clicklove %}</span><br><span class="line">      &lt;script type="text/javascript" src="/fa/js/clicklove.js"&gt;&lt;/script&gt;</span><br><span class="line">{% endif %}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>确定无误后最后在主题配置文件末尾添加：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 显示页面红心</span><br><span class="line">clicklove: true</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h4 id="5-2-添加动态背景"><a href="#5-2-添加动态背景" class="headerlink" title="5.2 添加动态背景"></a>5.2 添加动态背景</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 设置动态背景</span><br><span class="line"># Canvas-nest</span><br><span class="line"># Dependencies: https://github.com/theme-next/theme-next-canvas-nest</span><br><span class="line">canvas_nest:</span><br><span class="line">  enable: true</span><br><span class="line">  onmobile: true # display on mobile or not</span><br><span class="line">  color: "0,0,255" # RGB values, use `,` to separate</span><br><span class="line">  opacity: 0.5 # the opacity of line: 0~1</span><br><span class="line">  zIndex: -1 # z-index property of the background</span><br><span class="line">  count: 170 # the number of lines</span><br><span class="line"></span><br><span class="line"># JavaScript 3D library.</span><br><span class="line"># Dependencies: https://github.com/theme-next/theme-next-three</span><br><span class="line">three:</span><br><span class="line">  enable: false</span><br><span class="line">  delay: false # Set true to further delay loading</span><br><span class="line">  three_waves: true</span><br><span class="line">  canvas_lines: false</span><br><span class="line">  canvas_sphere: false</span><br><span class="line"></span><br><span class="line"># Canvas-ribbon</span><br><span class="line"># Dependencies: https://github.com/theme-next/theme-next-canvas-ribbon</span><br><span class="line">canvas_ribbon:</span><br><span class="line">  enable: false</span><br><span class="line">  size: 300 # The width of the ribbon</span><br><span class="line">  alpha: 0.6 # The transparency of the ribbon</span><br><span class="line">  zIndex: -1 # The display level of the ribbon</span><br></pre></td></tr></tbody></table></figure>
+
+<p>新版Next已经支持了上面三种动态背景方式，大家想用哪种就将该项的<code>enable</code> 设为 <code>true</code>,具体效果大家自己尝试，一般用的是第一种。</p>
+<p>当然，指明要用那种，但是Next没有自带该动画的包，我们要自己下载，链接就在注释中<code># Dependencies</code> 项后面 ，例如我下载第一种：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/theme-next-canvas-nest themes/next/source/lib/canvas-nest</span><br></pre></td></tr></tbody></table></figure>
+
+<p>链接后的是指定下载后放到的文件夹名，大家要注意是放在<code>lib</code> 下且文件夹名字应该和上面的设置项名字一样。</p>
+<h4 id="5-3-博客底部基本布局"><a href="#5-3-博客底部基本布局" class="headerlink" title="5.3 博客底部基本布局"></a>5.3 博客底部基本布局</h4><p>这里我就不细说了，大家参照注释自己修改</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># 博客底部布局</span><br><span class="line">footer:</span><br><span class="line">  # Specify the date when the site was setup. If not defined, current year will be used.</span><br><span class="line">  #since: 2015 #设置建站时间，不设置则默认为当前年份</span><br><span class="line"></span><br><span class="line">  # Icon between year and copyright info.</span><br><span class="line">  icon:</span><br><span class="line">    # Icon name in Font Awesome. See: https://fontawesome.com/v4.7.0/icons/</span><br><span class="line">    # `heart` is recommended with animation in red (#ff0000).</span><br><span class="line">    name: heart  # 作者图标，默认为author，自定义的图标需来自fontawesome中</span><br><span class="line">    # If you want to animate the icon, set it to true.</span><br><span class="line">    animated: true  # 图标是否闪动</span><br><span class="line">    # Change the color of icon, using Hex Code.</span><br><span class="line">    color: "#808080" # 图标颜色</span><br><span class="line"></span><br><span class="line">  # If not defined, `author` from Hexo `_config.yml` will be used.</span><br><span class="line">  copyright: 小白 #设置底部显示的名字，默认为站点配置文件的author名字</span><br><span class="line"></span><br><span class="line">  powered:</span><br><span class="line">    # Hexo link (Powered by Hexo).</span><br><span class="line">    enable: false # 是否显示 Powered By Hexo</span><br><span class="line">    # Version info of Hexo after Hexo link (vX.X.X).</span><br><span class="line">    version: false # 是否显示 Hexo 版本</span><br><span class="line"></span><br><span class="line">  theme:</span><br><span class="line">    # Theme &amp; scheme info link (Theme - NexT.scheme).</span><br><span class="line">    enable: false # 是否显示主题信息</span><br><span class="line">    # Version info of NexT after scheme info (vX.X.X).</span><br><span class="line">    version: false # 是否显示主题版本</span><br><span class="line"></span><br><span class="line">  # Beian ICP information for Chinese users. See: http://www.beian.miit.gov.cn</span><br><span class="line">  beian:</span><br><span class="line">    enable: false # 是否显示网站备案信息</span><br><span class="line">    icp:</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="5-6-底部显示busuanzi博客访客-访问次数统计"><a href="#5-6-底部显示busuanzi博客访客-访问次数统计" class="headerlink" title="5.6 底部显示busuanzi博客访客/访问次数统计"></a>5.6 底部显示busuanzi博客访客/访问次数统计</h4><p>修改主题配置文件内容：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 不蒜子统计功能</span><br><span class="line">busuanzi_count:</span><br><span class="line">  enable: true # 是否开启busuanzi统计功能</span><br><span class="line">  total_visitors: true # 是否统计总访客数</span><br><span class="line">  total_visitors_icon: user # 访客数图标</span><br><span class="line">  total_views: true # 是否显示同级总访问次数</span><br><span class="line">  total_views_icon: eye # 总访问次数的图标</span><br><span class="line">  post_views: true # 是否显示单个文章查看次数</span><br><span class="line">  post_views_icon: eye # 文章被查看次数的图标</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="5-5-右上角显示Github标识"><a href="#5-5-右上角显示Github标识" class="headerlink" title="5.5 右上角显示Github标识"></a>5.5 右上角显示Github标识</h4><p>修改主题配置文件：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># `Follow me on GitHub` banner in the top-right corner.</span><br><span class="line"># Github 跳转图标</span><br><span class="line">github_banner:</span><br><span class="line">  enable: true # 功能开关</span><br><span class="line">  permalink: https://github.com/yourname # Github主页地址</span><br><span class="line">  title: Follow me on GitHub # 鼠标悬停显示的文字</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="5-6-接入网易云播放器"><a href="#5-6-接入网易云播放器" class="headerlink" title="5.6 接入网易云播放器"></a>5.6 接入网易云播放器</h4><p>首先在网易云音乐网页端搜索你想播放的音乐（有版权保护的不行）：</p>
+<p><img src="/img/HexoCreate2/wyy1.png" srcset="undefined" alt=""></p>
+<p>然后点击生成外链播放器，得到外链的html代码：</p>
+<p><img src="/img/HexoCreate2/wyy2.png" srcset="undefined" alt=""></p>
+<p>然后我们将代码粘贴到一个合适的位置，建议在侧边栏，对应的文件是<code>themes/next/layout/_macro/sidebar.swig</code> ，不同的位置效果呈现的效果不同，例如我的：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class="site-overview-wrap sidebar-panel{% if not display_toc or toc(page.content).length &lt;= 1 %} sidebar-panel-active{% endif %}"&gt;</span><br><span class="line">        &lt;div class="site-overview"&gt;</span><br><span class="line"></span><br><span class="line">          {{ partial('_partials/sidebar/site-overview.swig', {}, {cache: theme.cache.enable}) }}</span><br><span class="line">          </span><br><span class="line">          {% for inject_item in theme.injects.sidebar %}</span><br><span class="line">            {{ partial(inject_item.layout, inject_item.locals, inject_item.options) }}</span><br><span class="line">          {% endfor %}</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">		&lt;!--网易云链接--&gt;</span><br><span class="line">		&lt;iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&amp;id=33419765&amp;auto=1&amp;height=66"&gt;&lt;/iframe&gt;</span><br><span class="line">      &lt;/div&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>效果就是这样：</p>
+<p> <img src="/img/HexoCreate2/wyy3.png" srcset="undefined" alt=""></p>
+<p>这里大家自己根据需求设置就行了。</p>
+<hr>
+<h3 id="6-文章内容相关"><a href="#6-文章内容相关" class="headerlink" title="6 文章内容相关"></a>6 文章内容相关</h3><h4 id="6-1-文章摘要显示（显示阅读全文按钮）"><a href="#6-1-文章摘要显示（显示阅读全文按钮）" class="headerlink" title="6.1 文章摘要显示（显示阅读全文按钮）"></a>6.1 文章摘要显示（显示阅读全文按钮）</h4><ul>
+<li><p>自动形成摘要模式</p>
+<p>打开主题配置文件，修改内容如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">auto_excerpt:</span><br><span class="line">  enable: true  </span><br><span class="line">  length: 150 # 截取的内容长度</span><br><span class="line">  </span><br><span class="line"># Read more button</span><br><span class="line"># If true, the read more button would be displayed in excerpt section.</span><br><span class="line">read_more_btn: true # 是否显示阅读全文按钮</span><br></pre></td></tr></tbody></table></figure>
+
+<p>但是这样的方式不够自由，我们可以使用如下方式：</p>
+</li>
+<li><p>使用 <code>&lt;!--more--&gt;</code> 标签分隔，格式如下：</p>
+<p><img src="/img/HexoCreate2/more.png" srcset="undefined" alt=""></p>
+<p>这样，<code>&lt;!--more--&gt;</code> 标签上的内容为概述，下面为正文，效果如下：</p>
+<p><img src="/img/HexoCreate2/more2.png" srcset="undefined" alt=""></p>
+</li>
+</ul>
+<h4 id="6-2-代码块设置"><a href="#6-2-代码块设置" class="headerlink" title="6.2 代码块设置"></a>6.2 代码块设置</h4><p>使用参照如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 代码块设置</span><br><span class="line">codeblock:</span><br><span class="line">  # Code Highlight theme</span><br><span class="line">  # Available values: normal | night | night eighties | night blue | night bright</span><br><span class="line">  # See: https://github.com/chriskempson/tomorrow-theme</span><br><span class="line">  # 代码块主题, 可选的值为 normal; night; night eighties; night blue; night bright</span><br><span class="line">  highlight_theme: night</span><br><span class="line">  # Add copy_button on codeblock</span><br><span class="line">  # 显示复制按钮</span><br><span class="line">  copy_button:</span><br><span class="line">    enable: true</span><br><span class="line">    # Show text copy result.</span><br><span class="line">    show_result: true</span><br><span class="line">    # Available values: default | flat | mac</span><br><span class="line">    style:  # 按钮显示格式</span><br></pre></td></tr></tbody></table></figure>
+
+<p>代码块样式的具体内容可以查看官方文档  <a href="http://theme-next.iissnan.com/theme-settings.html#syntax-highlight-scheme" target="_blank" rel="noopener">http://theme-next.iissnan.com/theme-settings.html#syntax-highlight-scheme</a></p>
+<h4 id="6-3-添加打赏"><a href="#6-3-添加打赏" class="headerlink" title="6.3 添加打赏"></a>6.3 添加打赏</h4><p> <img src="/img/HexoCreate2/reward.png" srcset="undefined" alt=""></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Reward (Donate)</span><br><span class="line"># 打赏设置</span><br><span class="line">reward_settings:</span><br><span class="line">  # If true, reward would be displayed in every article by default.</span><br><span class="line">  # You can show or hide reward in a specific article throuth `reward: true | false` in Front-matter.</span><br><span class="line">  enable: true # 功能开关</span><br><span class="line">  animation: true # 动画</span><br><span class="line">  #comment: Donate comment here.</span><br><span class="line"></span><br><span class="line">reward:</span><br><span class="line">  #wechatpay: /images/wechatpay.png # 微信捐赠二维码图片</span><br><span class="line">  #alipay: /images/alipay.png # 支付宝捐赠二维码图片</span><br><span class="line">  #bitcoin: /images/bitcoin.png # 比特币</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="6-4-添加版权信息"><a href="#6-4-添加版权信息" class="headerlink" title="6.4 添加版权信息"></a>6.4 添加版权信息</h4><p><img src="/img/HexoCreate2/creative.png" srcset="undefined" alt=""></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Creative Commons 4.0 International License.</span><br><span class="line"># See: https://creativecommons.org/share-your-work/licensing-types-examples</span><br><span class="line"># Available values of license: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero</span><br><span class="line"># You can set a language value if you prefer a translated version of CC license, e.g. deed.zh</span><br><span class="line"># CC licenses are available in 39 languages, you can find the specific and correct abbreviation you need on https://creativecommons.org</span><br><span class="line">creative_commons:</span><br><span class="line">  license: by-nc-sa # 许可协议</span><br><span class="line">  sidebar: true # 侧边栏显示</span><br><span class="line">  post: true # 文章底部显示</span><br><span class="line">  language:</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="6-5-添加文章结束提示语"><a href="#6-5-添加文章结束提示语" class="headerlink" title="6.5 添加文章结束提示语"></a>6.5 添加文章结束提示语</h4><p><img src="/img/HexoCreate2/post-end.png" srcset="undefined" alt=""></p>
+<p><strong>核心代码</strong>：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style="text-align:center;color: #ccc;font-size:14px;"&gt;</span><br><span class="line">------------- 本文结束 &lt;i class="fa fa-heart-o"&gt;&lt;/i&gt; 感谢您的阅读-------------</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>如果你想简单一点实现，直接复制这段代码，然后将其插入到 <code>themes/next/layout/_macro/post.swig</code> 文件的如下位置：</li>
+</ul>
+<p><img src="/img/HexoCreate2/end-text-pos.png" srcset="undefined" alt=""></p>
+<ul>
+<li><p>当然，我们大多时候对功能都需要一个灵活性，也就是可以开关。为了实现这样的效果，我们先在<code>themes/next/layout/_macro/</code> 新建 <code>post-end-text.swig</code> 文件，将上面的 <strong>核心代码</strong> 添加进去。<br>然后我们修改<code>themes/next/layout/_macro/post.swig</code> 文件 ，将上面简单实现的代码替换成：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">{#####################}</span><br><span class="line">{### END POST BODY ###}</span><br><span class="line">{#####################}</span><br><span class="line">&lt;!--文章结束标语--&gt;</span><br><span class="line">{%	if theme.post_end_text &amp;&amp; not is_index%}</span><br><span class="line">{% include 'post-end-text.swig' %}</span><br><span class="line">{% endif %}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后，我们在主题配置文件末尾添加：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 文章结束提示语</span><br><span class="line">post_end_text: true</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我们就可以在这里将其设为<code>true</code> 或 <code>false</code> 来控制其显示。</p>
+</li>
+</ul>
+<h4 id="6-6-添加博客字数和阅读时间统计功能"><a href="#6-6-添加博客字数和阅读时间统计功能" class="headerlink" title="6.6 添加博客字数和阅读时间统计功能"></a>6.6 添加博客字数和阅读时间统计功能</h4><p>首先在站点根目录下配置依赖：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-symbols-count-time --save</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后再站点配置文件中加入以下内容：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  symbols: true #是否统计字数</span><br><span class="line">  time: true #是否统计阅读时长</span><br><span class="line">  total_symbols: true #是否统计总字数</span><br><span class="line">  total_time: true #是否统计总阅读时长</span><br></pre></td></tr></tbody></table></figure>
+
+<p>最后在主题配置文件中修改为以下内容：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 字数及访问时间统计</span><br><span class="line">symbols_count_time:</span><br><span class="line">  separated_meta: true  #分隔线</span><br><span class="line">  item_text_post: true  #文章中的显示是否显示文本</span><br><span class="line">  item_text_total: true       #网页底部的显示是否显示文本</span><br><span class="line">  awl: 2 #平均每个字符的长度</span><br><span class="line">  wpm: 275 # 设定每分钟可阅读的字符数</span><br></pre></td></tr></tbody></table></figure>
+
+<p>效果如下图：</p>
+<p><img src="/img/HexoCreate2/post-count.png" srcset="undefined" alt=""></p>
+<p><img src="/img/HexoCreate2/page-count.png" srcset="undefined" alt=""></p>
+<h4 id="6-7-修改-tag-图标"><a href="#6-7-修改-tag-图标" class="headerlink" title="6.7 修改 tag 图标"></a>6.7 修改 tag 图标</h4><p>默认的 <code>tag</code> 样式为 <code>#</code> 不带图标：</p>
+<p><img src="/img/HexoCreate2/tag-default.png" srcset="undefined" alt=""></p>
+<p>我们可以改成使用图标：</p>
+<p><img src="/img/HexoCreate2/tag-fa.png" srcset="undefined" alt=""></p>
+<p>新版Next 已经帮我们集成了这个功能，我们只要在主题配置文件中修改：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Use icon instead of the symbol # to indicate the tag at the bottom of the post</span><br><span class="line"># 使用标签图标</span><br><span class="line">tag_icon: true</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661502" target="_blank" rel="noopener">https://blog.csdn.net/nightmare_dimple/article/details/86661502</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Hexo%E5%8D%9A%E5%AE%A2">Hexo博客</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Hexo">Hexo</a>
+                
+                  <a class="hover-with-bg" href="/tags/Hexo%20%E7%BE%8E%E5%8C%96">Hexo 美化</a>
+                
+                  <a class="hover-with-bg" href="/tags/Next">Next</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Hexo博客搭建记录（二）：基本主题设置以及美化&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

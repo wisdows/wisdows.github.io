@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Hexo博客搭建记录（一）：本地搭建以及部署到Github WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期四, 七月 18日 2019, 10:58 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.6k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      6 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>程序猿作为技术人员，都应该拥有一个自己的技术博客，在他人推荐下，我个人搭建了Hexo+Github的博客系统，这里将其过程记录下来，希望能帮助到你们。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>该记录全程为Windows系统下，其他操作系统自行处理。</p>
+</blockquote>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li>一台电脑 （-_-）</li>
+<li>一个注册好的Github账号</li>
+<li>一款shell工具（我们可以用Git Bash代替）</li>
+<li>Node.js环境</li>
+<li>Git</li>
+</ol>
+<hr>
+<h3 id="一、安装配置Node-js"><a href="#一、安装配置Node-js" class="headerlink" title="一、安装配置Node.js"></a>一、安装配置Node.js</h3><p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。<br>Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效                   </p>
+<p>hexo 是基于Node.js来构建博客的，得益于Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。</p>
+<p>首先我们去官网 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a> 下载安装包</p>
+<p>网站会自动识别你的操作系统，这里我们选择<strong>LTS</strong> 也就是长期支持版。<img src="/img/node.png" srcset="undefined" alt=""></p>
+<p>安装步骤没有什么要求，点下一步就是了，如不出意外，你的开始菜单里面应该有这两个文件。</p>
+<p><img src="/img/node1.png" srcset="undefined" alt=""></p>
+<p>确保安装成功，您可以打开cmd或其他命令行工具输入：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br><span class="line">node -v</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如有</p>
+<p><img src="/img/node2.png" srcset="undefined" alt=""></p>
+<p>版本数字不一定和我一样，有的话说明安装成功</p>
+<hr>
+<h3 id="二、安装Git"><a href="#二、安装Git" class="headerlink" title="二、安装Git"></a>二、安装Git</h3><p>Git是什么，Git是一种版本控制系统，区别于svn，是目前最先进的一种版本控制系统，这里我不详细介绍，大家有想深入了解的话可以去这里  <a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener"> 廖雪峰的 Git 教程</a><br>我们这里安装Git的目的，一是为了下载从Github下载 <code>hexo</code> 的一些工具资源，二是其提供了<code>Git Bash</code> shell 工具，我们的Hexo配置操作都需要用到。</p>
+<p>Git的官网  <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">官网下载Git</a>, 但Git的官网下载速度会抽风，如无爬山工具，也可以这里下载 <a href="https://www.lanzous.com/i47zcgj" target="_blank" rel="noopener">镜像下载Git</a> 。                                                                                                                                           安装步骤依然是一直点下一步就是了。</p>
+<p><span style="color:red">注意：</span> </p>
+<blockquote>
+<p>安装完成后，还有记得要配置Git本地的邮箱和用户名，如不配置，后面的操作可能会出现问题。<br>具体的配置可以参考 <a href="https://www.liaoxuefeng.com/wiki/896043488029600/896067074338496" target="_blank" rel="noopener">廖雪峰 ：Git安装与配置</a></p>
+</blockquote>
+<hr>
+<h3 id="三、配置本地Hexo"><a href="#三、配置本地Hexo" class="headerlink" title="三、配置本地Hexo"></a>三、配置本地Hexo</h3><h4 id="1-配置hexo全局控制命令"><a href="#1-配置hexo全局控制命令" class="headerlink" title="1.配置hexo全局控制命令"></a>1.配置hexo全局控制命令</h4><p>​    在cmd或者其他命令行工具下输入如下：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></tbody></table></figure>
+
+
+<blockquote>
+<p>用npm 命令时可能会提示warning,只要不是error，一般来说都不用太过担心。<br>另一个就是执行<code>npm install</code>下载时可能会很久不动好像卡了一样，不用太担心，这        都是正常情况，可以多等一会，或者使用爬山工具。</p>
+</blockquote>
+<h4 id="2-下载Hexo-工具"><a href="#2-下载Hexo-工具" class="headerlink" title="2.下载Hexo 工具"></a>2.下载Hexo 工具</h4><h5 id="2-1初始化博客目录"><a href="#2-1初始化博客目录" class="headerlink" title="2.1初始化博客目录"></a>2.1初始化博客目录</h5><p>  首先准备一个目录存放你的博客网站文件，例如我的是 <strong>/e/blog</strong>，也就是在E盘根目录新建了一个<strong>blog</strong>文件夹</p>
+<p>  然后我们进入该目录，点击鼠标右键，然后点击 <code>git bash</code> 出现一个命令窗口，接下来我们的大多数操作都用它来完成。</p>
+<blockquote>
+<p><code>Git Bash</code>在这里并不是唯一的选择，如您熟悉其他命令工具，也可以使用其他工具，这里使用<code>Git Bash</code>是为了减少更多不必要的麻烦</p>
+</blockquote>
+<p>在 <code>Git Bash</code>窗口下输入如下命令：        </p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></tbody></table></figure>
+<p>按下回车Enter，<code>Git bash</code> 会自动下载相关文件，如下图</p>
+<p><img src="/img/hexo-init.png" srcset="undefined" alt=""></p>
+<blockquote>
+<p>速度可能会很慢，请耐心等待，若是在这步出现以下错误 :<br><code>error: RPC failed; curl 56 OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 10054</code><br><code>fatal: the remote end hung up unexpectedly</code><br><code>fatal: protocol error: bad pack header</code><br><code>WARN  git clone failed. Copying data instead</code><br><code>WARN  Failed to install dependencies. Please run 'npm install' manually!</code></p>
+<p>或是一直卡百分比，我们在 <code>Git Bash</code> 中按 <code>Ctrl+C</code> 取消下载，然后删除文件夹中所有文件，重新执行上面的  <code>hexo init</code> 命令</p>
+</blockquote>
+<p>若出现：<br><img src="/img/hexo-init1.png" srcset="undefined" alt=""></p>
+<p>则表示文件下载成功。</p>
+<h5 id="2-2-本地生成运行"><a href="#2-2-本地生成运行" class="headerlink" title="2.2 本地生成运行"></a>2.2 本地生成运行</h5><p>在<code>Git Bash</code>窗口下，依次执行：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样，Hexo会默认运行在你本机的4000端口上，然后我们在浏览器中输入<code>http://localhost:4000</code> 即可显示如下页面：</p>
+<p><img src="/img/hexo-s.png" srcset="undefined" alt=""></p>
+<p>这个页面是hexo默认初始化的一个页面，主题为landscape。</p>
+<hr>
+<h3 id="三、部署到GitPage"><a href="#三、部署到GitPage" class="headerlink" title="三、部署到GitPage"></a>三、部署到GitPage</h3><blockquote>
+<p>这个步骤开始前，请确保你已经注册了Github账号，且已经配置好了相关信息，配置方法请向上翻阅  <strong>二、安装Git</strong>  环节下。</p>
+</blockquote>
+<h4 id="1-在Github创建仓库。"><a href="#1-在Github创建仓库。" class="headerlink" title="1.在Github创建仓库。"></a>1.在Github创建仓库。</h4><p>打开  <a href="https://github.com/" target="_blank" rel="noopener">Github官网</a>  登陆你的Github账号，点击页面右上角的 <code>+</code> 、<code>New repository</code>新建一个<code>repository</code>仓库</p>
+<p><img src="/img/Github-repo.png" srcset="undefined" alt=""></p>
+<p>为避免麻烦，这里仓库名必须按照<code>yourusername.github.io</code>规范填写，填写完仓库名后，我们点击<code>Create repository</code>按钮，然后等待其创建完成。复制该项目的HTTP链接<code>https://github.com/yourusername/yourusername.github.io.git</code></p>
+<blockquote>
+<p><code>yourusername</code>指的就是你的github用户名，本文中出现的该字段都表示这个意思。  </p>
+</blockquote>
+<h4 id="2-Hexo-配置"><a href="#2-Hexo-配置" class="headerlink" title="2.Hexo 配置"></a>2.Hexo 配置</h4><p>打开 <code>Git Bash</code> 切换到博客的根目录，输入：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-depolyer-git --save</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现</p>
+<p><img src="/img/deployer.png" srcset="undefined" alt=""></p>
+<p>表示安装成功。</p>
+<p>然后输入：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></tbody></table></figure>
+
+<p>进入站点配置文件编辑模式，我们向下翻到底部，可以看到 <code>depoly</code> 字段</p>
+<p><img src="/img/config.png" srcset="undefined" alt=""></p>
+<p>在英文输入模式下，按键盘上的 <code>i</code>键进入编辑模式，将<code>depoly</code>字段编辑如下：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: </span><br><span class="line">  		github: https:<span class="comment">//github.com/yourusername/yourusername.github.io.git</span></span><br><span class="line">  branch: master</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意这里<code>:</code>后面一定要加空格，不然会出错。</p>
+<p>然后我们按<code>Esc</code> 键，输入<code>:wq</code> 保存退出</p>
+<p><img src="/img/vim-wq.png" srcset="undefined" alt=""></p>
+<h4 id="3-完成部署"><a href="#3-完成部署" class="headerlink" title="3.完成部署"></a>3.完成部署</h4><p>在命令行输入并执行：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其中，<code>hexo d</code> 则是将本地文件推送到远程。</p>
+<p>在第一次推送时，会出现：</p>
+<p><img src="/img/github-login.png" srcset="undefined" alt=""></p>
+<p>这是提示要输入你的Github账号密码，因为是第一次推送，Windows要验证账号密码才能确认推送部署到你的Github上,输入账号密码,账号为你注册的邮箱。</p>
+<p>推送完成后，我们在浏览器打开   <code>yourusername.github.io</code> 即可看到我们部署好的博客，例如我的博客地址：<a href="https://qianfanguojin.github.io/" target="_blank" rel="noopener">小谢同学</a></p>
+<blockquote>
+<p>GitPage效果并不是立即生效的，如果出现访问失败，可以等一下再访问。</p>
+</blockquote>
+<hr>
+<h3 id="四、参考资料"><a href="#四、参考资料" class="headerlink" title="四、参考资料"></a>四、参考资料</h3><ol>
+<li><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661465" target="_blank" rel="noopener">https://blog.csdn.net/nightmare_dimple/article/details/86661465</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo官方文档</a></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Hexo%E5%8D%9A%E5%AE%A2">Hexo博客</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Hexo">Hexo</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Hexo博客搭建记录（一）：本地搭建以及部署到Github&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

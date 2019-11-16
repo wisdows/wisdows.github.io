@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Hello Linux World WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 八月 14日 2017, 12:00 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    3.9k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      14 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <a id="more"></a>
+
+
+<p>终于，摆脱了windows，去了linux。</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>已经学了5年的计算机了，都没有正儿八经的用一用linux。在开始读研的时候，跟大我几届的朋友出去吃饭，意外的被问到linux操作熟不熟，然后收到了一顿鄙视。</p>
+<p>所以大概不懂得linux操作的人，应用技术的场景非常非常少，更别谈分布式之类的技术了。毕竟，整个后端都要在linux上奔跑才行。</p>
+<p>事实上，我已经用了接近两年的mac，只不过在强有力的GUI支持下，一直都只是以一种“更好看”的系统的体验在使用。</p>
+<p>在一段时间的积累下，今天开始把实验室的主力机更换成linux了。</p>
+<hr>
+<h2 id="另外一种双系统"><a href="#另外一种双系统" class="headerlink" title="另外一种双系统"></a>另外一种双系统</h2><p>第一个遇到的问题，毫无疑问就是安装。<br>在华为项目的<strong>强力驱动</strong>下，在我的可怜的电脑里，始终要存放一个Windows的环境，进而，问题就出现了。怎么去安装一个双系统。</p>
+<p>一般来说，双系统有两种形式：</p>
+<ol>
+<li>虚拟机</li>
+<li>单硬盘双系统</li>
+<li>双硬盘双系统</li>
+</ol>
+<p>虚拟机就不用多少了，基本上快速安装一下就好。而单硬盘双系统也是如此，网上有一大堆教程，当你安装的时候，只需要考虑如何分区，然后把引导建在/boot下即可。</p>
+<p>现在问题是，我的电脑是两块硬盘，一块windows，而另外一块希望做成Linux，这非常的尴尬。因为我之前尝试过很多次，将引导放在/boot下是没有办法引导起来的（就是网上那些easy bcd引导的教程）。最终，这次直接将引导挂在了整块磁盘上，终于成功了。</p>
+<p>事实上逻辑是这样，</p>
+<p>首先，我选择了一个叫做openSUSE的系统，他的logo是一个绿色的蜥蜴🦎，号称自动配置双系统，这是我这次尝试的主要动力。</p>
+<p>其次，我的电脑是不支持UEFI启动了老电脑 - - ，在安装的过程中，不要通过UEFI启动U盘，然后进去安装系统，没有要求配置/boot，想必是自动配置，然后配置一下用户信息，就可以安装完成。</p>
+<p>后来，我尝试了一下这样配置Linux，发现如果是UEFI的ubuntu，在安装的时候挂载好/boot/efi之后，将引导直接挂载整个第二块磁盘上，就可以在启动菜单里选择硬盘启动进行引导，不过很明显没有能够找到win的引导。不过问题不大，因为重新进入引导菜单选择win的硬盘启动就可以了。</p>
+<hr>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>事实上，在整个安装的过程中，我装了四五种linux发行版，但都不太好使，特别是ubuntu，3分钟一个错误弹窗。。。不知道是不是电脑的问题，还是本身就是这样 - -</p>
+<p>在openSUSE的使用过程中，几乎没有异常弹窗，只有一次提示了硬盘空间不足，所以建议新手想要尝试linux的时候，可以从openSUSE开始入门。</p>
+<h2 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h2><p>分区是最害怕的一件事情，因为随时可能会导致数据丢失，好在在linux安装的过程中，会先进行预览分区，一直到正式安装之前都不会格式化硬盘，还会一直询问你是不是真的确认要这么干。在openSUSE中更直白一点：<code>如果你不知道你在做什么的话，请不要继续</code>。。。</p>
+<p>在分区的过程中，遇到过两个问题：</p>
+<ol>
+<li>gpt标签问题</li>
+</ol>
+<p>这个问题在我从非UEFI引导的启动菜单中进入的时候，就没有这个提示了。<br>我的意思是：在我的电脑上，插上优盘启动后，会看见两个U盘启动，一个是UEFI开头的，一个是普通的storage。从storage进入之后，不会要求修改硬盘标签。</p>
+<ol start="2">
+<li>分区大小</li>
+</ol>
+<p>这次感受了一下Linux的分区，主要的分区大概分这么几个</p>
+<ul>
+<li>/boot</li>
+<li>swap</li>
+<li>/home</li>
+<li>/</li>
+<li>/usr</li>
+<li>/var</li>
+</ul>
+<p>这是几个占得比较大的部分。在使用的过程中，我的电脑出现过一次错误提示说硬盘空间不足，发现/目录下，也就是系统目录空间不足。</p>
+<p>我在安装系统的时候，给 <code>/</code>分配了16G，给<code>/home</code>分配了60G，给<code>swap</code>分配了16G，其他都是默认配置，在这种情况下安装完成后，<code>/</code>仅有8G的大小，想来是系统接管了一部分。 网上有一些lvm下调整空间的方案，但是我一个小白还不太能理解前言后语，因此我直接重装了系统，给了<code>/</code>32G。</p>
+<blockquote>
+<p>其实问题在于，网上很多教程告诉用户，<code>/</code>分配10G就可以了。。。难道这些人不开发的么，maven、docker、jdk、git、nginx还有很多日志都是默认在<code>/</code>下面，特别是直接用包管理工具安装的应用。这么点空间让用户怎么玩。。。<br>以后还是搞一个50G的系统盘，配上一个200G的<code>/home</code>来使用吧。</p>
+</blockquote>
+<hr>
+<h2 id="Gnome"><a href="#Gnome" class="headerlink" title="Gnome"></a>Gnome</h2><p>Gnome是一个桌面环境，在Linux中桌面环境与内核是分开的，可以一套内核使用多种桌面。貌似一般Linux环境下都提供了两个基础的桌面分别是KDE和Gnome，ubuntu之前用的是unity，不过最近宣称也要换成Gnome了。</p>
+<p>Gnome在一定程度上感觉像极了mac，虽然软件质量讲真不是一个量级，但是起码从windows的传统样式中脱离了出来。采用了类似launchpad的启动器，和比windows搜索快得多的搜索方式。</p>
+<p>不过这里要说的是两个方面，一个是gnome的主题，一个是gnome的插件。</p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>其实我还没有开始使用主题，这块后台再补。</p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>下面是一些主要的插件：</p>
+<ol>
+<li><a href="https://extensions.gnome.org/extension/442/drop-down-terminal/" target="_blank" rel="noopener">Drop Down Terminal</a> 一个下拉触发的终端非常好用，快捷键是tab上面那个键，这个快捷键的说明看了好多遍才理解 - -</li>
+<li><a href="https://extensions.gnome.org/extension/779/clipboard-indicator/" target="_blank" rel="noopener">Clipboard Indicator</a> 一个简单的剪切板管理，快捷键是Ctrl + F9</li>
+<li><a href="https://extensions.gnome.org/extension/104/netspeed/" target="_blank" rel="noopener">NetSpeed</a> 一个在状态栏显示网速的插件</li>
+<li><a href="https://extensions.gnome.org/extension/307/dash-to-dock/" target="_blank" rel="noopener">Dash to dock</a> 固定dock</li>
+<li><a href="https://extensions.gnome.org/extension/8/places-status-indicator/" target="_blank" rel="noopener">Places Status Indicator</a> 一个快捷的访问home/图片等等路径的下拉菜单</li>
+<li><a href="https://extensions.gnome.org/extension/512/wikipedia-search-provider/" target="_blank" rel="noopener">Wikipedia Search Provider</a> 在本地搜索时生成wiki</li>
+<li><a href="https://extensions.gnome.org/extension/495/topicons/" target="_blank" rel="noopener">TopIcons</a> 将托盘图标放到状态栏上</li>
+<li><a href="https://extensions.gnome.org/extension/72/recent-items/" target="_blank" rel="noopener">Recent Items</a> 在状态栏显示最近访问的文件</li>
+</ol>
+<hr>
+<h1 id="安装应用"><a href="#安装应用" class="headerlink" title="安装应用"></a>安装应用</h1><p>对于安装应用来说，openSUSE有一个非常酷的网站叫做 <a href="https://software.opensuse.org/find" target="_blank" rel="noopener">PackageSearch</a>，上面登记了非常多的应用和扩展，可以直接搜索获得结果，并通过提供的一键安装直接装到系统中。</p>
+<h2 id="日常"><a href="#日常" class="headerlink" title="日常"></a>日常</h2><p>从日常开始，日常基本上在做的事情大约是文档、markdown、视频、pdf、词典、截图、聊天、音乐。</p>
+<p>基本上作为一个开发机，拥有这些内容就足够了，下面简单介绍一下各个部分的内容。</p>
+<h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><h4 id="flash"><a href="#flash" class="headerlink" title="flash"></a>flash</h4><p>虽然在mac上flash呗唾弃的不成样子，但是离开了flash在国内的视频网站上也是活不下去的。之前的<code>妈妈再也不用担心发烫</code>计划好像现在也失效了很多很多。</p>
+<p>但是flash的安装非常的容易，只需要在嵌入flash的视频播放页面点击安装flash就可以跳转到flash的安装页面，下载并安装即可。然后去播放页一刷新。</p>
+<hr>
+<h3 id="聊天"><a href="#聊天" class="headerlink" title="聊天"></a>聊天</h3><h4 id="微信"><a href="#微信" class="headerlink" title="微信"></a>微信</h4><p>在windows的世界里，装一个聊天软件简直容易。在linux下面便得非常的难，ubuntu之类的应用商店里有的提供了一些qq或者微信，但在大部分系统里还是要自己折腾。</p>
+<p>在openSUSE中，有一个开源项目<a href="https://github.com/geeeeeeeeek/electronic-wechat" target="_blank" rel="noopener">electronic wechat</a>，提供了在linux上封装的web版本wechat。</p>
+<p>同样的，解压完成就可以运行。在确定能够运行后，可以在<code>/usr/share/applications</code>文件夹内添加一个wechat.desktop。这是Gnome生成桌面应用的方式，符合标准即可。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Name=Wechat</span><br><span class="line">Exec=替换成wechat运行的路径</span><br><span class="line">Comment=Wechat</span><br><span class="line">Icon=替换成wechat的logo的路径-&gt;自己下载一个微信的png放在运行同文件夹内比较好</span><br><span class="line">Type=Application</span><br><span class="line">Terminal=false</span><br><span class="line">Encoding=UTF-8</span><br></pre></td></tr></tbody></table></figure>
+
+<p>编辑和创建都需要sudo权限的支持，创建完成后即可在搜索内搜到并打开。可能存在部分打开出现异常的情况，重启就好。</p>
+<h4 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h4><p>to be continue…</p>
+<hr>
+<h3 id="音乐"><a href="#音乐" class="headerlink" title="音乐"></a>音乐</h3><h4 id="宇宙第一播放器-网易云音乐"><a href="#宇宙第一播放器-网易云音乐" class="headerlink" title="宇宙第一播放器 网易云音乐"></a>宇宙第一播放器 网易云音乐</h4><p>网易云音乐官网有deb格式的包，用来给ubuntu安装，但是显然openSUSE这类使用rpm安装的没有被照顾，不过好在也有办法来处理。不过稍微麻烦一点。</p>
+<ol>
+<li>在openSUSE的<a href="https://software.opensuse.org/find" target="_blank" rel="noopener">软件搜索</a>页面搜索<code>netease-cloud-music</code>，可以得到网易云音乐的包，点进去进行一键安装，可以获得一个网易云音乐的脚本和源地址。但事实上这个脚本在后台的执行是失败了的。</li>
+<li>在终端中删除刚才安装的库，<code>sudo zypper rm netease-cloud-music</code>，这个时候源还保留着。</li>
+<li>进去<a href="music.163.com/#/download">网易云官网</a>，下载ubuntu16.04(64bit)的deb包，重命名为<code>netease-cloud-music_1.0.0_amd64_ubuntu16.04.deb</code>，放在<code>/tmp</code>文件夹下。</li>
+<li>更新个库<code>sudo zypper in binutils</code></li>
+<li>再次安装网易云<code>sudo zypper in netease-cloud-music</code></li>
+<li>这个时候就可以正常的安装完成了，可以在launchpad中查看网易云音乐</li>
+</ol>
+<p>原理是这样的，在源中下载的应该是一个脚本，对deb进行拆包。脚本里面自动会下载一个deb版本的包，但是不知道处于什么原因，可能下载现在已经不能成功了。因此需要自己放一个deb的包在<code>/tmp</code>下，再次运行脚本，就成功了。</p>
+<p>如果你在第3步重新安装网易云，就会看到找不到deb文件的错误，解决方案就是后续步骤。</p>
+<hr>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><p>开发我们一点点来.</p>
+<h3 id="首先从git"><a href="#首先从git" class="headerlink" title="首先从git"></a>首先从git</h3><p>git官方的文档里显示，不太需要直接下载源码编译，直接从zypper下载即可</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo zypper in git</span><br></pre></td></tr></tbody></table></figure>
+
+<p>一顿通过之后，就可以下载完成直接使用。</p>
+<hr>
+<h3 id="然后是jdk"><a href="#然后是jdk" class="headerlink" title="然后是jdk"></a>然后是jdk</h3><h4 id="卸载openJDK"><a href="#卸载openJDK" class="headerlink" title="卸载openJDK"></a>卸载openJDK</h4><p>我是一个java程序员。。。jdk毫无疑问必不可少，对于系统自带的openJDK来说，还是选择oracle的jdk更放心一些。</p>
+<p>所以首先，需要卸载原有的openJDK，根据<a href="www.mamicode.com/info-detail-184869">教程</a>的说法，只需要通过rpm查找到所有的包，然后删除他们即可。</p>
+<p>我发现在openSUSE中，可以直接通过zypper删除所有openjdk的组件也可以完成该需求，步骤如下：</p>
+<p>首先，输入</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查看当前安装的java的版本，在我的电脑上，默认是这样的：</p>
+<p>然后输入删除命令</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo zypper rm java-1_8_0-*</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样就一次性删除了所有的openJDK相关的包，之后通过<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">官方</a>的jdk安装回来即可。</p>
+<h4 id="安装oracle-jdk"><a href="#安装oracle-jdk" class="headerlink" title="安装oracle jdk"></a>安装oracle jdk</h4><p>对于openSUSE的系统来说，需要下载<code>Linux64 - rpm</code>版本，双击安装就可以实时生效。</p>
+<p>安装完成后，在终端输入<code>java -version</code>，发现已经变成刚才安装的版本。</p>
+<p>这个时候需要简单的配置一下<code>JAVA_HOME</code>环境变量，来保证maven等程序可以正常的运行，步骤如下：</p>
+<ol>
+<li>输入 <code>vim ~/.bashrc</code>，这是bash在当前用户下的配置文件</li>
+<li>使用vim编辑器，在文档中输入<code>export JAVA_HOME=/usr/java/jdk1.8.0_144</code></li>
+<li>在下一行输入<code>export PATH=$JAVA_HOME/bin:$PATH</code></li>
+<li>保存退出</li>
+<li>在终端输入<code>source ~/.bashrc</code>生效</li>
+</ol>
+<p>这个时候可以测试<code>echo $JAVA_HOME</code>是否输出为刚才设置的路径。（该路径是rpm模式的jdk安装的位置）</p>
+<hr>
+<h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><p>maven对于java程序员来说无比重要，无论从jar包管理还是构建上来说都是非常高效而统一的。对于使用IDEA的开发人员来说，虽然idea自带了一个maven，但貌似时常出问题，因此自己安装一个maven还是非常有必要的。</p>
+<p>maven的安装一般有两种，一种是通过下载二进制版本，放在文件夹里，然后配置一下环境变量。还有一种是下载Source源码来编译并安装。</p>
+<p>不过既然用了openSUSE，直接从<a href="https://software.opensuse.org/package/maven" target="_blank" rel="noopener">官方库</a>下载也是极好的。运行的前提是安装了<code>jdk</code>并配置了<code>JAVA_HOME</code>。</p>
+<hr>
+<h3 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h3><p>Tomcat是JavaEE的一个实现，作为一种java web应用奔跑的容器。在Linux里面的安装其实和Windows差不多，<a href="http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.zip" target="_blank" rel="noopener">下载</a>完，解压，放在一个文件夹里，然后讲bin目录配置到环境变量path中。</p>
+<p>在Linux中具体的操作如下:</p>
+<ol>
+<li>下载，并解压到文件夹中，我为了避免系统空间不足，我将tomcat放置在了<code>~/lib/tomcat</code>下。</li>
+<li>在<code>~/.bashrc</code>文件中添加<code>export PATH=tomcat目录/bin:$PATH</code>，注意后面的$PATH一定不能少，不然系统会出错，所有的命令都将找不到。</li>
+</ol>
+<p>配置完成后，一般都是通过idea启动的，所以其实没有太大的差别，在idea中再指定一次tomcat位置即可。</p>
+<hr>
+<h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><p>Idea的安装其实没有太多的悬念，从<a href="https://www.jetbrains.com/" target="_blank" rel="noopener">JetBrains官网</a>下载下来，解压双击即可运行。</p>
+<p>因此，需要在意的是，如何生成一个快捷方式能够在launchpad里面直接点击运行，或者放在dock中。</p>
+<p>这里给出一个简单的配置快捷方式的模板：</p>
+<p>首先，在<code>/usr/share/applications</code>里面创建<code>idea.desktop</code>。通过 <code>sudo vim</code> 来打开并填入如下信息：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Name=IntelliJ IDEA</span><br><span class="line">Exec=替换成idea.sh的路径-&gt;在idea解压后bin文件夹内</span><br><span class="line">Comment=IntelliJ IDEA</span><br><span class="line">Icon=替换成idea.png的路径-&gt;在idea解压后的bin文件夹内</span><br><span class="line">Type=Application</span><br><span class="line">Terminal=false</span><br><span class="line">Encoding=UTF-8</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其中的路径都是可以从文件夹中直接拖拽到终端中自动生成的。</p>
+<p>至于idea的使用，事实上有很多技巧，但是注意事项倒很少。启动以后进行简单的配置，然后指定一下jdk的位置即可。</p>
+<hr>
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>to be continue…</p>
+<hr>
+<h3 id="zsh-终极shell"><a href="#zsh-终极shell" class="headerlink" title="zsh - 终极shell"></a>zsh - 终极shell</h3><p>zsh是一个非常酷的shell版本，远比已有的bash好得多。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo zypper in zsh</span><br></pre></td></tr></tbody></table></figure>
+
+<p>即可安装，不过，zsh的配置比较麻烦，好在有一个叫做oh-my-zsh的项目能够一键配置，在终端输入如下命令即可：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后通过如下命令切换</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh 用户名 -s /bin/zsh</span><br></pre></td></tr></tbody></table></figure>
+
+<p>重启或注销后就可以使用。之前配置的JAVA_HOME等参数，需要转移到<code>~/.zshrc</code>文件中，但是这个是值得的，毕竟zsh要好用太多。</p>
+<p>另外，需要配置的是主题，这里有一个推荐的主题模式：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.oh-my-zsh/themes/robbyrussell.zsh-theme</span><br></pre></td></tr></tbody></table></figure>
+
+<p>把里面的内容替换为如下内容：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"</span><br><span class="line"><span class="meta">#</span><span class="bash">配置</span></span><br><span class="line"></span><br><span class="line">PROMPT='%{$fg_bold[red]%}➜ %{$fg_no_bold[green]%}%p%{$fg[green]%}%d %{$fg_no_bold[cyan]%}$(git_prompt_info)%{$fg_bold[cyan]%}% %{$fg_bold[green]%}&gt; %{$reset_color%}'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">PROMPT=<span class="string">'${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'</span></span></span><br><span class="line"></span><br><span class="line">ZSH_THEME_GIT_PROMPT_PREFIX="git:(%{$fg_bold[red]%}"</span><br><span class="line">ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"</span><br><span class="line">ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_no_bold[cyan]%}) %{$fg_no_bold[yellow]%}✗ %{$reset_color%}"</span><br><span class="line">ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_no_bold[cyan]%}) "</span><br></pre></td></tr></tbody></table></figure>
+
+<p>同样，注销重启即生效。</p>
+<p>zsh好处太多。。。起码忽略大小写简直高效。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+                  &nbsp;
+                
+                  <a class="hover-with-bg" href="/categories/%E9%85%8D%E7%BD%AE">配置</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/linux">linux</a>
+                
+                  <a class="hover-with-bg" href="/tags/openSUSE">openSUSE</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Hello Linux World&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

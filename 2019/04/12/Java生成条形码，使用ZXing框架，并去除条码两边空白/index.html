@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Java生成条形码，使用ZXing框架，并去除条码两边空白 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期五, 四月 12日 2019, 3:31 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.9k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      9 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <blockquote>
+<p> ZXing（“zebra crossing”）是一个用Java实现的开源，多格式1D / 2D条形码图像处理库，具有其他语言的端口。</p>
+</blockquote>
+<p><strong>如果不想看源码分析，想直接看代码请跳到最后！！！</strong></p>
+<p> 常用的Code 128 码与 Code 39 码比较:</p>
+<blockquote>
+<p>Code 128 码与 Code 39 码都广泛运用在企业内部管理、生产流程、物流控制系统方面。不同的在于 Code 128 比 Code 39 能表现更多的字符，单位长度里的编码密度更高。<br>当单位长度里不能容下 Code 39 编码或编码字符超出了 Code 39 的限制时，就可选择 Code 128 来编码。所以 Code 128 比 Code 39 更具灵性。<br>CODE128码是1981年引入的一种高密度条码，CODE128 码可表示从 ASCII 0 到ASCII 127 共128个字符，故称128码。其中包含了数字、字母和符号字符。</p>
+</blockquote>
+<p>以下内容以code128编码为例，分析ZXing源码了解原理，先看看顶层调用的代码:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    <span class="comment">// 图像数据转换，使用了矩阵转换 参数顺序分别为：编码内容，编码类型，生成图片宽度，生成图片高度，设置参数</span></span><br><span class="line">    BitMatrix bitMatrix = <span class="keyword">new</span> MultiFormatWriter().encode(contents,</span><br><span class="line">            BarcodeFormat.CODE_128, codeWidth, height, hints);</span><br><span class="line">   <span class="keyword">return</span>  MatrixToImageWriter.toBufferedImage(bitMatrix);</span><br><span class="line">} <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>encode方法有5个参数，hints为ZXing的参数Map集合,查看源码了解具体参数，先查看MultiFormatWriter的code方法</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> BitMatrix <span class="title">encode</span><span class="params">(String contents,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BarcodeFormat format,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> width, <span class="keyword">int</span> height,</span></span></span><br><span class="line"><span class="function"><span class="params">                          Map&lt;EncodeHintType,?&gt; hints)</span> <span class="keyword">throws</span> WriterException </span>{</span><br><span class="line"></span><br><span class="line">    Writer writer;</span><br><span class="line">    <span class="keyword">switch</span> (format) {</span><br><span class="line">      <span class="keyword">case</span> EAN_8:</span><br><span class="line">        writer = <span class="keyword">new</span> EAN8Writer();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> EAN_13:</span><br><span class="line">        writer = <span class="keyword">new</span> EAN13Writer();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> UPC_A:</span><br><span class="line">        writer = <span class="keyword">new</span> UPCAWriter();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> QR_CODE:</span><br><span class="line">        writer = <span class="keyword">new</span> QRCodeWriter();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> CODE_39:</span><br><span class="line">        writer = <span class="keyword">new</span> Code39Writer();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> CODE_128:</span><br><span class="line">        writer = <span class="keyword">new</span> Code128Writer();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> ITF:</span><br><span class="line">        writer = <span class="keyword">new</span> ITFWriter();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> PDF_417:</span><br><span class="line">        writer = <span class="keyword">new</span> PDF417Writer();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> CODABAR:</span><br><span class="line">        writer = <span class="keyword">new</span> CodaBarWriter();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> DATA_MATRIX:</span><br><span class="line">        writer = <span class="keyword">new</span> DataMatrixWriter();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> AZTEC:</span><br><span class="line">        writer = <span class="keyword">new</span> AztecWriter();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"No encoder available for format "</span> + format);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> writer.encode(contents, format, width, height, hints);</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<p>由上面的源码可以知道，MultiFormatWriter的encode方法调用了实现Writer接口的Code128Writer实例中的encode方法，继续查看Code128Writer的encode源码</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> BitMatrix <span class="title">encode</span><span class="params">(String contents,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BarcodeFormat format,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> width,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> height,</span></span></span><br><span class="line"><span class="function"><span class="params">                          Map&lt;EncodeHintType,?&gt; hints)</span> <span class="keyword">throws</span> WriterException </span>{</span><br><span class="line">    <span class="keyword">if</span> (format != BarcodeFormat.CODE_128) {</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Can only encode CODE_128, but got "</span> + format);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.encode(contents, format, width, height, hints);</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<p>发现Code128Writer的encode调用了父类OneDimensionalCodeWriter的encode方法，继续找</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> BitMatrix <span class="title">encode</span><span class="params">(String contents,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BarcodeFormat format,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> width,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> height,</span></span></span><br><span class="line"><span class="function"><span class="params">                          Map&lt;EncodeHintType,?&gt; hints)</span> <span class="keyword">throws</span> WriterException </span>{</span><br><span class="line">    <span class="keyword">if</span> (contents.isEmpty()) {</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Found empty contents"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (width &lt; <span class="number">0</span> || height &lt; <span class="number">0</span>) {</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Negative size is not allowed. Input: "</span></span><br><span class="line">                                             + width + <span class="string">'x'</span> + height);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sidesMargin = getDefaultMargin();</span><br><span class="line">    <span class="keyword">if</span> (hints != <span class="keyword">null</span>) {</span><br><span class="line">      Integer sidesMarginInt = (Integer) hints.get(EncodeHintType.MARGIN);</span><br><span class="line">      <span class="keyword">if</span> (sidesMarginInt != <span class="keyword">null</span>) {</span><br><span class="line">        sidesMargin = sidesMarginInt;</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span>[] code = encode(contents);</span><br><span class="line">    <span class="keyword">return</span> renderResult(code, width, height, sidesMargin);</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<p>注意此处有调用Code128Writer的重载方法boolean[] encode(String contents)返回编码内容所对应的编码数组，具体编码数组生成规则就不贴出来了</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sidesMargin = getDefaultMargin();</span><br><span class="line"><span class="keyword">if</span> (hints != <span class="keyword">null</span>) {</span><br><span class="line">  Integer sidesMarginInt = (Integer) hints.get(EncodeHintType.MARGIN);</span><br><span class="line">  <span class="keyword">if</span> (sidesMarginInt != <span class="keyword">null</span>) {</span><br><span class="line">    sidesMargin = sidesMarginInt;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>从上面可以看出，<strong>ZXing先自动获取了一个Margin默认值，然后查看hints参数集合中是否存在参数EncodeHintType.MARGIN，存在则替换默认值</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getDefaultMargin</span><span class="params">()</span> </span>{</span><br><span class="line">   <span class="comment">// CodaBar spec requires a side margin to be more than ten times wider than narrow space.</span></span><br><span class="line">   <span class="comment">// This seems like a decent idea for a default for all formats.</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>通过查看getDefaultMargin()发现默认边距Margin为10，但是<strong>ZXing并不是只看Margin值来设定边距，而且参考编码内容和用户设定的宽度共同计算的！</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> BitMatrix <span class="title">renderResult</span><span class="params">(<span class="keyword">boolean</span>[] code, <span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">int</span> sidesMargin)</span> </span>{</span><br><span class="line">   <span class="keyword">int</span> inputWidth = code.length;</span><br><span class="line">   <span class="comment">// Add quiet zone on both sides.</span></span><br><span class="line">   <span class="keyword">int</span> fullWidth = inputWidth + sidesMargin;</span><br><span class="line">   <span class="keyword">int</span> outputWidth = Math.max(width, fullWidth);</span><br><span class="line">   <span class="keyword">int</span> outputHeight = Math.max(<span class="number">1</span>, height);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> multiple = outputWidth / fullWidth;</span><br><span class="line">   <span class="keyword">int</span> leftPadding = (outputWidth - (inputWidth * multiple)) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">   BitMatrix output = <span class="keyword">new</span> BitMatrix(outputWidth, outputHeight);</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> inputX = <span class="number">0</span>, outputX = leftPadding; inputX &lt; inputWidth; inputX++, outputX += multiple) {</span><br><span class="line">     <span class="keyword">if</span> (code[inputX]) {</span><br><span class="line">       output.setRegion(outputX, <span class="number">0</span>, multiple, outputHeight);</span><br><span class="line">     }</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">return</span> output;</span><br><span class="line"> }</span><br></pre></td></tr></tbody></table></figure>
+<p>分析上面源码可知:</p>
+<blockquote>
+<p>ZXing 条码边距及总宽度-默认计算规则如下</p>
+</blockquote>
+<ul>
+<li>sidesMargin: 默认为10，用户设置了则为hints中EncodeHintType.MARGIN的值</li>
+<li>inputWidth: 条码根据编码内容自动生成编码数组长度(code.length)</li>
+<li>codeWidth: 用户自定义的条码宽度</li>
+<li>fullWidth: 编码数组长度 inputWidth + 边距 sidesMargin</li>
+<li>outputWidth: codeWidth 与 fullWidth 的最大值</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//放大倍数(取整)</span></span><br><span class="line"><span class="keyword">int</span> multiple = outputWidth / fullWidth;</span><br><span class="line"><span class="comment">//边距</span></span><br><span class="line"><span class="keyword">int</span> leftPadding = (outputWidth - (inputWidth * multiple)) / <span class="number">2</span>;</span><br><span class="line">生成条码长度为: outputWidth + <span class="number">2</span> * leftPadding</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>想生成的条形码无边距的话，即leftPadding=0，<strong>必须设置EncodeHintType.MARGIN为0的同时保证用户给定的宽度为编码数组长度的倍数。</strong></p>
+</blockquote>
+<p>编码数组长度可通过如下计算：</p>
+<pre><code>int width = new Code128Writer().encode(contents).length;</code></pre><blockquote>
+<p>即当传入宽度为 width * n，且EncodeHintType.MARGIN=0时，则条码无边框</p>
+</blockquote>
+<hr>
+<hr>
+<h2 id="以下为完整代码"><a href="#以下为完整代码" class="headerlink" title="以下为完整代码:"></a>以下为完整代码:</h2><h4 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h4><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Zxing --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.zxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javase<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.zxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Zxing --&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="条形码生成与解析工具类"><a href="#条形码生成与解析工具类" class="headerlink" title="条形码生成与解析工具类"></a>条形码生成与解析工具类</h4><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.framework.utils.pay;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.zxing.EncodeHintType;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.oned.Code128Writer;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.BarcodeFormat;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.BinaryBitmap;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.LuminanceSource;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.MultiFormatReader;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.MultiFormatWriter;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.Result;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.client.j2se.BufferedImageLuminanceSource;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.client.j2se.MatrixToImageWriter;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.common.BitMatrix;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.common.HybridBinarizer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 条形码工具，内有生成条形码，与解析办法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> bhy</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BarCodeUtil</span> </span>{</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 条形码编码</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> contents</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BufferedImage <span class="title">encode</span><span class="params">(String contents)</span> </span>{</span><br><span class="line"></span><br><span class="line">        <span class="comment">//配置条码参数</span></span><br><span class="line">        Map&lt;EncodeHintType,Object&gt; hints = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">//设置条码两边空白边距为0，默认为10，如果宽度不是条码自动生成宽度的倍数则MARGIN无效</span></span><br><span class="line">        hints.put(EncodeHintType.MARGIN, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//为了无边距，需设置宽度为条码自动生成规则的宽度</span></span><br><span class="line">        <span class="keyword">int</span> width = <span class="keyword">new</span> Code128Writer().encode(contents).length;</span><br><span class="line">        <span class="comment">//前端可控制高度，不影响识别</span></span><br><span class="line">        <span class="keyword">int</span> height = <span class="number">70</span>;</span><br><span class="line">        <span class="comment">//条码放大倍数</span></span><br><span class="line">        <span class="keyword">int</span> codeMultiples = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//获取条码内容的宽，不含两边距，当EncodeHintType.MARGIN为0时即为条码宽度</span></span><br><span class="line">        <span class="keyword">int</span> codeWidth = width * codeMultiples;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* ZXing 条码边距及总宽度-默认计算规则</span></span><br><span class="line"><span class="comment">        codeWidth: 自定义的条码宽度</span></span><br><span class="line"><span class="comment">        fullWidth: 条码根据编码内容自动生成编码数组长度(new Code128Writer().encode(contents).length)+边距MARGIN</span></span><br><span class="line"><span class="comment">        outputWidth: codeWidth 与 fullWidth 的最大值</span></span><br><span class="line"><span class="comment">        //放大倍数(取整)</span></span><br><span class="line"><span class="comment">        int multiple = outputWidth / fullWidth;</span></span><br><span class="line"><span class="comment">        //边距</span></span><br><span class="line"><span class="comment">        int leftPadding = (outputWidth - (inputWidth * multiple)) / 2;</span></span><br><span class="line"><span class="comment">        生成条码长度为: outputWidth + 2 * leftPadding</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 图像数据转换，使用了矩阵转换 参数顺序分别为：编码内容，编码类型，生成图片宽度，生成图片高度，设置参数</span></span><br><span class="line">            BitMatrix bitMatrix = <span class="keyword">new</span> MultiFormatWriter().encode(contents,</span><br><span class="line">                    BarcodeFormat.CODE_128, codeWidth, height, hints);</span><br><span class="line"><span class="comment">//            MatrixToImageWriter.writeToStream(bitMatrix, "png", new FileOutputStream("d:/code39.png"));</span></span><br><span class="line">           <span class="keyword">return</span>  MatrixToImageWriter.toBufferedImage(bitMatrix);</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析条形码</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> imgPath</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">decode</span><span class="params">(String imgPath)</span> </span>{</span><br><span class="line">        BufferedImage image = <span class="keyword">null</span>;</span><br><span class="line">        Result result = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            image = ImageIO.read(<span class="keyword">new</span> File(imgPath));</span><br><span class="line">            <span class="keyword">if</span> (image == <span class="keyword">null</span>) {</span><br><span class="line">            	<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"the decode image may be not exists."</span>);</span><br><span class="line">            }</span><br><span class="line">            LuminanceSource source = <span class="keyword">new</span> BufferedImageLuminanceSource(image);</span><br><span class="line">            BinaryBitmap bitmap = <span class="keyword">new</span> BinaryBitmap(<span class="keyword">new</span> HybridBinarizer(source));</span><br><span class="line">            result = <span class="keyword">new</span> MultiFormatReader().decode(bitmap, <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">return</span> result.getText();</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>调用工具类生成条形码</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.controller.pay;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> com.dtt.sett.framework.utils.pay.BarCodeUtil;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生成条形码</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> bhy</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BarCodeController</span>  <span class="keyword">extends</span> <span class="title">PayBaseController</span></span>{</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 生成条形码</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/getBarCodeImage"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getBarCodeImage</span><span class="params">(HttpServletRequest req, HttpServletResponse resp, @RequestParam(<span class="string">"paymentCode"</span>)</span>String imgcode)</span>{</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			BufferedImage buffImg = BarCodeUtil.encode(imgcode);</span><br><span class="line">			<span class="comment">// 禁止图像缓存。</span></span><br><span class="line">			resp.setHeader(<span class="string">"Pragma"</span>, <span class="string">"no-cache"</span>);</span><br><span class="line">			resp.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-cache"</span>);</span><br><span class="line">			resp.setDateHeader(<span class="string">"Expires"</span>, <span class="number">0</span>);</span><br><span class="line">			resp.setContentType(<span class="string">"image/jpeg"</span>);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 将图像输出到Servlet输出流中。</span></span><br><span class="line">			ServletOutputStream sos = resp.getOutputStream();</span><br><span class="line">			ImageIO.write(buffImg, <span class="string">"jpeg"</span>, sos);</span><br><span class="line">			sos.close();</span><br><span class="line">		} <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91">功能开发</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Java">Java</a>
+                
+                  <a class="hover-with-bg" href="/tags/ZXing">ZXing</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E6%9D%A1%E5%BD%A2%E7%A0%81">条形码</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Java生成条形码，使用ZXing框架，并去除条码两边空白&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

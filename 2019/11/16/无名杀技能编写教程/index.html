@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>无名杀技能编写教程 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 16日 2019, 3:32 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    3.2k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      12 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="无名杀技能编写教程"><a href="#无名杀技能编写教程" class="headerlink" title="无名杀技能编写教程"></a>无名杀技能编写教程</h2><p><strong>前言：</strong></p>
+<p>​    (1)每写一个对象前，请确认是否有这一对象，没有的话请自行定义</p>
+<p>​    (2)检测bug用lib.node.debug()</p>
+<p>​    (3)具体触发内容看game.js内lib.element.event内的函数</p>
+<p>​    (4)本教程只教框架</p>
+<p><strong>1.触发：</strong></p>
+<p>​    基本框架：</p>
+<p>​    trigger:{//触发时机</p>
+<p>​        global:’damageBefore’,//例子，任意一名角色受到伤害前</p>
+<p>​        player:’damageBefore’,//例子，玩家受到伤害前</p>
+<p>​        player:[‘damageBefore’, ‘recoverAfter’], //例子，玩家受到伤害前或玩家恢复体力后</p>
+<p>​    },</p>
+<p>​    priority: 1,//同时机技能发动的优先度</p>
+<p>​    check:function(event,player){//告诉ai是否发动这个技能，返回true则发动此技能</p>
+<p>​        //无例子，因为不同时机evevt参数内的元素不同</p>
+<p>​        //要了解evevt参数内的元素，具体看game.js内lib.element.event内的函数    </p>
+<p>​    },</p>
+<p>​    frequent:true,//此技能是否可以被设置为自动发动（不询问）</p>
+<p>​    forced:true,//此技能是否能固定触发，true为固定触发（锁定技）</p>
+<p>​    nopop:true,//player是否logSkill(‘此技能’)，true为不</p>
+<p>​    direct:true,//相当于上面两行相加</p>
+<p>​    filter:function(event,player){//触发条件，返回true则发动此技能</p>
+<p>​        //无例子，因为不同时机evevt参数内的元素不同</p>
+<p>​        //要了解evevt参数内的元素，具体看game.js内lib.element.event内的函数</p>
+<p>​    },</p>
+<p>​    content:function(){//触发内容，分步执行会在后面讲到</p>
+<p>​                   //参数trigger相当于filter:function(event,player){}内的event</p>
+<p>​        player.recover()//例子，玩家回复一点体力</p>
+<p>​    },</p>
+<p><strong>2.主动：</strong></p>
+<p>​    基本框架：</p>
+<p>​    enable:”phaseUse”,//出牌阶段使用</p>
+<p>​    usable:1,//每回合限制使用次数    </p>
+<p>​           //限制使用次数为变量时需写在filter:function(event,player){}内</p>
+<p>​    filter:function(event,player){ //发动条件，返回true则可以发动此技能</p>
+<p>​        /*限制使用次数为变量时:</p>
+<p>​         if(player.getStat().skill[‘技能名’]&gt;=变量) return false;（变量可以写player.hp等）</p>
+<p>​         return true;</p>
+<p>​        */</p>
+<p>​        return player.hp&lt;2;//例子，玩家体力小于2时可以发动</p>
+<p>​    },</p>
+<p>​    filterCard:function(card){//选择的牌需要满足的条件</p>
+<p>​        return get.color(card)==’red’;//例子，只能选择红色牌</p>
+<p>​    },</p>
+<p>​    position:’hej’,//可以选择什么位置的牌</p>
+<p>​               //写入其中的字符：’h’：手牌区, ‘e’：装备区, ‘j’：判定区</p>
+<p>​    selectCard:2,//需要选择多少张牌才能发动</p>
+<p>​               //为-1时，选择所有牌</p>
+<p>​               //为数组时，这个数组就是选择牌数的区间</p>
+<p>​               /*为变量时（具体情况具体分析）:</p>
+<p>​                 function(card){//例子，变量为玩家体力时</p>
+<p>​                      var pl=get.owner(card);//pl定义为选择牌中的牌的拥有者，即“你”</p>
+<p>​                      return [pl.hp,Infinity];//返回可选手牌数为你的体力值到无限</p>
+<p>​                 },</p>
+<p>​               */</p>
+<p>​    check:function(card){//ai应该如何选牌，返回值为正则此牌可选，反之，此牌不可选</p>
+<p>​        /*在check中定义玩家（你）：</p>
+<p>​         var player=get.owner(card);</p>
+<p>​        */</p>
+<p>​        return 6-get.value(card);//例子，ai可选价值大于6的卡牌</p>
+<p>​    },</p>
+<p>​    discard:false,//是否弃牌，若没有这一行，选择牌发动技能后，被选择的牌都要弃置</p>
+<p>​    prepare:’give’,//不弃牌，准备用这些牌来干什么</p>
+<p>​    filterTarget:function(card,player,target){//选择的目标需要满足的条件</p>
+<p>​        return target!=player;//例子，目标不是玩家</p>
+<p>​    },</p>
+<p>​    selectTarget:1, //需要选择多少个目标才能发动</p>
+<p>​                 //为-1时，选择全部人</p>
+<p>​                 //为数组时，这个数组就是选择目标数的区间</p>
+<p>​    multitarget:true,//是否每个目标都结算一次，true为否</p>
+<p>​    targetprompt:[],//选择的目标武将牌上出现什么字，数组第几元素对应第几个目标</p>
+<p>​    content:function (){//触发内容，分步执行会在后面讲到</p>
+<p>​                   //当有filterCard时，有参数cards</p>
+<p>​                   //当有filterTarget时，有参数target和targets</p>
+<p>​        player.recover()//例子，玩家回复一点体力</p>
+<p>​    },</p>
+<p><strong>3.视为：</strong></p>
+<p>（1）转化为一张卡牌：</p>
+<p>​    基本框架：</p>
+<p>​    name:’技能’,//技能按钮名字，不写则默认为此技能的翻译</p>
+<p>​    enable:[‘phaseUse’,’chooseToRespond’],//发动视为技的时机，现在为出牌阶段和响应时</p>
+<p>​    viewAsFilter:function(player){//视为技按钮出现条件（即发动条件）</p>
+<p>​        return player.maxHp==4;//例子，玩家最大体力值为4时可以发动</p>
+<p>​    },</p>
+<p>​    filterCard:{type:’basic’},//选择的牌需要满足什么条件</p>
+<p>​    /*上面那种是简便写法，多次判断的话还是要写回旧格式：</p>
+<p>​     filterCard:function(card){</p>
+<p>​         return get.color(card)==’black’;//例子，只能选择黑色牌</p>
+<p>​     },</p>
+<p>​    */</p>
+<p>​    position:’hej’,//可以选择什么位置的牌，和主动的position相同，不解释</p>
+<p>​    selectCard:2, //需要选择多少张牌才能发动，和主动的selectCard相同，不解释</p>
+<p>​    check:function(card){// ai应该如何选牌，和主动的check相同，不解释</p>
+<p>​        return 1;//例子，ai可以所有所有手牌</p>
+<p>​    },</p>
+<p>​    viewAs:{name:’tao’},//目标卡牌</p>
+<p>​    prompt:’将一张基本牌当桃使用或打出’,//选择时弹出的提示</p>
+<p>​    onuse:function(result,player){//使用视为牌时触发内容，result.cards是视为前的牌</p>
+<p>​        player.recover();//例子，使用视为牌时玩家回复一点体力</p>
+<p>​    },</p>
+<p>（2）转化为多张卡牌：</p>
+<p>​    基本框架：</p>
+<p>​    enable:’phaseUse’, //发动视为技的时机，现在为出牌阶段</p>
+<p>​    usable:1, //每回合限制使用次数，和主动的usable相同，不解释</p>
+<p>​    filter:function(event,player){ //发动条件，和主动的filter相同，不解释</p>
+<p>​        return player.countCards(‘h’)&gt;0//例子，玩家手牌数大于0时可以发动</p>
+<p>​    },</p>
+<p>​    chooseButton:{//选择按钮（牌）</p>
+<p>​        dialog:function(){//选择内容，一般为选择卡牌，有能力的可以写成选择其他东西</p>
+<p>​            return ui.create.dialog([[‘sha’,’shan’],’vcard’]);//可以选择杀和闪（卡牌）</p>
+<p>​        },</p>
+<p>​        filter:function(button,player){//卡牌选择条件</p>
+<p>​            return lib.filter.filterCard({name:button.link[2]},player,_status.event.getParent());</p>
+<p>​            //例子，你可以选择你可以使用的卡牌</p>
+<p>​        },</p>
+<p>​        check:function(button){//ai如何选牌</p>
+<p>​            /*定义player：</p>
+<p>​            var player=_status.event.player;</p>
+<p>​            */</p>
+<p>​            if(button.link==’sha’) return 1;//ai选择杀</p>
+<p>​        },</p>
+<p>​        backup:function(links,player){//返回视为（1）部分</p>
+<p>​            return {//例子</p>
+<p>​                filterCard:false,//不用弃牌</p>
+<pre><code>selectCard:0, //弃牌数为零</code></pre><p>​                viewAs:{name:links[0][2]},//视为你使用你选择的牌</p>
+<p>​            };</p>
+<p>​        },</p>
+<p>​        prompt:function(links,player){ //选择时弹出的提示</p>
+<p>​            return ‘请选择’+get.translation(links[0][2])+’的目标’;</p>
+<p>​            //例子，弹出提示：选择你选择的牌的目标</p>
+<p>​        },</p>
+<p>​    },</p>
+<p><strong>4.AI：</strong></p>
+<p> (注：可接视为框架、主动框架或触发框架)</p>
+<p> (注2：这部分我不是很熟悉，所以只能简单地说一下)</p>
+<p>​    基本框架：</p>
+<p>​    ai:{ </p>
+<p>​        save:true, //此技能可以用于自救</p>
+<p>​        respondTao:true, //此技能可以用于救人，一般用于视为技</p>
+<p>​        respondShan:true,//此技能可以响应杀，一般用于视为技</p>
+<p>​        respondSha:true, //此技能可以响应闪，一般用于视为技</p>
+<p>​        order:8, //ai发动技能的优先度</p>
+<p>​        /*比什么先：</p>
+<p>​         order:function(){//例子，比打出杀的优先度高1</p>
+<p>​             return get.order({name:’sha’})+1;</p>
+<p>​         },</p>
+<p>​        */</p>
+<p>​        expose:0.2, //发动技能是身份暴露度（0~1，相当于概率）</p>
+<p>​        maixie:true, //卖血技</p>
+<p>​        threaten:0.5,//嘲讽值</p>
+<p>​        result:{//主动技专属</p>
+<p>​            target:function(player,target){//ai如何选择目标</p>
+<p>​                                    //返回负，选敌人，返回正，选队友</p>
+<p>​                                    //没有返回值则不选</p>
+<p>​                                    //写了这个就不用写player:function(player){}了</p>
+<p>​                                    //因为player可以在这里进行判断</p>
+<p>​                If(player.hp&gt;2) return -1;//例子，玩家体力大于2时，发动技能并选择敌人</p>
+<p>​            },</p>
+<p>​            player:function(player){//ai是否发动此技能，返回正，发动，否则不发动</p>
+<p>​                if(player. countCards(‘h’)&lt;2) return 1;//例子，玩家手牌数小于2时，发动                },</p>
+<p>​        },</p>
+<p>​        effect:{//影响ai出牌（例如什么时候不出杀）等</p>
+<p>​              //没有深入研究，不讲</p>
+<p>​        },</p>
+<p>​        skillTagFilter:function(player){//视为技专属，ai什么时候可以发动视为技</p>
+<p>​            player.countCards(‘h’,{type:’basic’})&gt;0;//例子，手牌中有基本牌时，ai发动技能</p>
+<p>​        },</p>
+<p>​    },</p>
+<p><strong>5.标记：</strong></p>
+<p>(注：可接视为框架、主动框架或触发框架)</p>
+<p>​    基本框架：</p>
+<p>​    marktext:”状”,//标记显示文本，一般为一个字</p>
+<p>​    locked:true,//是否实时更新</p>
+<p>​    intro:{</p>
+<p>​        content:’cards’,// 标记显示内容，为cards时显示标记内的牌</p>
+<p>​        /*标记显示内容为文本写法：</p>
+<p>​        content:function (storage,player,skill){//返回值（文本）即为标记显示内容</p>
+<p>​            return ‘当前有’+storage+’个标记’//标记显示内容为当前有多少个标记</p>
+<p>​        },*/</p>
+<p>​    },</p>
+<p>​    mark:true,//获得技能时是否显示此标记，若为false，可以用markSkill()来显示此标记</p>
+<p><strong>6.获得技能和失去技能时：</strong></p>
+<p>(注：可接视为框架、主动框架或触发框架)</p>
+<p>​    基本框架：</p>
+<p>​    init:function (player){//获得技能时发动</p>
+<p>​        player.gainMaxHp();//例子，获得此技能时，玩家增加一点最大体力</p>
+<p>​    },</p>
+<p>​    onremove:function(player){//失去技能时发动</p>
+<p>​        player.loseMaxHp();//例子，失去此技能时，玩家失去一点最大体力</p>
+<p>​    },</p>
+<p><strong>7.技能组与子技能：</strong></p>
+<p>(注：可接视为框架、主动框架或触发框架)</p>
+<p>​    基本框架：</p>
+<p>​    group:[“mashu”],//技能组，拥有这个技能时相当于拥有技能组内的技能</p>
+<p>​    subSkill:{//子技能，你不会拥有写在这里面的技能，可以调用，可以用技能组联系起来</p>
+<p>​        “子技能”:{//子技能名字:“主技能_子技能”，翻译为主技能翻译</p>
+<p>​            //技能内容</p>
+<p>​        },</p>
+<p>​    },</p>
+<p><strong>8.mod类锁定技：</strong></p>
+<p>(注：可接视为框架、主动框架或触发框架)</p>
+<p>​    基本框架：</p>
+<p>​    mod:{</p>
+<p>​        globalFrom:function(from,to,distance){</p>
+<p>​            return distance-1; //例子，进攻距离+1</p>
+<p>​        },//from：玩家；to：目标；distance：进攻距离</p>
+<p>​        globalTo:function(from,to,distance){</p>
+<p>​            return distance+1; //例子，防御距离+1</p>
+<p>​        },// to：玩家；from：目标；distance：防御距离</p>
+<p>​        maxHandcard:function (player,num){</p>
+<p>​           return num+1; //例子，手牌上限+1</p>
+<p>​        },// player：玩家；num：手牌上限</p>
+<p>​        targetEnabled:function(card,player,target){</p>
+<p>​            if(player.sex==’male’) return false; //例子，你不能成为男性角色的牌的目标</p>
+<p>​        },// card：牌；player：使用牌的角色；target：玩家</p>
+<p>​        selectTarget:function (card,player,range){</p>
+<p>​            if(card.name==’sha’) range[1]+=1; //例子，你的杀可以额外选择一名角色</p>
+<p>​        },// card：牌；player：玩家；range[1]：目标个数; range：不清楚</p>
+<p>​        targetInRange:function(card,player, target){</p>
+<p>​            if(card.name==’sha’) return true;//例子，你使用的杀可以指定所有角色</p>
+<p>​        },// card：牌；player：玩家；target：目标</p>
+<p>​        cardDiscardable:function(card,player){</p>
+<p>​            if(card.name==’sha’) return false; //例子，你无法弃置杀</p>
+<p>​        },// card：牌；player：玩家</p>
+<p>​        cardEnabled:function(card,player){//要与cardUsable一起使用</p>
+<p>​            if(get.suit(card)==’heart’) return false;//例子：你无法使用红桃牌</p>
+<p>​        },// card：牌；player：玩家</p>
+<p>​        cardUsable:function(card,player){ //要与cardEnabled一起使用</p>
+<p>​            if(get.suit(card)==’heart’) return false; //例子：你无法使用红桃牌</p>
+<p>​        },// card：牌；player：玩家</p>
+<p>​        cardRespondable:function(card,player){</p>
+<p>​            if(get.suit(card)==’heart’) return false; //例子：你无法使用红桃牌来响应</p>
+<p>​        },// card：牌；player：玩家</p>
+<p>​        cardSavable:function(card,player){</p>
+<p>​            if(get.suit(card)==’heart’) return false; //例子：你无法使用红桃牌来救人</p>
+<p>​        },// card：牌；player：玩家</p>
+<p>​        /*后4种卡牌禁言类mod技与视为技冲突的解决方法：</p>
+<p>​         判定内加入_status.event.skill!=’冲突视为技’</p>
+<p>​         意思为你无法使用牌，除非使用这个视为技视为无法使用的牌</p>
+<p>​        */</p>
+<p>​    },</p>
+<p><strong>9.配音的添加：</strong></p>
+<p>(注：可接视为框架、主动框架或触发框架)</p>
+<p>​    基本框架：</p>
+<p>​    //数字为配音数量，从1开始</p>
+<p>​    //配音命名方法：技能名+这是第几个配音</p>
+<p>​    audio:2,//使用无名杀目录\audio\skill内的配音</p>
+<p>​    audio:”ext:扩展名:1”,//使用无名杀录目\extension \扩展名内的配音</p>
+<p><strong>10.主公技：</strong></p>
+<p>(注：可接视为框架、主动框架或触发框架)</p>
+<p>​    基本框架：</p>
+<p>​    zhuSkill:true,//将这个技能设置为主公技</p>
+<p><strong>11.全局技能：</strong></p>
+<p>(注：可接视为框架、主动框架或触发框架) </p>
+<p>(注：无论是否拥有此技能，此技能都为全局技能写法：技能名前+_) </p>
+<p>​    基本框架：</p>
+<p>​    global:’技能’,你用有此技能时，所有角色拥有技能（global的值）</p>
+<p><strong>12.触发内容分步：</strong></p>
+<p>(注：写在触发内容中) </p>
+<p>​    基本框架：</p>
+<p>​    ‘step 0’</p>
+<p>​    //此步骤触发的内容</p>
+<p>​    ‘step 1’</p>
+<p>​    //此步骤触发的内容</p>
+<p><strong>与步骤有关的函数：</strong></p>
+<p>(1)evevt.finish() 触发后步骤不再往下走，终止于evevt.finish()所在步骤</p>
+<p>(2)event.goto(num) num为步骤数，返回第几步</p>
+<p>(3)event.redo() 重新执行这个步骤</p>
+<p><strong>注意：</strong></p>
+<p>(1)引号要相同，不要’step 0’ “step 1”</p>
+<p>(2)使用与步骤有关的函数，这个步骤依旧会进行到底</p>
+<p>(3)var定义的东西不能在步骤中传递，可以储存到evevt中</p>
+<p>(4)函数的result元素可以在相邻的步骤中传递</p>
+<p>(5)步骤必须从0开始</p>
+<p>(6)step和数字之间有一个空格，word文档中不易看出来</p>
+<p><strong>例子：</strong></p>
+<p>​    “step 0”//步骤0</p>
+<p>​    player.chooseTarget(‘请选择一名角色’,function(card,player,target){</p>
+<p>​        return player!=target;</p>
+<p>​    }).ai=function(target){</p>
+<p>​        return get.attitude(player,target);//告诉ai选择队友</p>
+<p>​    };//选择一名其他角色</p>
+<p>​    “step 1”//步骤1</p>
+<p>​    if(result.bool){//如果有选择角色</p>
+<p>​        event.target=result.targets[0]; //将选择的角色储存到event.target中</p>
+<p>​        player.chooseCard(‘请选择给予牌’,2,’h’).set(‘ai’,function(card){</p>
+<p>​            return 1;//告诉ai可以选择所有手牌</p>
+<p>​        });//选择两张手牌</p>
+<p>​    }else{//否则</p>
+<p>​        event.finish();//步骤将于这里终止</p>
+<p>​    };</p>
+<p>​    “step 2”//步骤2</p>
+<p>​    if(result.bool){ //如果有选择手牌</p>
+<p>​        player.$give(result.cards.length,event.target);</p>
+<p>​        event.target.gain(result.cards,player);//被选择的角色获得这两张牌</p>
+<p>​    };</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "无名杀技能编写教程&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

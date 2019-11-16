@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>Spring容器加载过程源码解析之自定义标签解析 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期五, 十一月 1日 2019, 2:03 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.9k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      9 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <blockquote>
+<p>在上文 <a href="https://me.oopcoder.cn/2019/10/27/spring-resource-parse-default-element/index.html" target="_blank" rel="noopener">Spring容器加载过程源码解析之默认标签解析</a> 中，我们学习了默认标签的解析，今天我们来看看自定义的标签和属性是如何解析的。</p>
+</blockquote>
+<blockquote>
+<p>提醒：本文是基于Spring 3.0.0.RELEASE 版本进行讲解的，其他版本可能稍有差异，在贴源码的时候，部分不影响流程的代码也在本文省略了</p>
+</blockquote>
+<h5 id="1-常用的自定义标签和属性"><a href="#1-常用的自定义标签和属性" class="headerlink" title="1. 常用的自定义标签和属性"></a>1. 常用的自定义标签和属性</h5><p>自定义标签：<code>&lt;context:annotation-config/&gt;</code>, <code>&lt;context:component-scan base-package="com.xx.xx"/&gt;</code>, <code>&lt;mvc:annotation-driven&gt;</code>, <code>&lt;aop:aspectj-autoproxy/&gt;</code>等等都是自定义的标签；</p>
+<p>自定义属性见得比较少，不过也有，如带 “p” 前缀的属性，是在<code>spring-beans</code>jar包中。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line">&lt;beans xmlns="http://www.springframework.org/schema/beans"</span><br><span class="line">       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</span><br><span class="line">       xmlns:context="http://www.springframework.org/schema/context"</span><br><span class="line">       xmlns:p="http://www.springframework.org/schema/p"</span><br><span class="line">       xsi:schemaLocation="http://www.springframework.org/schema/beans</span><br><span class="line">						http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">						http://www.springframework.org/schema/context</span><br><span class="line">						http://www.springframework.org/schema/context/spring-context.xsd"&gt;</span><br><span class="line">    &lt;!--    启用注解    --&gt;</span><br><span class="line">    &lt;context:annotation-config/&gt;</span><br><span class="line">    &lt;!--    设置扫描的包    --&gt;</span><br><span class="line">    &lt;context:component-scan base-package="com.xxx"/&gt;</span><br><span class="line">    &lt;bean id="hello" class="com.xxx.Hello"/&gt;</span><br><span class="line">    &lt;!-- p:hello-ref 定义 HelloWorld 属性 hello，有后缀 -ref 表示bean的id --&gt;</span><br><span class="line">    &lt;!-- p:world 定义 HelloWorld 属性 world 的值 --&gt;</span><br><span class="line">    &lt;!-- p:world 会与下方的 property world 冲突 --&gt;</span><br><span class="line">    &lt;bean id="helloWorld" class="com.xxx.HelloWorld"</span><br><span class="line">          p:hello-ref="hello" p:world="world-value-p"&gt;</span><br><span class="line">        &lt;property name="world" value="world-value"/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="2-parseCustomElement分析"><a href="#2-parseCustomElement分析" class="headerlink" title="2. parseCustomElement分析"></a>2. parseCustomElement分析</h5><p>我们先从自定义标签解析方法的起始位置 <code>DefaultBeanDefinitionDocumentReader#parseBeanDefinitions</code> 看起</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {</span><br><span class="line">    // 判断是否为默认命名空间下的标签</span><br><span class="line">    if (delegate.isDefaultNamespace(delegate.getNamespaceURI(root))) {</span><br><span class="line">        // 循环遍历 解析默认标签</span><br><span class="line">        NodeList nl = root.getChildNodes();</span><br><span class="line">        for (int i = 0; i &lt; nl.getLength(); i++) {</span><br><span class="line">            Node node = nl.item(i);</span><br><span class="line">            if (node instanceof Element) {</span><br><span class="line">                Element ele = (Element) node;</span><br><span class="line">                String namespaceUri = delegate.getNamespaceURI(ele);</span><br><span class="line">                // 判断是否为默认命名空间下的标签</span><br><span class="line">                if (delegate.isDefaultNamespace(namespaceUri)) {</span><br><span class="line">                    // 默认标签解析方法</span><br><span class="line">                    parseDefaultElement(ele, delegate);</span><br><span class="line">                } else {</span><br><span class="line">                    // 自定义标签解析方法</span><br><span class="line">                    delegate.parseCustomElement(ele);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    } else {</span><br><span class="line">        // 自定义标签解析方法</span><br><span class="line">        delegate.parseCustomElement(root);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>委托给了<code>BeanDefinitionParserDelegate#parseCustomElement</code>进行解析</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public BeanDefinition parseCustomElement(Element ele) {</span><br><span class="line">    return parseCustomElement(ele, null);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">public BeanDefinition parseCustomElement(Element ele, BeanDefinition containingBd) {</span><br><span class="line">    String namespaceUri = getNamespaceURI(ele);</span><br><span class="line">    // 根据命名空间获取对应的处理器 (命名空间处理解析器,下面会分析)</span><br><span class="line">    NamespaceHandler handler = this.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);</span><br><span class="line">    if (handler == null) {</span><br><span class="line">        error("Unable to locate Spring NamespaceHandler for XML schema namespace [" + namespaceUri + "]", ele);</span><br><span class="line">        return null;</span><br><span class="line">    }</span><br><span class="line">    // 处理器进行解析</span><br><span class="line">    return handler.parse(ele, new ParserContext(this.readerContext, this, containingBd));</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="3-NamespaceHandler分析"><a href="#3-NamespaceHandler分析" class="headerlink" title="3. NamespaceHandler分析"></a>3. NamespaceHandler分析</h5><p><img src="https://pic.superbed.cn/item/5dba48a6bd461d945a7503e6.png" srcset="undefined" alt=""></p>
+<p>结合上面类图，查看源码发现，命名空间处理器的主要逻辑是放在其子类<code>NamespaceHandlerSupport</code>中，而<code>NamespaceHandlerSupport</code>的子类主要是实现<code>init</code>方法，在里面注册该命名空间下标签对应的解析器，如<code>ContextNamespaceHandler</code>的<code>init</code>方法，一个标签对应一个解析器。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public void init() {</span><br><span class="line">    // 注册解析器 BeanDefinitionParser</span><br><span class="line">    registerBeanDefinitionParser("property-placeholder", new PropertyPlaceholderBeanDefinitionParser());</span><br><span class="line">    registerBeanDefinitionParser("property-override", new PropertyOverrideBeanDefinitionParser());</span><br><span class="line">    registerBeanDefinitionParser("annotation-config", new AnnotationConfigBeanDefinitionParser());</span><br><span class="line">    registerBeanDefinitionParser("component-scan", new ComponentScanBeanDefinitionParser());</span><br><span class="line">    registerBeanDefinitionParser("load-time-weaver", new LoadTimeWeaverBeanDefinitionParser());</span><br><span class="line">    registerBeanDefinitionParser("spring-configured", new SpringConfiguredBeanDefinitionParser());</span><br><span class="line">    registerBeanDefinitionParser("mbean-export", new MBeanExportBeanDefinitionParser());</span><br><span class="line">    registerBeanDefinitionParser("mbean-server", new MBeanServerBeanDefinitionParser());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>NamespaceHandler</code>调用解析器进行解析的方法是 <code>parse</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public BeanDefinition parse(Element element, ParserContext parserContext) {</span><br><span class="line">    // 查找对应的解析器进行解析</span><br><span class="line">    return findParserForElement(element, parserContext).parse(element, parserContext);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">private BeanDefinitionParser findParserForElement(Element element, ParserContext parserContext) {</span><br><span class="line">    String localName = parserContext.getDelegate().getLocalName(element);</span><br><span class="line">    // 根据标签名获取解析器</span><br><span class="line">    BeanDefinitionParser parser = this.parsers.get(localName);</span><br><span class="line">    if (parser == null) {</span><br><span class="line">        parserContext.getReaderContext().fatal(</span><br><span class="line">                "Cannot locate BeanDefinitionParser for element [" + localName + "]", element);</span><br><span class="line">    }</span><br><span class="line">    return parser;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="4-BeanDefinitionParser分析"><a href="#4-BeanDefinitionParser分析" class="headerlink" title="4. BeanDefinitionParser分析"></a>4. BeanDefinitionParser分析</h5><p>我们拿常用的<code>context:component-scan</code>标签解析器看看</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public BeanDefinition parse(Element element, ParserContext parserContext) {</span><br><span class="line">    // 获取 base-package 值</span><br><span class="line">    String[] basePackages = StringUtils.tokenizeToStringArray(element.getAttribute(BASE_PACKAGE_ATTRIBUTE),</span><br><span class="line">            ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS);</span><br><span class="line"></span><br><span class="line">    // Actually scan for bean definitions and register them.</span><br><span class="line">    // 扫描并注册</span><br><span class="line">    ClassPathBeanDefinitionScanner scanner = configureScanner(parserContext, element);</span><br><span class="line">    Set&lt;BeanDefinitionHolder&gt; beanDefinitions = scanner.doScan(basePackages);</span><br><span class="line">    registerComponents(parserContext.getReaderContext(), beanDefinitions, element);</span><br><span class="line"></span><br><span class="line">    return null;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>不同标签的具体解析逻辑就在<code>parse</code>方法中了。</p>
+<h5 id="5-NamespaceHandler的注册"><a href="#5-NamespaceHandler的注册" class="headerlink" title="5. NamespaceHandler的注册"></a>5. NamespaceHandler的注册</h5><p>我们在前面提过的命名空间处理解析器，用来解析命名空间对应的处理器</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NamespaceHandler handler = this.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);</span><br></pre></td></tr></tbody></table></figure>
+<p>它的默认实现是<code>DefaultNamespaceHandlerResolver</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">public NamespaceHandler resolve(String namespaceUri) {</span><br><span class="line">    // 获取所有处理器</span><br><span class="line">    Map&lt;String, Object&gt; handlerMappings = getHandlerMappings();</span><br><span class="line">    Object handlerOrClassName = handlerMappings.get(namespaceUri);</span><br><span class="line">    if (handlerOrClassName == null) {</span><br><span class="line">        return null;</span><br><span class="line">    } else if (handlerOrClassName instanceof NamespaceHandler) {</span><br><span class="line">        return (NamespaceHandler) handlerOrClassName;</span><br><span class="line">    } else {</span><br><span class="line">        String className = (String) handlerOrClassName;</span><br><span class="line">        try {</span><br><span class="line">            Class&lt;?&gt; handlerClass = ClassUtils.forName(className, this.classLoader);</span><br><span class="line">            if (!NamespaceHandler.class.isAssignableFrom(handlerClass)) {</span><br><span class="line">                throw new FatalBeanException(".....");</span><br><span class="line">            }</span><br><span class="line">            // 实例化处理器</span><br><span class="line">            NamespaceHandler namespaceHandler = (NamespaceHandler) BeanUtils.instantiateClass(handlerClass);</span><br><span class="line">            // 初始化处理器，里面就是注册解析器</span><br><span class="line">            namespaceHandler.init();</span><br><span class="line">            handlerMappings.put(namespaceUri, namespaceHandler);</span><br><span class="line">            return namespaceHandler;</span><br><span class="line">        }</span><br><span class="line">        //..........此处省略部分源码</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">private Map&lt;String, Object&gt; getHandlerMappings() {</span><br><span class="line">    if (this.handlerMappings == null) {</span><br><span class="line">        synchronized (this) {</span><br><span class="line">            if (this.handlerMappings == null) {</span><br><span class="line">                try {</span><br><span class="line">                    // 加载 META-INF/spring.handlers 属性文件</span><br><span class="line">                    // this.handlerMappingsLocation = "META-INF/spring.handlers"</span><br><span class="line">                    Properties mappings = PropertiesLoaderUtils</span><br><span class="line">                            .loadAllProperties(this.handlerMappingsLocation, this.classLoader);</span><br><span class="line"></span><br><span class="line">                    Map&lt;String, Object&gt; handlerMappings = new ConcurrentHashMap&lt;String, Object&gt;();</span><br><span class="line">                    CollectionUtils.mergePropertiesIntoMap(mappings, handlerMappings);</span><br><span class="line">                    this.handlerMappings = handlerMappings;</span><br><span class="line">                }</span><br><span class="line">                //..........此处省略部分源码</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    return this.handlerMappings;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>代码中出现了<code>"META-INF/spring.handlers"</code>这么一个文件，打开<code>spring-beans</code>,<code>spring-context</code>jar包下该文件，有如下内容：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring-beans下</span><br><span class="line"></span><br><span class="line">http\://www.springframework.org/schema/p=org.springframework.beans.factory.xml.SimplePropertyNamespaceHandler</span><br><span class="line">http\://www.springframework.org/schema/util=org.springframework.beans.factory.xml.UtilNamespaceHandler</span><br><span class="line"></span><br><span class="line">spring-context下</span><br><span class="line"></span><br><span class="line">http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler</span><br><span class="line">http\://www.springframework.org/schema/jee=org.springframework.ejb.config.JeeNamespaceHandler</span><br><span class="line">http\://www.springframework.org/schema/lang=org.springframework.scripting.config.LangNamespaceHandler</span><br><span class="line">http\://www.springframework.org/schema/task=org.springframework.scheduling.config.TaskNamespaceHandler</span><br></pre></td></tr></tbody></table></figure>
+<p>我们看到命名空间 <code>http\://www.springframework.org/schema/context</code>的处理器<code>org.springframework.context.config.ContextNamespaceHandler</code>的对应关系就是在这里确定的。</p>
+<h5 id="6-自定义属性解析"><a href="#6-自定义属性解析" class="headerlink" title="6. 自定义属性解析"></a>6. 自定义属性解析</h5><p>我们来回顾下 <code>BeanDefinitionParserDelegate#parseBeanDefinitionElement</code>方法</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {</span><br><span class="line">    // bean标签比较复杂，委托给了BeanDefinitionParserDelegate进行解析，返回封装了含 BeanDefinition，beanName，aliases 的BeanDefinitionHolder</span><br><span class="line">    BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);</span><br><span class="line">    if (bdHolder != null) {</span><br><span class="line">        // 解析自定义属性或标签</span><br><span class="line">        bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);</span><br><span class="line">        try {</span><br><span class="line">            // Register the final decorated instance.</span><br><span class="line">            // 注册到 BeanDefinitionRegistry，也就是DefaultListableBeanFactory中的 beanDefinitionMap 中</span><br><span class="line">            BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());</span><br><span class="line">        }catch (BeanDefinitionStoreException ex) {}</span><br><span class="line">        // Send registration event. 发送bean注册事件</span><br><span class="line">        getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>delegate.decorateBeanDefinitionIfRequired(ele, bdHolder)</code>就是自定义属性的入口了</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public BeanDefinitionHolder decorateBeanDefinitionIfRequired(Element ele, BeanDefinitionHolder definitionHolder) {</span><br><span class="line">    return decorateBeanDefinitionIfRequired(ele, definitionHolder, null);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">public BeanDefinitionHolder decorateBeanDefinitionIfRequired(</span><br><span class="line">        Element ele, BeanDefinitionHolder definitionHolder, BeanDefinition containingBd) {</span><br><span class="line">    BeanDefinitionHolder finalDefinition = definitionHolder;</span><br><span class="line">    // Decorate based on custom attributes first.</span><br><span class="line">    NamedNodeMap attributes = ele.getAttributes();</span><br><span class="line">    for (int i = 0; i &lt; attributes.getLength(); i++) {</span><br><span class="line">        Node node = attributes.item(i);</span><br><span class="line">        // 遍历属性</span><br><span class="line">        finalDefinition = decorateIfRequired(node, finalDefinition, containingBd);</span><br><span class="line">    }</span><br><span class="line">    // Decorate based on custom nested elements.</span><br><span class="line">    NodeList children = ele.getChildNodes();</span><br><span class="line">    for (int i = 0; i &lt; children.getLength(); i++) {</span><br><span class="line">        Node node = children.item(i);</span><br><span class="line">        if (node.getNodeType() == Node.ELEMENT_NODE) {</span><br><span class="line">            // 遍历子标签</span><br><span class="line">            finalDefinition = decorateIfRequired(node, finalDefinition, containingBd);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    return finalDefinition;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">private BeanDefinitionHolder decorateIfRequired(</span><br><span class="line">        Node node, BeanDefinitionHolder originalDef, BeanDefinition containingBd) {</span><br><span class="line">    String namespaceUri = getNamespaceURI(node);</span><br><span class="line">    if (!isDefaultNamespace(namespaceUri)) {</span><br><span class="line">        // 这里跟前面的逻辑类似，就不重复讲了</span><br><span class="line">        NamespaceHandler handler = this.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);</span><br><span class="line">        if (handler != null) {</span><br><span class="line">            return handler.decorate(node, originalDef, new ParserContext(this.readerContext, this, containingBd));</span><br><span class="line">        }</span><br><span class="line">        //..........此处省略部分源码</span><br><span class="line">    }</span><br><span class="line">    return originalDef;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>看看装饰方法<code>NamespaceHandlerSupport#decorate</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public BeanDefinitionHolder decorate(</span><br><span class="line">        Node node, BeanDefinitionHolder definition, ParserContext parserContext) {</span><br><span class="line"></span><br><span class="line">    return findDecoratorForNode(node, parserContext).decorate(node, definition, parserContext);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">private BeanDefinitionDecorator findDecoratorForNode(Node node, ParserContext parserContext) {</span><br><span class="line">    BeanDefinitionDecorator decorator = null;</span><br><span class="line">    String localName = parserContext.getDelegate().getLocalName(node);</span><br><span class="line">    if (node instanceof Element) {</span><br><span class="line">        // 获取元素装饰器</span><br><span class="line">        decorator = this.decorators.get(localName);</span><br><span class="line">    } else if (node instanceof Attr) {</span><br><span class="line">        // 获取属性装饰器</span><br><span class="line">        decorator = this.attributeDecorators.get(localName);</span><br><span class="line">    }</span><br><span class="line">    //..........此处省略部分源码</span><br><span class="line">    return decorator;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>再看看另外一个处理器 <code>SimplePropertyNamespaceHandler</code>的实现，这个处理器对应的是带 “p” 前缀的属性</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public BeanDefinitionHolder decorate(Node node, BeanDefinitionHolder definition, ParserContext parserContext) {</span><br><span class="line">    if (node instanceof Attr) {</span><br><span class="line">        Attr attr = (Attr) node;</span><br><span class="line">        String propertyName = parserContext.getDelegate().getLocalName(attr);</span><br><span class="line">        String propertyValue = attr.getValue();</span><br><span class="line">        MutablePropertyValues pvs = definition.getBeanDefinition().getPropertyValues();</span><br><span class="line">        // 判断是否已经存在，默认标签优先解析</span><br><span class="line">        if (pvs.contains(propertyName)) {</span><br><span class="line">            parserContext.getReaderContext().error("Property '" + propertyName + "' is already defined using " +</span><br><span class="line">                    "both &lt;property&gt; and inline syntax. Only one approach may be used per property.", attr);</span><br><span class="line">        }</span><br><span class="line">        // 以 "-ref" 结尾，表示的是值为beanName，非具体值</span><br><span class="line">        if (propertyName.endsWith("-ref")) {</span><br><span class="line">            propertyName = propertyName.substring(0, propertyName.length() - REF_SUFFIX.length());</span><br><span class="line">            pvs.add(Conventions.attributeNameToPropertyName(propertyName), new RuntimeBeanReference(propertyValue));</span><br><span class="line">        } else {</span><br><span class="line">            // 将值添加到definition中</span><br><span class="line">            pvs.add(Conventions.attributeNameToPropertyName(propertyName), propertyValue);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    return definition;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>相信大家看到这里应该明白自定义的标签或属性是怎么解析的了，大家可以尝试去定义一下自己的属性标签，这里就不带大家去实践了。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/spring">spring</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/spring">spring</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Spring容器加载过程源码解析之自定义标签解析&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

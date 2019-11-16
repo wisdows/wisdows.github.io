@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>IntentFilter匹配规则 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 八月 5日 2017, 3:57 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      4 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="Activity的启动方式分为两种"><a href="#Activity的启动方式分为两种" class="headerlink" title="Activity的启动方式分为两种:"></a>Activity的启动方式分为两种:</h2><ul>
+<li>显式启动 通过指明启动的Activity类</li>
+<li>隐式启动 通过Intent匹配目标组件的<code>IntentFilter</code>中设置的信息。如果不匹配，就无法启动目标Activity。</li>
+</ul>
+<h2 id="隐式启动中IntentFilter的作用"><a href="#隐式启动中IntentFilter的作用" class="headerlink" title="隐式启动中IntentFilter的作用"></a>隐式启动中IntentFilter的作用</h2><p>IntentFilter主要包括 : <code>action</code> <code>category</code> <code>data</code>。只有Intent完全匹配三者，才能成功启动Activity。一个Activity可以拥有多个<code>IntentFilter</code>，一个Intent只要能匹配其中一个，就能成功启动Activity。</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".MyActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.me.my_activity"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"com.me.my_category"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:mimeType</span>=<span class="string">"image/*"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="action-匹配规则"><a href="#action-匹配规则" class="headerlink" title="action 匹配规则"></a>action 匹配规则</h2><p><strong>actioin</strong> 根据<code>name</code>属性值进行匹配。<code>Intent</code>的 action 需要与 name 的值完全一样，才算匹配成功。一个 IntentFilter 可以有多个 action , Intent 的 action 只要和其中一个action匹配成功就可以。一个Intent如果没有指定action,那么匹配失败。</p>
+<h2 id="category-匹配规则"><a href="#category-匹配规则" class="headerlink" title="category 匹配规则"></a>category 匹配规则</h2><p><strong>category</strong>根据<code>name</code>属性值进行匹配。<code>Intent</code>要么不携带 category 参数，直接默认匹配。要么携带的 category 每一个都必须在 IntentFilter 中的 category 能匹配到。<br>Intent 不携带category也能匹配成功是因为 : 调用<code>startActivity</code>和<code>startActivityForResult</code>时，系统会默认为Intent添加<code>&lt;category android:name="android.intent.category.DEFAULT" /&gt;</code>category。所以想要Activity能接受隐式调用，就必须给Activity指定<code>&lt;category android:name="android.intent.category.DEFAULT" /&gt;</code>这个category。</p>
+<h2 id="data-匹配规则"><a href="#data-匹配规则" class="headerlink" title="data 匹配规则"></a>data 匹配规则</h2><p>data的匹配和action类似，也是只要Intent的data能匹配多个data中的一个就匹配成功。</p>
+<p><strong>data</strong> 由两部分组成 :<br><img src="http://image.youcute.cn/17-8-5/74906838.jpg" srcset="undefined" alt="URI"></p>
+<ul>
+<li>mineType 媒体类型。比如<code>image/*</code> <code>video/*</code>。可以表示图片，文本，视频等不同媒体格式。</li>
+<li>URI</li>
+</ul>
+<h4 id="URI的结构"><a href="#URI的结构" class="headerlink" title="URI的结构"></a>URI的结构</h4><p><code>&lt;scheme&gt;://&lt;host&gt;:&lt;port&gt;/[&lt;[path]&gt;|[pathPrefix]|[pathPattern]]</code></p>
+<ul>
+<li>scheme : URI的模式，比如http file content等。如果Intent的URI中没有指定<code>scheme</code>，那么整个URI的其他参数无效，这个URI也就无效。过滤规则中的scheme默认需要匹配<code>content</code>或<code>file</code>。</li>
+<li>host : URI的主机名。比如<code>www.mm.com</code>。如果Intent的URI中没有指定<code>host</code>，那么整个URI的其他参数无效，这个URI也就无效。</li>
+<li>port : URI的端口号。只有Intent的URI中指定了scheme和port参数时才有意义。</li>
+<li>path pathPattern pathPrefix : 表示路径信息<ul>
+<li>path 完整路径。</li>
+<li>pathPattern 完成路径。可以包含通配符<code>*</code>，表示0个或多个任意字符</li>
+<li>pathProfix 路径的前缀信息。</li>
+</ul>
+</li>
+</ul>
+<p><strong>实例1</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;intent-filter&gt;</span><br><span class="line">	......	</span><br><span class="line">    &lt;data android:mimeType="image/*" /&gt;</span><br><span class="line">&lt;/intent-filter&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Intent中的mimeType必须是<code>image/*</code>才能匹配。这里的过滤规则虽然没有指定URI，但是scheme默认为<code>contene</code>和<code>file</code>。</p>
+<p>只设置mimeType的<code>intent.setType("image/*")</code>将不能匹配。<br>需要同时设置 : </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.setDataAndType(Uri.parse(<span class="string">"file://xxx"</span>), <span class="string">"image/*"</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>intent.setType和intent.setData不能分开调用，因为两者都会清空彼此的信息</p>
+</blockquote>
+<p>从Android源码中可以看到 : </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Intent <span class="title">setData</span><span class="params">(Uri data)</span> </span>{</span><br><span class="line">	mData = data;</span><br><span class="line">	mType = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Intent <span class="title">setType</span><span class="params">(String type)</span> </span>{</span><br><span class="line">    mData = <span class="keyword">null</span>;</span><br><span class="line">    mType = type;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>实例2</strong></p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">	......</span><br><span class="line">    <span class="tag">&lt;<span class="name">data</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:mimeType</span>=<span class="string">"image/jpeg"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scheme</span>=<span class="string">"http"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">data</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:mimeType</span>=<span class="string">"video/mpeg"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scheme</span>=<span class="string">"http"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>这个data规则</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.setDataAndType(Uri.parse("http://xxx"),"image/jpeg");</span><br></pre></td></tr></tbody></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.setDataAndType(Uri.parse("http://zzz"),"video/mpeg");</span><br></pre></td></tr></tbody></table></figure>
+<p>都可以匹配。</p>
+<blockquote>
+<p><strong>data</strong>的属性可以同行写，也可以分开下。</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;data</span><br><span class="line">    android:host="www.xxx.com"</span><br><span class="line">    android:mimeType="image/*"</span><br><span class="line">    android:scheme="http" /&gt;</span><br><span class="line">-------------------------------------</span><br><span class="line">&lt;data android:host="www.xxx.com" /&gt;</span><br><span class="line">&lt;data android:scheme="http" /&gt;</span><br><span class="line">&lt;data android:mimeType="image/*" /&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<blockquote>
+<p>Android的其他组件，Service BroadcastReceiver的IntentFiler匹配规则和Activity的类似。</p>
+</blockquote>
+<ul>
+<li>当隐式启动一个Activity时，可以使用Intent的<code>resolveActivity(PackageManager pm)</code>方法判断是否有匹配的activity。</li>
+<li>也可以调用PackageManager的<code>resolveActivity(Intent itent,int flag)</code>方法判断。<ul>
+<li>第二个参数 flag 作为匹配的选项。一般使用<code>MATCH_DEFAULT_ONLY</code>参数。</li>
+<li>MATCH_DEFAULT_ONLY 只匹配 intent-filter 中声明了<code>&lt;category android:name="android.intent.category.DEFAULT" /&gt;</code>的Activity。因为没有声明这个category的Activity不能隐式调用。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (intent.resolveActivity(getPackageManager()) == null) {</span><br><span class="line">	//证明没有对应的activity</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/Android">Android</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/Manifest">Manifest</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "IntentFilter匹配规则&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

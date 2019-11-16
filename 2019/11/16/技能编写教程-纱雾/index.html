@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="WisdowsBlog,如果人生有遗憾，那就是没有早点遇到你~">
+  <meta name="author" content="Wisdows">
+  <meta name="keywords" content="Wisdows, 饶弟, WisdowsBlog, 王者★孤傲">
+  <title>技能编写教程-纱雾 WisdowsBlog WisdowsBlog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<link rel="alternate" href="/atom.xml" title="WisdowsBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WisdowsBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/16.jpg')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 16日 2019, 3:32 凌晨
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.4k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      8 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>那些大佬的教程应该都已经很详细了，再加上楼主比较萌新，故此帖可当做水贴对待。不过虽然这贴和楼主都比较水，但是走过路过的好心人也要假装支持一下哦<br>下面从应用最广的触发技开始介绍<br>一：触发技<br>这是最常见的技能，并且几乎所有技能效果都能通过这个技能解决，基本思路是：判断角色是否能发动这个技能→游戏进行到某一个时机→符合这个技能发动所需的时机→执行技能的内容<br>①基本框架：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">skill={</span><br><span class="line">xxx:xxx,</span><br><span class="line"><span class="comment">//详细介绍参考注释一</span></span><br><span class="line">trigger:{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释二</span></span><br><span class="line">},</span><br><span class="line">filter:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释三</span></span><br><span class="line">},</span><br><span class="line">content:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释四</span></span><br><span class="line">},</span><br><span class="line">init:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释五</span></span><br><span class="line">},</span><br><span class="line">ai:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释六</span></span><br><span class="line">},</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>②注释<br>注释一：此处可添加一些辅助功能，对技能的触发时机、触发内容无影响。<br>常见的有：<br>audio:2,<br>//添加配音，若想要配音正常触发，需要满足以下两个条件：Ⅰ配音需存在于该拓展文件夹或游戏自带的配音文件夹中，且格式不为.wav（经部分吧友实验.wav无法播放，未经楼主亲自检验）Ⅱ这个配音名称需要改为 技能名称+数字 形式，如给技能abc添加配音，则配音应重命名成abc1.mp3，给技能abc123添加配音，则配音应重命名成abc1231<br>priority:999,<br>//技能释放的优先程度为999，该数值越大，技能释放的优先程度越高，可为null，无穷大为Infinity，无穷小为-Infinity（字母中的I需大写，且仅有I需大写）<br>forced:true,<br>//该触发技是否满足条件就强制释放。若为true则强制，false则非强制<br>unique:true,<br>//该技能是否为特殊技能，即左慈化身能否获取等等，常与部分锁定技、主公技、觉醒技连用<br>ZhuSkill:true,<br>//是否为主公技<br>mark:true,<br>//是否标记，常和intro连用<br>skillAnimation:true<br>animationStr:’xx’<br>animationColor:’xx’<br>//第一行表示是否有技能动画，第二行表示动画显示的字符，第三行表示动画的颜色（虽然没看出来有什么区别）<br>noremove:true,<br>//不能被移除，需要和ai中语句连用<br>其余常见的可以参考极光大佬的教程（再写下去我的坑填不完了。。）<br>注释二：此处添加的是时机，即什么时候触发该技能<br>一般为global:’xxx’,<br>或者player:’xxx’,<br>常见的还有source:’xxx’和target:’xxx’<br>global为全场角色，player为拥有该技能的玩家，source为来源是你（如你造成伤害时），xxx为时机，很多时机可以用事件+过程英文组合的方式组合而成，如phaseDrawAfter便是摸牌阶段之后，其中phase表示回合或者阶段Draw表示抽卡After表示之后，damageBegin就是受伤开始过程，其中damage表示受伤或造成伤害，Begin表示开始<br>当有两个及以上的时点可以触发该技能时，时机需写成技能组格式，如player:[‘phaseBegin’,’damageBefore’]<br>当有多个时点且触发对象不同时，分别写出这些触发对象和相应的时点，再用逗号隔开，如trigger:{<br>player:’removeSkillBefore’,<br>global:[‘phaseBefore’,’gainEnd’],<br>source:’damageBefore’,<br>},<br>除此之外，有一些特殊的时点，可以不需要加过程的英文，可以直接用事件代替时点，如player:’damage’或player:’respond’<br>注释三：此处填写技能释放的条件，当条件true时，技能可以释放，当条件为false时，技能不能被释放。条件的true或false由return判断<br>如：fliter:function(){<br>if (player.hp&gt;3) return false;<br>return true<br>},<br>//该技能在玩家体力＞3时无法发动<br>此外，如果只有可以发动的条件，可以直接return加上可以发动的条件，发动条件中，如 return player.hp&gt;3表示只有在玩家体力＞3时才可发动。<br>此外，符号&amp;&amp;表示和，如条件a&amp;条件b表示需要同时满足条件a和条件b才能发动，符号||表示或，如条件a||条件b，表示只要满足条件a和b中任意一个即可发动。(&amp;&amp;在有些情况下也可写作&amp;，||同理)当直接return多个条件时，条件需要加括号，如<br>filter:function(){<br>return (player.isIn&amp;&amp;player.isAlive)<br>},<br>//当玩家未被移出游戏且玩家存活时可发动<br>此外，filter:function(){}还可以用来限制选择的目标，此时函数可写为filter加选择的对象英文:function(){}，如<br>filterTarget:function(){<br>return target.isAlive()<br>},<br>//限制选择的目标角色，只有目标角色存活时才能发动<br>filterCard:function(){<br>return true<br>},<br>//限制选择的卡，任意卡均可选择<br>当然，在filter:function()括号中添加参数，也是可以实现上述目标的，不过在这里不详细介绍了，不然这坑填不完了<br>注释四：该部分为技能内容，各类代码效果请查看game.js或我之前开的一个代码效果整理帖（不过这个帖子不全），此外，有一点要注意，当代码中出现未定义的函数时，技能效果只执行到该函数的上一个语句，之后则不执行，如<br>player.draw();<br>player.abcdefg();<br>player.damage();<br>当这些代码同时出现在content:function中时，只执行摸牌效果，而之后的受到伤害的效果则不执行<br>这个部分应该是大佬们讲的最多最详细的部分，所以我在这里就不啰嗦了<br>注释五：该函数为获得技能时，若满足技能需求，则立刻获得的效果，常用于判断是否有同样武将或者初始获得的标记，也有时候用于重写或定义函数<br>例：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> init:<span class="function"><span class="keyword">function</span> (<span class="params">player</span>)</span>{</span><br><span class="line"> player.storage.niepan=<span class="literal">false</span>;</span><br><span class="line"> },</span><br><span class="line"><span class="comment">//涅槃技能未发动</span></span><br><span class="line">init: <span class="function"><span class="keyword">function</span>(<span class="params">player</span>)</span>{</span><br><span class="line"><span class="keyword">if</span> (!game.cmpName(player, <span class="string">'dan_kamukura'</span>)) {</span><br><span class="line">player.clearSkills();</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span> tp;</span><br><span class="line"><span class="keyword">var</span> notonly = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">if</span>(player.name2){</span><br><span class="line">notonly = <span class="literal">true</span>;</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; game.players.length; i++) {</span><br><span class="line">tp = game.players[i];</span><br><span class="line"><span class="keyword">if</span> (tp == player) <span class="keyword">continue</span>;</span><br><span class="line"><span class="keyword">if</span> (tp.isKamukura) {</span><br><span class="line">notonly = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">}</span><br><span class="line">}</span><br><span class="line">}</span><br><span class="line"><span class="keyword">if</span> (notonly) {</span><br><span class="line">player.reinit(<span class="string">'dan_kamukura'</span>,<span class="string">'dan_rixianga'</span>);</span><br><span class="line">player.hp = player.maxHp;</span><br><span class="line">}</span><br><span class="line">},</span><br></pre></td></tr></tbody></table></figure>
+
+<p>//获得此技能时，先判断该技能所有者名字是否满足game.CMPname函数（即判断名字是否为神座出流），若否玩家清空所有技能，然后，判断场上的角色是否有同名的角色，若有则按站场顺序变为日向创（对方先在场上则自己变为日向创，自己先在场上则对方变为日向创），如果在国战或双将模式，自己变为日向创<br>注释六：用来告诉ai是否发动技能，发动技能的对象等等，ai这块在无名杀教程手册（可乐大佬的教程）中较为完善的阐述了，而且触发技基本不需要ai，所以这块先跳过，在其他种类技能里会讲到<br>至此，触发技完结，撒花<br>二：主动技<br>这是另一类常见技能，该类技能需要手动选择是否发动。此外，这也是需要一定ai技术的技能，若该类技能不添加ai，则ai基本不会发动此类技能<br>①基本框架：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">skill={</span><br><span class="line">xxx:xxx,</span><br><span class="line"><span class="comment">//详细介绍参考注释七</span></span><br><span class="line">enable:<span class="string">'xxx'</span>,</span><br><span class="line"><span class="comment">//详细介绍参考注释八</span></span><br><span class="line">filter:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释三</span></span><br><span class="line">},</span><br><span class="line">content:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释四</span></span><br><span class="line">},</span><br><span class="line">init:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释五</span></span><br><span class="line">},</span><br><span class="line">ai:<span class="function"><span class="keyword">function</span>(<span class="params">xxx</span>)</span>{</span><br><span class="line">xxxxxxxxx;</span><br><span class="line"><span class="comment">//详细介绍参考注释六、注释九</span></span><br><span class="line">},</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注释七：这里也是可以添加一些辅助的功能的，如动画之类<br>usable:x,<br>//该技能在一回合内最多使用n次，若技能在结算前被自己/其他角色的技能取消，则不计入使用次数<br>popup:true,<br>//使用该技能的时候是否在武将上弹出该技能名称<br>selectCard:x,<br>//选择x张卡才能发动，常和check:function(){return xxx}(告诉ai如何选牌)和position:’xx’（可以选择什么位置的牌，如’h’则为手牌）连用<br>这块大佬也讲过很多了，作为一只萌新我就简略一点了<br>注释八：这里填写的也是技能可发动的时机，命名规则和触发技相同，但是主动技特殊的点在于：如果你命名的时点是你不能够操控角色的阶段，即自动进行的，则该技能无法发动<br>例1：如设置的时机为enable:’phaseJudge’，则若你的判定区内没有牌时，判定阶段不会询问是否发动该技能，你直接通过判定阶段进入摸牌阶段以及之后的阶段，若你的判定区有牌，则你可以在判定过程中选择发动此技能<br>例2：如你设置的时机为enable:’chooseToUse’，则你可以在任意你可以操控角色的阶段释放此技能，若场上所有人都没有关于弃牌阶段结算的技能，则该技能也无法释放</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "技能编写教程-纱雾&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
